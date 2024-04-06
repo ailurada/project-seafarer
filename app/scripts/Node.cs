@@ -13,19 +13,20 @@ class Node
 		m_description = "";
 	}
 	
-	public ~Node();
-
-	// Returns the node-specific event for this node.
-	public EventId GetEvent() {
-		return m_uEvent;
-	}
-
-	public Initialize(NodeId id, EventId eventId, bool visited, string name, string description) {
+	public Node(NodeId id, EventId eventId, bool visited, string name, string description) {
 		m_id = id;
 		m_uEvent = eventId;
 		m_visited = visited;
 		m_name = name;
 		m_description = description;
+
+	}
+	
+	public ~Node();
+
+	// Returns the node-specific event for this node.
+	public EventId GetEvent() {
+		return m_uEvent;
 	}
 
 	private NodeId m_id;		// Node's UUID

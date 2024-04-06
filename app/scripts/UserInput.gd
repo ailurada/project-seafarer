@@ -6,19 +6,20 @@ extends TextEdit
 # var a = 2
 # var b = "text"
 export var text_output_path: NodePath
-var text_output
+var text_output: RichTextLabel
+var start_position: Vector2
+
+export var line_width: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	text_output = get_node(text_output_path)
+	start_position = self.rect_position
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-func _input(event):
-	if event is InputEventKey and event.pressed:
-		if event.scancode == KEY_ENTER:
-			text_output.text += self.text + "\n> "
+func _process(delta):
+	if Input.is_action_just_released("enter"):
+			text_output.text += self.text.substr(0, self.text.length() - 1) + "\n> "
 			self.text = ""
+			self.rect_position += Vector2(0, line_width)

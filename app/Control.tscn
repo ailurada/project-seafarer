@@ -22,13 +22,14 @@ color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
 margin_left = 64.0
 margin_top = 86.0
 margin_right = 961.0
-margin_bottom = 286.0
+margin_bottom = 494.0
+text = "> "
 
 [node name="TextEdit" type="TextEdit" parent="."]
-modulate = Color( 1, 1, 1, 0 )
-margin_left = 64.0
-margin_top = 286.0
-margin_right = 961.0
-margin_bottom = 320.0
+margin_left = 75.0
+margin_top = 82.0
+margin_right = 955.0
+margin_bottom = 316.0
 script = ExtResource( 1 )
 text_output_path = NodePath("../RichTextLabel")
+line_width = 15

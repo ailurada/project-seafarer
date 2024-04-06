@@ -1,9 +1,18 @@
+// json.cs
+//
+// Implements functions related to the storing and writing of data 
+// to json files in the ../data/*.json files.
+
 using System;
 using System.IO;
 using System.Text.Json;
 
+// GetNodeData(out Node[], out Node[])
 // Reads from node.json, and initializes data for nodes and edges.
-void GetNodeData(out nodeArray, out adjacencyList)
+// ============================================= 
+// nodeArray: 	  The array to fill with the JSON data received
+// adjacencyList: The adjacent nodes to the nodes being filled
+void GetNodeData(out Node[] nodeArray, out Node[] adjacencyList)
 {
 	// Open the file
 	string filePath = "node.json";
@@ -26,32 +35,39 @@ void GetNodeData(out nodeArray, out adjacencyList)
 					// Get the properties of the node. If some property is not found, error.
 					if (!node.TryGetProperty("id", out JsonElement id)) {
 						// Error!
+						return -1;
 					}
 					if (!node.TryGetProperty("eventId", out JsonElement eId)) {
 						// Error!
+						return -1;
 					}
 					if (!node.TryGetProperty("description", out JsonElement description)) {
 						// Error!
+						return -1;
 					}
 					if (!node.TryGetProperty("visited", out JsonElement visited)) {
 						// Error!
+						return -1;
 					}
 					if (!node.TryGetProperty("name", out JsonElement name)) {
 						// Error!
+						return -1;
 					}
 					// Initialize node array according to the data read.
 					nodeArray[index] = Node(id.GetUInt32(), eId.GetUInt32(), visited.GetBooolean(), name.GetString(), description.GetString());
 				}
 			}
 		}
-		// There was some exception. Error.
+		// Some exception was found - most likely missing some data.
 		catch (JsonException exception) {
 			// Error!
+			return -1;
 		}
 	}
 	// File not found. Error.
 	else {
 		// Error!
+		return -1;
 	}
 	
 	return;

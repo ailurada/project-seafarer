@@ -1,9 +1,13 @@
+// Node.cs
+//
+// Implements the node class, the representation of the sea nodes on the map.
+
 class Node 
 {
-	// Node(NodeId, EventId)
-	// Instantiates Node with a NodeId, and the EventId for the node.
-	// If uEvent is >0, the node does NOT contain an event.
-
+	// Node()
+	// Instantiates Node with default values.
+	// ============================================= 
+	// No parameters.
 	public Node() {
 		m_id = -1;
 		m_uEvent = -1;
@@ -13,6 +17,14 @@ class Node
 		m_description = "";
 	}
 	
+	// Node(NodeId, EventId, bool, string, string)
+	// Instantiates node with the given values.
+	// =============================================
+	// NodeId: 	       The unique id of this sea node
+	// EventId:	       The id of the event unique to this node
+	// visited:	       The status of the node (has this node been visited yet?)
+	// name:	       The node's title/name
+	// description:    The flavor text description of the node
 	public Node(NodeId id, EventId eventId, bool visited, string name, string description) {
 		m_id = id;
 		m_uEvent = eventId;
@@ -24,17 +36,20 @@ class Node
 	
 	public ~Node();
 
-	// Returns the node-specific event for this node.
+	// GetEvent()
+	// Returns the node specific event's ID.
+	// =============================================
+	// No parameters.
 	public EventId GetEvent() {
 		return m_uEvent;
 	}
 
-	private NodeId m_id;		// Node's UUID
-	private EventId m_uEvent; 	// Node-specific event's UUID
+	private NodeId m_id;		    // Node's UUID
+	private EventId m_uEvent; 	    // Node-specific event's UUID
 
-	private bool m_visited;
-	private string m_name;
-	private string m_description;
+	private bool m_visited;		    // Node's visitation status
+	private string m_name;		    // Node's name
+	private string m_description;   // Node's description
 };
 
 

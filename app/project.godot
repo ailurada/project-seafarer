@@ -14,6 +14,12 @@ config/name="Seafarer"
 run/main_scene="res://Control.tscn"
 config/icon="res://icon.png"
 
+[global]
+
+custom=false
+"custom fon"=false
+"custom font"=false
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true

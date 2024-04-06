@@ -23,8 +23,8 @@ margin_bottom = 526.0
 color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
 
 [node name="DialogueBoxBorder" type="RichTextLabel" parent="."]
-margin_right = 713.0
-margin_bottom = 137.0
+margin_right = 4550.0
+margin_bottom = 763.0
 script = ExtResource( 3 )
 
 [node name="DialogueBoxText" type="RichTextLabel" parent="DialogueBoxBorder"]

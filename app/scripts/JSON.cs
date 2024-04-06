@@ -17,6 +17,9 @@ void GetNodeData(out nodeArray, out adjacencyList)
 			
 			// Loop the amount of nodes present.
 			int length = root.GetArrayLength();
+			nodeArray = new Node[length];
+			adjacencyList = new NodeId[length, MAX_ADJACENT];
+			
 			for (int index = 0; index < length; ++index) {
 				// Get the node data as a JsonElement.
 				if (root.TryGetProperty(index.ToString(), out JsonElement node)) {

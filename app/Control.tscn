@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/UserInput.gd" type="Script" id=1]
 [ext_resource path="res://Resources/DefaultFont.tres" type="Theme" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Scripts/DialogueBoxText.gd" type="Script" id=4]
 [ext_resource path="res://Scripts/ColorRect.gd" type="Script" id=5]
 [ext_resource path="res://Scripts/Map.gd" type="Script" id=6]
+[ext_resource path="res://Scripts/TerminalArrow.gd" type="Script" id=7]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -13,30 +14,12 @@ anchor_bottom = 1.0
 theme = ExtResource( 2 )
 
 [node name="JSON Controller" type="Node" parent="."]
-script = ExtResource( 1 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 1920.0
 margin_bottom = 1094.0
 color = Color( 0.0980392, 0.0980392, 0.0980392, 1 )
 script = ExtResource( 5 )
-
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-margin_left = 993.0
-margin_top = 844.0
-margin_right = 1890.0
-margin_bottom = 1252.0
-text = "> "
-
-[node name="TextEdit" type="TextEdit" parent="."]
-margin_left = 1028.0
-margin_top = 436.0
-margin_right = 1908.0
-margin_bottom = 670.0
-theme = ExtResource( 2 )
-script = ExtResource( 1 )
-text_output_path = NodePath("../RichTextLabel")
-line_width = 25
 
 [node name="DialogueBox" type="Label" parent="."]
 margin_left = 500.0
@@ -45,14 +28,28 @@ margin_right = 2312.0
 margin_bottom = 543.0
 script = ExtResource( 3 )
 
+[node name="TerminalArrow" type="RichTextLabel" parent="DialogueBox"]
+margin_left = 493.0
+margin_top = 344.0
+margin_right = 1390.0
+margin_bottom = 752.0
+text = "> "
+script = ExtResource( 7 )
+
 [node name="DialogueBoxText" type="Label" parent="DialogueBox"]
 margin_right = 1812.0
 margin_bottom = 1620.0
 script = ExtResource( 4 )
 
-[node name="Label" type="Label" parent="DialogueBox"]
-margin_right = 40.0
-margin_bottom = 43.0
+[node name="TerminalInput" type="TextEdit" parent="DialogueBox"]
+margin_left = 528.0
+margin_top = -64.0
+margin_right = 1408.0
+margin_bottom = 170.0
+theme = ExtResource( 2 )
+script = ExtResource( 1 )
+text_output_path = NodePath("../TerminalArrow")
+line_width = 25
 
 [node name="Map" type="RichTextLabel" parent="."]
 margin_right = 1915.0

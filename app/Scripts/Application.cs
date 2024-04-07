@@ -46,22 +46,24 @@ public override void _Ready() {
 	// Init Nodes
 	// Init Events
 	// read the map!
-	try{
-	
-	m_state = State.WAIT_CHOICE_NODE;
-	
-	m_node = GetNode("UIManager") as Godot.Object;
-	
-	string fileContents = readMapFile("res://data/map.txt");
-	
-	int index = 0;
-	m_map = new char[mapHeight, mapWidth];
-	for (int row = 0; row < mapHeight; ++row) {
-		for (int col = 0; col < mapWidth; ++col) {
-			m_map[row, col] = fileContents[index];
+
+	// ========== Begin Loading ==========  
+
+	try {
+		m_state = State.WAIT_CHOICE_NODE;
+		
+		m_node = GetNode("UIManager") as Godot.Object;
+		
+		string fileContents = readMapFile("res://data/map.txt");
+		
+		int index = 0;
+		m_map = new char[mapHeight, mapWidth];
+		for (int row = 0; row < mapHeight; ++row) {
+			for (int col = 0; col < mapWidth; ++col) {
+				m_map[row, col] = fileContents[index];
+				++index;
+			}
 			++index;
-		}
-		++index;
 	}
 	
 	// Load events
@@ -69,7 +71,7 @@ public override void _Ready() {
 	m_events = json_node.LoadEvents("res://data/events.json", out int num_events);
 	m_nodes = json_node.LoadSeaNodes("res://data/nodes.json", out int num_nodes);
 	
-	
+	// Load event weights
 	m_eventWeights = new float[num_events];
 	m_totalWeight = 0.0f;
 	for (int i = 0; i < num_events; ++i) {
@@ -77,10 +79,15 @@ public override void _Ready() {
 		m_totalWeight += m_events[i].Probability;
 	}
 	
+	// Seed randomization
 	m_random = new Random();
+
+	// ========== End Loading ==========  
 	
+	// Start the game!
+	StartGame();
+
 	PrintMap();
-	
 	
 	}
 	catch(Exception e) {GD.Print(e);}
@@ -258,6 +265,8 @@ private void HandleEventChoice(int choice) {
 
 // PrintMap(void)
 // Constructs and draws a view of the map based on the current node the user is present in, marking the node with *.
+// =============================================
+// No arguments.
 private void PrintMap() {	
 	SeaNode currentNode = m_nodes[m_nodeId];
 
@@ -306,6 +315,7 @@ private void PrintMap() {
 	// DrawMap(sb.ToString(), adjList, numRows, numCols);
 }
 
+
 public int[] NodeCoordinates(int nodeIndex) {
 	int[] ret = new int[2];
 	ret[0] = m_nodes[nodeIndex].Row;
@@ -313,9 +323,11 @@ public int[] NodeCoordinates(int nodeIndex) {
 	return ret;
 }
 
+
 public string NodeName(int nodeIndex) {
 	return m_nodes[nodeIndex].Name;
 }
+
 
 private void CheckEndCondition() {
 	if (Health <= 0) {
@@ -337,6 +349,19 @@ private void CheckEndCondition() {
 	}
 }
 
+
+// StartGame(void)
+// =============================================
+// Start the game by calling the start event (22), and asking for it to be rendered.
+void StartGame() {
+	Event startEvent = m_events[22];
+
+	m_node.Call("draw_event",
+				startEvent.Title,
+				startEvent.Description,
+				startEvent.ChoiceDescriptions,
+				startEvent.Ascii);
+}
 
 
 // GAME RESOURCES 

@@ -100,7 +100,10 @@ func show_dialogue(description, option_strings):
 
 # call to hide dialogue when no longer needed (cleanup)
 func hide_dialogue():
-	self.text = ""
+	for i in range(options):
+		options[i].queue_free()
+	
+	self.options = []
 	self.hide()
 
 # pick from options 1-4 to highlight, or pass 0 to reset all

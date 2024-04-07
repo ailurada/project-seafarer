@@ -58,13 +58,14 @@ func draw_map(map_string: String, adjacent_nodes: Array, top: int, left: int):
 
 func draw_event(title: String, description: String, options: Array, img_str: String):
 	map.disable()
-	draw_stats()
+	stats_box.hide_stats()
 	if title != "":
 		dialogue_box.show_dialogue(title + ":\n" + description, options)
 	else:
 		dialogue_box.show_dialogue(description, options)
 		
 	if map_event:
+		draw_stats()
 		map.enable()
 		event_img.hide_image()
 		dialogue_box.set_box_location(dialogue_box.RIGHT)
@@ -77,8 +78,29 @@ func draw_event(title: String, description: String, options: Array, img_str: Str
 	if img_str != "":
 		if img_str == "default":
 			event_img.show_image(default_image)
+		elif options[0] == "Play":
+			event_img.show_image_parsed(img_str)
 		else:
 			event_img.show_image(img_str)
 
+# stats updates
+func lose_food_effect():
+	draw_stats()
+	
+func gain_food_effect():
+	draw_stats()
+	
+func lose_health_effect():
+	draw_stats()
+	
+func gain_health_effect():
+	draw_stats()
+	
+func lose_gold_effect():
+	draw_stats()
+	
+func gain_gold_effect():
+	draw_stats()
+	
 func draw_stats():
 	stats_box.show_stats([game_manager.Health, game_manager.Food, game_manager.Gold])

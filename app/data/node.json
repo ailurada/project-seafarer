@@ -1,0 +1,32 @@
+{
+    "0": {
+        "title": "Home Island",
+        "description": "The place where it all began; home sweet home.",
+        "adjacent": [""],
+        "visited": false
+    },
+    "1": {
+        "title": "Murky Depths",
+        "description": "The refreshing warmness of the ocean gives way to dark, cold waters in this region. A sense of dread looms over you.",
+        "adjacent": [""],
+        "visited": false
+    },
+    "2": {
+        "title": "The Floating City",
+        "description": "A sight all too rare on the open waters - a civilization. The smell of freshly baked fish and the laughter of its citizen fills the air.",
+        "adjacent": [""],
+        "visited": false
+    },
+    "3": {
+        "title": "Desolate Raft",
+        "description": "An abandoned, rundown shack leaning on the water. It looks as if it will collapse at any moment.",
+        "adjacent": [""],
+        "visited": false
+    },
+    "4": {
+        "title": "Hostile Earth",
+        "description": "Jagged rocks cut in and out of the water at will. Their movement is lifelike, yet you know them to be not so.",
+        "adjacent": [""],
+        "visited": false
+    }
+}

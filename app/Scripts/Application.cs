@@ -13,7 +13,7 @@ public class Application : Node
 // These four values should be included in Types.cs or similar.
 public const int gridHeight = 15;
 public const int gridWidth = 41;
-const int mapHeight = 30;
+const int mapHeight = 34;
 const int mapWidth = 102;
 
 
@@ -225,7 +225,7 @@ private void PrintMap() {
 		bottom = gridHeight - 1;
 	}
 	else if (bottom >= mapHeight) {
-		top = mapHeight - gridHeight - 2;
+		top = mapHeight - gridHeight;
 		bottom = mapHeight - 1;
 	}
 
@@ -236,8 +236,8 @@ private void PrintMap() {
 		right = gridWidth - 1;
 	}
 	else if (right >= mapWidth) {
-		left = mapWidth - gridWidth - 2;
-		right = gridWidth - 1;
+		left = mapWidth - gridWidth;
+		right = mapWidth - 1;
 	}
 	
 	// Construct the map as a string
@@ -293,7 +293,7 @@ private float m_totalWeight = 0.0f;
 private Random m_random = null;
 
 // USER RESOURCES
-private int m_nodeId = 13;
+private int m_nodeId = 21;
 private int m_eventId = -1;
 
 private int m_health = 100;

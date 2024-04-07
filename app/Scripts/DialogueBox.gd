@@ -24,7 +24,6 @@ func get_desired_width():
 
 # helper func to calculate number of lines in dialogue box
 func calc_num_lines():
-	
 	return self.dialogue_box_text.get_line_count() + len(options) + 1
 
 # generate string for dialogue box
@@ -55,7 +54,6 @@ func generate_border():
 # update hitbox
 func update_size():
 	self.rect_size.x = len(top_border)*char_width_px
-	print(self.get_line_count())
 	self.rect_size.y = (self.get_line_count())*(pt_size+3)
 		
 # put dialogue box at bottom/right
@@ -87,19 +85,30 @@ func show_dialogue(description, option_strings):
 	# create options objects
 	for i in range(len(option_strings)):
 		self.options.append(RichTextLabel.new())
-		self.options[i].set_text(option_strings[i])
-		add_child(options[i])
+		self.options[i].bbcode_enabled = true
+		self.options[i].set_bbcode(option_strings[i])
+		
 		self.options[i].rect_size.x = 500
 		self.options[i].rect_size.y = 50
+		add_child(options[i])
 		
 	update_option_positions()
 		
 	self.show()
-
 # call to hide dialogue when no longer needed (cleanup)
+
 func hide_dialogue():
 	self.text = ""
 	self.hide()
+
+# pick from options 1-4 to highlight, or pass 0 to reset all
+func highlight_option(option_num):
+	for i in range(len(options)):
+		var clean_text = options[i].bbcode_text.trim_prefix("[color=lime]")
+		options[i].set_bbcode(clean_text)
+	
+	if option_num != 0:
+		options[option_num-1].set_bbcode("[color=lime]" + options[option_num].bbcode_text)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -111,8 +120,8 @@ func _ready():
 	update_size()
 	update_position(win_width, win_height)
 	update_option_positions()
-	self.show_dialogue("nys omeome funnyso  ome fuy s ome funnysome e funny", ["[1] alsdkfjal","[2] thing 1","[1] alsdkfjal","[2] thing 1"])
-
+	show_dialogue("nys omeome funnyso  ome fuy s ome funnysome e funny", ["[1] alsdkfjal","[2] thing 1","[1] alsdkfjal","[2] thing 1"])
+	highlight_option(0)	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

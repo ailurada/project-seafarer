@@ -194,7 +194,7 @@ private void TravelEdge(int destination) {
 		m_node.Call("gain_food_effect");
 	}
 	if (Food < 0) {
-		Health = 100;
+		Food = 0;
 	}
 
 	Gold += triggeredEvent.DeltaGold;

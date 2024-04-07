@@ -68,15 +68,23 @@ public override void _Ready() {
 	
 	// Load events
 	Json json_node = GetNode("JSONController") as Json;
-	m_events = json_node.LoadEvents("res://data/events.json", out int num_events);
-	m_nodes = json_node.LoadSeaNodes("res://data/nodes.json", out int num_nodes);
+	m_events = json_node.LoadEvents("res://data/events.json", out int numEvents, out int numWeighted);
+	m_nodes = json_node.LoadSeaNodes("res://data/nodes.json", out int numNodes);
 	
 	// Load event weights
-	m_eventWeights = new float[num_events];
+	m_eventWeights = new float[numWeighted];
+	m_validRandomEvents = new int[numWeighted];
 	m_totalWeight = 0.0f;
-	for (int i = 0; i < num_events; ++i) {
-		m_eventWeights[i] = m_totalWeight;
-		m_totalWeight += m_events[i].Probability;
+
+	for (int i = 0, j = 0; i < numEvents; ++i) {
+		if (m_events[i].Probability > 0) {
+			GD.Print("Event title \"", m_events[i].Title, "\" added to randomValidEvents with weight ", m_totalWeight);
+
+			m_eventWeights[j] = m_totalWeight;
+			m_totalWeight += m_events[i].Probability;
+			m_validRandomEvents[j] = i;
+			++j;
+		}
 	}
 	
 	// Seed randomization
@@ -94,10 +102,10 @@ public override void _Ready() {
 int RandomEvent() {
 	float randomNumber = (float) m_random.NextDouble() * m_totalWeight;
 	int eventIndex = 0;
-	while (eventIndex < m_nodes.Length - 1 && m_eventWeights[eventIndex + 1] < randomNumber) {
+	while (eventIndex < m_eventWeights.Length - 1 && m_eventWeights[eventIndex + 1] < randomNumber) {
 		++eventIndex;
 	}
-	return eventIndex;
+	return m_validRandomEvents[eventIndex];
 }
 
 // UserInput(int)
@@ -168,6 +176,7 @@ private void HandleNodeChoice(int choice) {
 private void TravelEdge(int destination) {
 	m_nodeId = destination;
 	Food -= 10;
+	if (Food < 0) { Food = 0; }
 	m_node.Call("lose_food_effect");
 
 	
@@ -184,6 +193,9 @@ private void TravelEdge(int destination) {
 	else if (triggeredEvent.DeltaFood > 0) {
 		m_node.Call("gain_food_effect");
 	}
+	if (Food < 0) {
+		Food = 0;
+	}
 
 	Gold += triggeredEvent.DeltaGold;
 	if (triggeredEvent.DeltaGold < 0) {
@@ -192,6 +204,9 @@ private void TravelEdge(int destination) {
 	else if (triggeredEvent.DeltaGold > 0) {
 		m_node.Call("gain_gold_effect");
 	}
+	if (Gold < 0) {
+		Gold = 0;
+	}
 
 	Health += triggeredEvent.DeltaHealth;
 	if (triggeredEvent.DeltaHealth < 0) {
@@ -199,6 +214,9 @@ private void TravelEdge(int destination) {
 	}
 	else if (triggeredEvent.DeltaHealth > 0) {
 		m_node.Call("gain_health_effect");
+	}
+	if (Health > 100) {
+		Health = 100;
 	}
 
 	CheckEndCondition();
@@ -217,26 +235,8 @@ private void TravelEdge(int destination) {
 // =============================================
 // choice:    User's choice.
 private void HandleEventChoice(int choice) {
-	// If the event is no choice
-	if (m_eventId == -1) {
-		m_state = State.WAIT_CHOICE_NODE;
-		PrintMap();
-		
-		if (Food <= 0) {
-			Health -= 10;
-			m_node.Call("lose_health_effect");
-			// starving event
-			m_node.Call("draw_event", m_events[14].Title, m_events[14].Description, m_events[14].ChoiceDescriptions);
-
-		}
-		
-		CheckEndCondition();
-		
-		return;		
-	}
-
 	// Invalid choice
-	if (choice < 0 || choice > m_events[m_eventId].NumChoices()) {
+	if (choice < 0 || choice >= m_events[m_eventId].NumChoices()) {
 		return;
 	}
 
@@ -253,25 +253,10 @@ private void HandleEventChoice(int choice) {
 			dest = currentEvent.ChoiceFailure[choice];
 		}
 	}
-
+	
 	// Return to map
 	if (dest == -1) {
 		m_state = State.WAIT_CHOICE_NODE;
-		PrintMap();
-		
-		if (Food <= 0) {
-			Health -= 10;
-			
-			m_node.Call("lose_health_effect");
-			
-			// starving event
-			m_node.Call("draw_event", m_events[14].Title, m_events[14].Description, m_events[14].ChoiceDescriptions);
-
-		}
-		
-		CheckEndCondition();
-	}
-	else {
 
 		Food += currentEvent.DeltaFood;
 		if (currentEvent.DeltaFood < 0) {
@@ -279,6 +264,9 @@ private void HandleEventChoice(int choice) {
 		}
 		else if (currentEvent.DeltaFood > 0) {
 			m_node.Call("gain_food_effect");
+		}
+		if (Food < 0) {
+			Food = 0;
 		}
 
 		Gold += currentEvent.DeltaGold;
@@ -288,7 +276,10 @@ private void HandleEventChoice(int choice) {
 		else if (currentEvent.DeltaGold > 0) {
 			m_node.Call("gain_gold_effect");
 		}
-
+		if (Gold < 0) {
+			Gold = 0;
+		}
+		
 		Health += currentEvent.DeltaHealth;
 		if (currentEvent.DeltaHealth < 0) {
 			m_node.Call("lose_health_effect");
@@ -296,6 +287,71 @@ private void HandleEventChoice(int choice) {
 		else if (currentEvent.DeltaHealth > 0) {
 			m_node.Call("gain_health_effect");
 		}
+		if (Health > 100) {
+			Health = 100;
+		}
+
+		PrintMap();
+		
+		if (Food <= 0 && !m_hasStarved) {
+			GD.Print("Starve: Lose health");
+			Health -= 10;
+			
+			m_node.Call("lose_health_effect");
+			
+			// starving event
+			m_state = State.WAIT_CHOICE_EVENT;
+			m_eventId = 14;
+			m_node.Call("draw_event", 
+						m_events[m_eventId].Title, 
+						m_events[m_eventId].Description, 
+						m_events[m_eventId].ChoiceDescriptions,
+						m_events[m_eventId].Ascii);
+
+			m_hasStarved = true;
+		} else {
+			m_hasStarved = false;
+		}
+		
+		CheckEndCondition();
+
+	} else {
+
+		Food += currentEvent.DeltaFood;
+		if (currentEvent.DeltaFood < 0) {
+			m_node.Call("lose_food_effect");
+		}
+		else if (currentEvent.DeltaFood > 0) {
+			m_node.Call("gain_food_effect");
+		}
+		if (Food < 0) {
+			Food = 0;
+		}
+
+		Gold += currentEvent.DeltaGold;
+		if (currentEvent.DeltaGold < 0) {
+			m_node.Call("lose_gold_effect");
+		}
+		else if (currentEvent.DeltaGold > 0) {
+			m_node.Call("gain_gold_effect");
+		}
+		if (Gold < 0) {
+			Gold = 0;
+		}
+		
+		Health += currentEvent.DeltaHealth;
+		if (currentEvent.DeltaHealth < 0) {
+			m_node.Call("lose_health_effect");
+		}
+		else if (currentEvent.DeltaHealth > 0) {
+			m_node.Call("gain_health_effect");
+		}
+		if (Health > 100) {
+			Health = 100;
+		}
+
+		GD.Print("Deltas: ", currentEvent.DeltaHealth, " ", currentEvent.DeltaGold, " ", currentEvent.DeltaFood);
+		GD.Print("Health: ", Health, ", Gold: ", Gold, ", Food: ", Food);
 		
 		CheckEndCondition();
 
@@ -381,20 +437,15 @@ public string NodeName(int nodeIndex) {
 
 private void CheckEndCondition() {
 	if (Health <= 0) {
+		m_eventId = 13;
+		Event damageDeath = m_events[m_eventId];
+
+		m_state = State.WAIT_CHOICE_EVENT;
 		m_node.Call("draw_event", 
-					"Death!", 
-					"Due to continuous and multiple injuries suffered by your body without proper care, your body has stopped cooperating with you.", 
-					new string[]{ "Okay." },
-					"null");
-		// exit
-	}
-	if (Food <= 0) {
-		m_node.Call("draw_event", 
-					"Death!", 
-					"Long voyages with no resupply has left the ship with no food or any edible object to speak of. You and your crew suffer a slow, painful death by starvation.", 
-					new string[]{ "Okay." },
-					"null");
-		//DrawEvent("Death!", "Long voyages with no resupply has left the ship with no food or any edible object to speak of. You and your crew suffer a slow, painful death by starvation.", { "Okay." });
+					damageDeath.Title, 
+					damageDeath.Description, 
+					damageDeath.ChoiceDescriptions,
+					damageDeath.Ascii);
 		// exit
 	}
 }
@@ -420,6 +471,7 @@ private SeaNode[] m_nodes = null;
 
 private State m_state;
 private Event[] m_events = null;
+private int[] m_validRandomEvents = null;
 private float[] m_eventWeights = null;
 private float m_totalWeight = 0.0f;
 private Random m_random = null;
@@ -431,6 +483,8 @@ private int m_eventId = 22;
 public int Health { get; set; } = 100;
 public int Gold { get; set; } = 100;
 public int Food { get; set; } = 100;
+
+private bool m_hasStarved = false;
 
 private Godot.Object m_node;
 }

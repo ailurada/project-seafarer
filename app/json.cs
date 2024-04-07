@@ -62,11 +62,13 @@ public class Json : Node
 	}
 
 	// Given a filePath, read all the JSON from the file and translate it
-	// into a list of events.
-	public Event[] LoadEvents(string filePath, out int amount) {
+	// into a list of events. Returns total number of events, and total number of WEIGHTED events.
+	public Event[] LoadEvents(string filePath, out int amount, out int weighted) {
 		Godot.Collections.Dictionary dict = ReadJSON(filePath);
 		int amtEvents = dict.Count;
 		amount = amtEvents;
+		weighted = 0;
+
 		Event[] eventList = new Event[amtEvents];
 
 		// For each event in the JSON file, translate to an Event object and store in the array.
@@ -116,7 +118,6 @@ public class Json : Node
 			for (; j < numFailures; ++j) {
 				failureList[j] = int.Parse((string)failureArr[j]);
 			}
-
 			Event newEvent = new Event(
 				i,
 				(string)eventInfo["title"],
@@ -132,6 +133,11 @@ public class Json : Node
 				(string)eventInfo["ascii"]
 			);
 
+			if (float.Parse((string)eventInfo["probability"]) > 0) 
+				++weighted;
+
+			newEvent.PrintEvent();
+
 			eventList[i] = newEvent;
 		}
 
@@ -142,7 +148,6 @@ public class Json : Node
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		var nodes = LoadSeaNodes("res://data/nodes.json", out int numNodes);
-		var events = LoadEvents("res://data/events.json", out int numEvents);
+		// Nada
 	}
 }

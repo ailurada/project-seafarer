@@ -50,7 +50,7 @@ public override void _Ready() {
 	// ========== Begin Loading ==========  
 
 	try {
-		m_state = State.WAIT_CHOICE_NODE;
+		m_state = State.WAIT_CHOICE_EVENT;
 		
 		m_node = GetNode("UIManager") as Godot.Object;
 		
@@ -68,15 +68,23 @@ public override void _Ready() {
 	
 	// Load events
 	Json json_node = GetNode("JSONController") as Json;
-	m_events = json_node.LoadEvents("res://data/events.json", out int num_events);
-	m_nodes = json_node.LoadSeaNodes("res://data/nodes.json", out int num_nodes);
+	m_events = json_node.LoadEvents("res://data/events.json", out int numEvents, out int numWeighted);
+	m_nodes = json_node.LoadSeaNodes("res://data/nodes.json", out int numNodes);
 	
 	// Load event weights
-	m_eventWeights = new float[num_events];
+	m_eventWeights = new float[numWeighted];
+	m_validRandomEvents = new int[numWeighted];
 	m_totalWeight = 0.0f;
-	for (int i = 0; i < num_events; ++i) {
-		m_eventWeights[i] = m_totalWeight;
-		m_totalWeight += m_events[i].Probability;
+
+	for (int i = 0, j = 0; i < numEvents; ++i) {
+		if (m_events[i].Probability > 0) {
+			GD.Print("Event title \"", m_events[i].Title, "\" added to randomValidEvents with weight ", m_totalWeight);
+
+			m_eventWeights[j] = m_totalWeight;
+			m_totalWeight += m_events[i].Probability;
+			m_validRandomEvents[j] = i;
+			++j;
+		}
 	}
 	
 	// Seed randomization
@@ -86,8 +94,6 @@ public override void _Ready() {
 	
 	// Start the game!
 	StartGame();
-
-	PrintMap();
 	
 	}
 	catch(Exception e) {GD.Print(e);}
@@ -96,10 +102,10 @@ public override void _Ready() {
 int RandomEvent() {
 	float randomNumber = (float) m_random.NextDouble() * m_totalWeight;
 	int eventIndex = 0;
-	while (eventIndex < m_nodes.Length - 1 && m_eventWeights[eventIndex + 1] < randomNumber) {
+	while (eventIndex < m_eventWeights.Length - 1 && m_eventWeights[eventIndex + 1] < randomNumber) {
 		++eventIndex;
 	}
-	return eventIndex;
+	return m_validRandomEvents[eventIndex];
 }
 
 // UserInput(int)
@@ -238,12 +244,11 @@ private void HandleEventChoice(int choice) {
 	}
 
 	// Invalid choice
-	if (choice < 0 || choice > m_events[m_eventId].NumChoices()) {
+	if (choice < 0 || choice >= m_events[m_eventId].NumChoices()) {
 		return;
 	}
 
 	Event currentEvent = m_events[m_eventId];
-
 
 	float choiceSuccess = currentEvent.ChoiceSuccessChance[choice];
 
@@ -301,12 +306,14 @@ private void HandleEventChoice(int choice) {
 		}
 		
 		CheckEndCondition();
+
+		Event nextEvent = m_events[dest];
 		
 		m_node.Call("draw_event", 
-					currentEvent.Title, 
-					currentEvent.Description, 
-					currentEvent.ChoiceDescriptions,
-					currentEvent.Ascii);
+					nextEvent.Title, 
+					nextEvent.Description, 
+					nextEvent.ChoiceDescriptions,
+					nextEvent.Ascii);
 
 		m_state = State.WAIT_CHOICE_EVENT;
 		m_eventId = dest;
@@ -405,7 +412,7 @@ private void CheckEndCondition() {
 // =============================================
 // Start the game by calling the start event (22), and asking for it to be rendered.
 void StartGame() {
-	Event startEvent = m_events[22];
+	Event startEvent = m_events[m_eventId];
 
 	m_node.Call("draw_event",
 				startEvent.Title,
@@ -421,13 +428,14 @@ private SeaNode[] m_nodes = null;
 
 private State m_state;
 private Event[] m_events = null;
+private int[] m_validRandomEvents = null;
 private float[] m_eventWeights = null;
 private float m_totalWeight = 0.0f;
 private Random m_random = null;
 
 // USER RESOURCES
-private int m_nodeId = 21;
-private int m_eventId = -1;
+private int m_nodeId = 13;
+private int m_eventId = 22;
 
 public int Health { get; set; } = 100;
 public int Gold { get; set; } = 100;

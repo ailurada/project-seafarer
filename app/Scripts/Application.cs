@@ -50,7 +50,7 @@ public override void _Ready() {
 	// ========== Begin Loading ==========  
 
 	try {
-		m_state = State.WAIT_CHOICE_NODE;
+		m_state = State.WAIT_CHOICE_EVENT;
 		
 		m_node = GetNode("UIManager") as Godot.Object;
 		
@@ -87,7 +87,6 @@ public override void _Ready() {
 	// Start the game!
 	StartGame();
 
-	PrintMap();
 	
 	}
 	catch(Exception e) {GD.Print(e);}
@@ -426,7 +425,7 @@ private float m_totalWeight = 0.0f;
 private Random m_random = null;
 
 // USER RESOURCES
-private int m_nodeId = 21;
+private int m_nodeId = 13;
 private int m_eventId = -1;
 
 public int Health { get; set; } = 100;

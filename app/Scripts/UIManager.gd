@@ -17,7 +17,7 @@ var game_manager: Node
 var default_image = ""
 
 var current_selection = -1
-var map_event = true
+var map_event = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

@@ -11,8 +11,8 @@ public class Application : Node
 {
 
 // These four values should be included in Types.cs or similar.
-const int gridHeight = 15;
-const int gridWidth = 41;
+public const int gridHeight = 15;
+public const int gridWidth = 41;
 const int mapHeight = 30;
 const int mapWidth = 102;
 
@@ -254,7 +254,7 @@ private void PrintMap() {
 	m_map[m_nodes[m_nodeId].Row, m_nodes[m_nodeId].Col] = prev;
 	
 	int[] adjList = m_nodes[m_nodeId].GetAdjacencyList();	
-	m_node.Call("draw_map", sb.ToString(), (object) adjList, gridHeight, gridWidth);
+	m_node.Call("draw_map", sb.ToString(), (object) adjList, top, left);
 
 	// DrawMap(sb.ToString(), adjList, numRows, numCols);
 }

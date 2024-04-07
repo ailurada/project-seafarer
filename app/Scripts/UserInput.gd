@@ -19,7 +19,11 @@ func _ready():
 	start_position = self.rect_position
 	self.rect_size.x = get_viewport().size.x - 10*char_width_px
 	self.rect_size.y = pt_size + 20
-	
+	self.caret_block_mode = true
+	self.context_menu_enabled = false
+	self.caret_blink = true
+	self.caret_blink_speed = 0.5
+	call_deferred("grab_focus")
 	
 	#var dynamic_font = DynamicFont.new()
 	#dynamic_font.font_data = load("res://Fonts/JetBrainsMono-Regular.ttf")
@@ -30,6 +34,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	update_position()
+	call_deferred("grab_focus")
 		
 # returns the last command from the terminal w/ out extra line break	
 func clear_command():

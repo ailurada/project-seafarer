@@ -353,9 +353,9 @@ private Random m_random = null;
 private int m_nodeId = 21;
 private int m_eventId = -1;
 
-public int Health { get; } = 100;
-public int Gold { get; } = 100;
-public int Food { get; } = 100;
+public int Health { get; set; } = 100;
+public int Gold { get; set; } = 100;
+public int Food { get; set; } = 100;
 
 private Godot.Object m_node;
 }

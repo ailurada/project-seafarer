@@ -163,7 +163,7 @@
 
     "12": {
         "title": "Share the Wealth",
-        "description": "You offer them some money for food and supples. They are grateful for your help.",
+        "description": "You offer them some money for food and supplies. They are grateful for your help.",
         "probability": "0",
         "choice_descriptions": [ "Glad to help!" ],
         "choice_success_chance": [ "1.0" ],

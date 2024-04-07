@@ -91,6 +91,27 @@ private void NodeChoiceHandler(int choice) {
 	if (choice < adjList.Length) {
 		TravelEdge(adjList[choice]);
 	}
+	// option after travel is rest
+	else if (choice == adjList.Length) {
+		m_health += 10;
+		if (m_health > 100) {
+			m_health = 100;
+		}
+	}
+	// option after rest is resupply
+	else if (choice > adjList.Length) {
+		if (m_gold < 10) {
+			//DrawEvent("You're poor!", "You do not have enough money for this.", { "Okay." });
+			m_state = WAIT_CHOICE_EVENT;
+			m_eventId = -1; // signifies that we're just waiting for a response. any response.
+			return;
+		}
+		m_food += 10;
+		m_gold -= 10;
+		if (m_food > 100) {
+			m_food = 100;
+		}
+	}
 }
 
 
@@ -101,8 +122,10 @@ private void NodeChoiceHandler(int choice) {
 // choice:    User's choice.
 private void TravelEdge(int destination) {
 	m_nodeId = destination;
+	m_food -= 10;
+	
 	m_nodes[destination].Visit();
-	m_map[m_nodes[destination].GetRow(), m_nodes[destination].GetCol()] = '@';
+	m_map[m_nodes[destination].Row, m_nodes[destination].Col] = '@';
 
 	// using System // needed for random
 	Random random = new Random(); // move to init
@@ -112,14 +135,14 @@ private void TravelEdge(int destination) {
 	// EventId fired = ...;
 
 	
+	m_food += m_events[fired].GetDeltaFood();
+	m_gold += m_events[fired].GetDeltaGold();
+	m_health += m_events[fired].GetDeltaHealth();
+	GameOver();
 	
 	// DrawEvent(m_events[fired].GetTitle(), m_events[fired].GetDescription(), m_events[fired].GetChoiceDescriptions());
 	m_state = WAIT_CHOICE_EVENT;
 	m_eventId = fired;
-
-	m_food += m_events[m_eventId].GetDeltaFood();
-	m_gold += m_events[m_eventId].GetDeltaGold();
-	m_health += m_events[m_eventId].GetDeltaHealth();
 
 
 	return;
@@ -131,6 +154,11 @@ private void TravelEdge(int destination) {
 // =============================================
 // choice:    User's choice.
 private EventChoiceHandler(int choice) {
+	if (m_eventId == -1) {
+		m_state = WAIT_CHOICE_NODE;
+		PrintMap();
+		return;		
+	}
 	if (choice < 0 || choice > m_events[m_eventId].NumChoices()) {
 		return;
 	}
@@ -145,7 +173,7 @@ private EventChoiceHandler(int choice) {
 		m_food += m_events[m_eventId].GetDeltaFood();
 		m_gold += m_events[m_eventId].GetDeltaGold();
 		m_health += m_events[m_eventId].GetDeltaHealth();
-		
+		GameOver();
 		
 		// DrawEvent(m_events[fired].GetTitle(), m_events[fired].GetDescription(), m_events[fired].GetChoiceDescriptions());
 		m_state = WAIT_CHOICE_EVENT;
@@ -157,8 +185,8 @@ private EventChoiceHandler(int choice) {
 // PrintMap(void)
 // Constructs and draws a view of the map based on the current node the user is present in, marking the node with *.
 private void PrintMap() {	
-	int centerRow = m_nodes[m_nodeId].GetRow();
-	int centerCol = m_nodes[m_nodeId].GetCol();
+	int centerRow = m_nodes[m_nodeId].Row;
+	int centerCol = m_nodes[m_nodeId].Col;
 	
 	int top = centerRow - (gridHeight - 1) / 2;
 	int bottom = centerRow + (gridHeight - 1) / 2;
@@ -184,26 +212,36 @@ private void PrintMap() {
 	
 	// Construct the map as a string
 	StringBuilder sb = new StringBuilder();
-	char prev = m_map[m_nodes[m_nodeId].GetRow(), m_nodes[m_nodeId].GetCol()];
-	m_map[m_nodes[m_nodeId].GetRow(), m_nodes[m_nodeId].GetCol()] = '*';
+	char prev = m_map[m_nodes[m_nodeId].Row, m_nodes[m_nodeId].Col];
+	m_map[m_nodes[m_nodeId].Row, m_nodes[m_nodeId].Col] = '*';
 	for (int row = top; row < bottom; ++row) {
 		for (int col = left; col < right; ++col) {
 			sb.Append(m_map[row, col]);
 		}
 		sb.Append("\n");
 	}
-	m_map[m_nodes[m_nodeId].GetRow(), m_nodes[m_nodeId].GetCol()] = prev;
+	m_map[m_nodes[m_nodeId].Row, m_nodes[m_nodeId].Col] = prev;
 	
 	int[] adjList = m_nodes[m_nodeId].GetAdjacencyList();
 	int[,] adjListCoords = new int[adjList.Length, 2];
 	for (int i = 0; i < adjList.Length; ++i) {
-		adjListCoords[i, 0] = m_nodes[m_nodeId].GetRow();
-		adjListCoords[i, 1] = m_nodes[m_nodeId].GetCol();
+		adjListCoords[i, 0] = m_nodes[m_nodeId].Row;
+		adjListCoords[i, 1] = m_nodes[m_nodeId].Col;
 	}
 	
 	// DrawMap(sb.ToString(), adjListCoords, numRows, numCols);
 }
 
+private void GameOver() {
+	if (m_health <= 0) {
+		//DrawEvent("Death!", "Due to continuous and multiple injuries suffered by your body without proper care, your body has stopped cooperating with you.", { "Okay." });
+		// exit
+	}
+	if (m_food <= 0) {
+		//DrawEvent("Death!", "Long voyages with no resupply has left the ship with no food or any edible object to speak of. You and your crew suffer a slow, painful death by starvation.", { "Okay." });
+		// exit
+	}
+}
 
 // GAME RESOURCES 
 private char[,] m_map = null;

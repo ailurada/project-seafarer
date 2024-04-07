@@ -193,9 +193,9 @@ private void HandleEventChoice(int choice) {
 		PrintMap();
 		
 		if (m_food <= 0) {
-			health -= 10;
+			m_health -= 10;
 			// starving event
-			m_node.Call("draw_event", m_events[14].GetTitle(), m_events[14].GetDescription(), m_events[14].GetChoiceDescriptions());
+			m_node.Call("draw_event", m_events[14].Title, m_events[14].Description, m_events[14].ChoiceDescriptions);
 		}
 		
 		CheckEndCondition();
@@ -210,8 +210,18 @@ private void HandleEventChoice(int choice) {
 
 	Event currentEvent = m_events[m_eventId];
 
-	// Destination event selected by user
-	int dest = currentEvent.ChoiceDestinations[choice];
+
+	float choiceSuccess = currentEvent.ChoiceSuccessChance[choice];
+
+	int dest = currentEvent.ChoiceSuccess[choice];
+
+	if (choiceSuccess != 1.0) {
+		float randomNumber = (float) m_random.NextDouble();
+		
+		if (randomNumber > choiceSuccess) {
+			dest = currentEvent.ChoiceFailure[choice];
+		}
+	}
 
 	// Return to map
 	if (dest == -1) {
@@ -219,9 +229,9 @@ private void HandleEventChoice(int choice) {
 		PrintMap();
 		
 		if (m_food <= 0) {
-			health -= 10;
+			m_health -= 10;
 			// starving event
-			m_node.Call("draw_event", m_events[14].GetTitle(), m_events[14].GetDescription(), m_events[14].GetChoiceDescriptions());
+			m_node.Call("draw_event", m_events[14].Title, m_events[14].Description, m_events[14].ChoiceDescriptions);
 		}
 		
 		CheckEndCondition();

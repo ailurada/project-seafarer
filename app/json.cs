@@ -1,3 +1,7 @@
+// json.cs
+//
+// Implements JSON functions and the ability to load SeaNodes from files.
+
 using Godot;
 using System;
 

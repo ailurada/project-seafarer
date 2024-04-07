@@ -8,9 +8,10 @@ extends RichTextLabel
 const YOU_ARE_HERE = "yellow"
 const SELECTED = "lime"
 const VISITED = "blue"
-const NORMAL = "white"
+const NORMAL = "silver"
+
 const GROUND = "gray"
-const EDGE_COLOR = "gray"
+const EDGE_COLOR = "white"
 
 # Test cases
 const edge_mapping = {"0": "_", "1": "|", "4": "\\", "5": "-", "7": "/"}
@@ -40,17 +41,23 @@ var num_cols: int
 
 var hover_selection: int = 1
 
+func disable():
+	self.hide()
+
 # Draws a map given a string representation and x, y dimensions
 func draw_map(map_string: String, adjacent_nodes: Array, numRows: int, numCols: int):
+	self.show()
 	map_str = map_string
 	adj_nodes = adjacent_nodes
 	num_rows = numRows
 	num_cols = numCols
 	
-	draw_map_text()
+	redraw_map()
 
+func set_hover(selection: int):
+	hover_selection = selection
 
-func draw_map_text():
+func redraw_map():
 	self.set_bbcode("")
 	node_number = 1
 	
@@ -64,7 +71,7 @@ func draw_map_text():
 	# Add lines row by row
 	for n in range(num_cols):
 		self.append_bbcode("|")
-		add_row(map_str_array[n], n)
+		_add_row(map_str_array[n], n)
 		self.append_bbcode("|\n")
 		
 	# Bottom horizontal line
@@ -74,7 +81,7 @@ func draw_map_text():
 
 # Adds a single row to the RichTextLabel
 # given a string representation and the current row
-func add_row(row_str: String, curr_row: int):
+func _add_row(row_str: String, curr_row: int):
 	var str_length = len(row_str)
 	var i = 0
 	while i < str_length:

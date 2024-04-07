@@ -1,7 +1,7 @@
 extends Label
 
 enum {BOTTOM, RIGHT}
-var location = BOTTOM
+var location = RIGHT
 
 var char_width_px = 20
 var num_rows = 8
@@ -112,7 +112,7 @@ func highlight_option(option_num):
 		var clean_text = options[i].bbcode_text.trim_prefix("[color=lime]")
 		options[i].set_bbcode(clean_text)
 	
-	if option_num != 0:
+	if option_num > 0 && option_num <= len(options):
 		options[option_num-1].set_bbcode("[color=lime]" + options[option_num-1].bbcode_text)
 
 # Called when the node enters the scene tree for the first time.

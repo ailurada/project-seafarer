@@ -16,7 +16,7 @@
     "1": {
         "title": "Ambush!",
         "description": "A skull-and-crossbones flag?! Pirates!",
-        "probability": "1.0",
+        "probability": "0.25",
         "choice_descriptions": [ "Man the cannons!", "Barter for your safety", "Raise sails and attempt escape" ],
         "choice_success_chance": [ "0.5", "0.6", "0.7" ],
         "choice_success": [ "5", "6", "7" ],
@@ -119,7 +119,7 @@
     },
 
     "9": {
-        "title": "They Needed Your Help",
+        "title": "They Need Your Help",
         "description": "It is a stranded sailor. They look to be about your age, ragged and hungry.",
         "probability": "0",
         "choice_success_chance": [ "1.0","1.0","1.0" ],
@@ -163,7 +163,7 @@
 
     "12": {
         "title": "Share the Wealth",
-        "description": "You offer them some money for food and supples. They are grateful for your help.",
+        "description": "You offer them some money for food and supplies. They are grateful for your help.",
         "probability": "0",
         "choice_descriptions": [ "Glad to help!" ],
         "choice_success_chance": [ "1.0" ],
@@ -232,7 +232,7 @@
 
     "17": {
         "title": "Fishing Spot",
-        "description": "You throw out your line, just the way mom taught you. You pull up a large, wriggling fish.",
+        "description": "You throw out your line, just the way Mom taught you. You pull up a large, wriggling fish.",
         "probability": "0",
         "choice_descriptions": [ "Score!" ],
         "choice_success_chance": [ "1.0" ],
@@ -420,7 +420,7 @@
   "31": {
       "title": "A New Friend",
       "description": "It's another adventurer, just like you! And they have a cat!",
-      "probability": "0.5",
+      "probability": "0.0",
       "choice_descriptions": [ "I love making new friends!" ],
       "choice_success_chance": [ "1.0" ],
       "choice_success": [ "-1" ],
@@ -878,7 +878,7 @@
     "66": {
         "title": "Seaweed Attack!",
         "description": "Some wind blows a massive piece of seaweed onto the deck.",
-        "probability": "0.0",
+        "probability": "0.5",
         "choice_descriptions": [ "Well, food is food!"],
         "choice_success_chance": [ "1.0" ],
         "choice_success": [ "-1" ],
@@ -887,5 +887,44 @@
         "delta_gold": "0",
         "delta_health": "0",
         "ascii": "default"
-      }
+      },
+    "67": {
+        "title": "Grandma?",
+        "description": "You meet an old woman. She greets you and hands you some bread. She looks familar...",
+        "probability": "0.5",
+        "choice_descriptions": [ "Keep sailing" ],
+        "choice_success_chance": [ "1.0" ],
+        "choice_success": [ "-1" ],
+        "choice_failure": [ "-1" ],
+        "delta_food": "20",
+        "delta_gold": "0",
+        "delta_health": "0",
+        "ascii": "default"
+      },
+    "68": {
+        "title": "Missing Home",
+        "description": "You stare out into the sea...Home is far.",
+        "probability": "0.5",
+        "choice_descriptions": [ "I miss home" ],
+        "choice_success_chance": [ "1.0" ],
+        "choice_success": [ "-1" ],
+        "choice_failure": [ "-1" ],
+        "delta_food": "0",
+        "delta_gold": "0",
+        "delta_health": "0",
+        "ascii": "default"
+      },
+  "69": {
+      "title": "Stargazing",
+      "description": "You stare up at the sky. The stars are beautiful tonight.",
+      "probability": "0.5",
+      "choice_descriptions": [ "Wow..." ],
+      "choice_success_chance": [ "1.0" ],
+      "choice_success": [ "-1" ],
+      "choice_failure": [ "-1" ],
+      "delta_food": "0",
+      "delta_gold": "0",
+      "delta_health": "0",
+      "ascii": "default"
+    }
 }

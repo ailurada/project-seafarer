@@ -100,6 +100,8 @@ private void NodeChoiceHandler(int choice) {
 // choice:    User's choice.
 private void TravelEdge(NodeId destination) {
 	m_nodeId = destination;
+	m_nodes[destination].Visit();
+	m_map[m_nodes[destination].GetRow(), m_nodes[destination].GetCol()] = '@';
 
 	// using System // needed for random
 	Random random = new Random(); // move to init

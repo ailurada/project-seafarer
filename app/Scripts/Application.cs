@@ -86,7 +86,6 @@ public override void _Ready() {
 	
 	// Start the game!
 	StartGame();
-
 	
 	}
 	catch(Exception e) {GD.Print(e);}
@@ -218,8 +217,11 @@ private void TravelEdge(int destination) {
 // =============================================
 // choice:    User's choice.
 private void HandleEventChoice(int choice) {
+	GD.Print("Event Handler Called: ", choice);
+
 	// If the event is no choice
 	if (m_eventId == -1) {
+		GD.Print("No choice");
 		m_state = State.WAIT_CHOICE_NODE;
 		PrintMap();
 		
@@ -238,26 +240,29 @@ private void HandleEventChoice(int choice) {
 
 	// Invalid choice
 	if (choice < 0 || choice > m_events[m_eventId].NumChoices()) {
+		GD.Print("Invalid");
 		return;
 	}
 
 	Event currentEvent = m_events[m_eventId];
-
 
 	float choiceSuccess = currentEvent.ChoiceSuccessChance[choice];
 
 	int dest = currentEvent.ChoiceSuccess[choice];
 
 	if (choiceSuccess != 1.0) {
+		GD.Print("Failure");
 		float randomNumber = (float) m_random.NextDouble();
 		
 		if (randomNumber > choiceSuccess) {
 			dest = currentEvent.ChoiceFailure[choice];
 		}
 	}
+	GD.Print("Success");
 
 	// Return to map
 	if (dest == -1) {
+		GD.Print("Return to Map");
 		m_state = State.WAIT_CHOICE_NODE;
 		PrintMap();
 		
@@ -300,12 +305,16 @@ private void HandleEventChoice(int choice) {
 		}
 		
 		CheckEndCondition();
+
+		GD.Print("Drawing new event #", dest);
+
+		Event nextEvent = m_events[dest];
 		
 		m_node.Call("draw_event", 
-					currentEvent.Title, 
-					currentEvent.Description, 
-					currentEvent.ChoiceDescriptions,
-					currentEvent.Ascii);
+					nextEvent.Title, 
+					nextEvent.Description, 
+					nextEvent.ChoiceDescriptions,
+					nextEvent.Ascii);
 
 		m_state = State.WAIT_CHOICE_EVENT;
 		m_eventId = dest;
@@ -404,7 +413,7 @@ private void CheckEndCondition() {
 // =============================================
 // Start the game by calling the start event (22), and asking for it to be rendered.
 void StartGame() {
-	Event startEvent = m_events[22];
+	Event startEvent = m_events[m_eventId];
 
 	m_node.Call("draw_event",
 				startEvent.Title,
@@ -426,7 +435,7 @@ private Random m_random = null;
 
 // USER RESOURCES
 private int m_nodeId = 13;
-private int m_eventId = -1;
+private int m_eventId = 22;
 
 public int Health { get; set; } = 100;
 public int Gold { get; set; } = 100;

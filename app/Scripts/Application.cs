@@ -275,6 +275,40 @@ private void HandleEventChoice(int choice) {
 	// Return to map
 	if (dest == -1) {
 		m_state = State.WAIT_CHOICE_NODE;
+
+		Food += currentEvent.DeltaFood;
+		if (currentEvent.DeltaFood < 0) {
+			m_node.Call("lose_food_effect");
+		}
+		else if (currentEvent.DeltaFood > 0) {
+			m_node.Call("gain_food_effect");
+		}
+		if (Food < 0) {
+			Food = 0;
+		}
+
+		Gold += currentEvent.DeltaGold;
+		if (currentEvent.DeltaGold < 0) {
+			m_node.Call("lose_gold_effect");
+		}
+		else if (currentEvent.DeltaGold > 0) {
+			m_node.Call("gain_gold_effect");
+		}
+		if (Gold < 0) {
+			Gold = 0;
+		}
+		
+		Health += currentEvent.DeltaHealth;
+		if (currentEvent.DeltaHealth < 0) {
+			m_node.Call("lose_health_effect");
+		}
+		else if (currentEvent.DeltaHealth > 0) {
+			m_node.Call("gain_health_effect");
+		}
+		if (Health > 100) {
+			Health = 100;
+		}
+
 		PrintMap();
 		
 		if (Food <= 0) {

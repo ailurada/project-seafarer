@@ -63,3 +63,6 @@ func draw_event(title: String, description: String, options: Array):
 		dialogue_box.set_box_location(dialogue_box.RIGHT)
 	else:
 		dialogue_box.set_box_location(dialogue_box.BOTTOM)
+
+func draw_stats(health: int, food: int, money: int):
+	pass

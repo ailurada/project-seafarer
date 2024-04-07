@@ -2,7 +2,6 @@ extends Label
 
 enum {BOTTOM, RIGHT}
 
-
 var char_width_px = 20
 var num_rows = 8
 var pt_size = 32
@@ -15,7 +14,7 @@ var space = ""
 func get_desired_width():
 	if self.location == BOTTOM:
 		return get_viewport().size.x/char_width_px
-	else:
+	elif self.location == RIGHT:
 		var box_width_px = get_viewport().size.x/3
 		return box_width_px/char_width_px
 	
@@ -55,6 +54,9 @@ func update_position(win_width, win_height):
 	elif location == RIGHT:
 		self.rect_position.x = win_width - self.rect_size.x - char_width_px*2
 		self.rect_position.y = 0 + pt_size
+
+func set_box_location(location):
+	self.location = location
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

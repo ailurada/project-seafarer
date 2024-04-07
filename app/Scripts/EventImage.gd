@@ -1,4 +1,4 @@
-extends Label
+extends RichTextLabel
 
 const char_width_px = 20
 const num_rows = 8
@@ -12,9 +12,13 @@ const IMG_SIZE = 19
 export var dialogue_box_path: NodePath
 var dialogue_box: Node
 
+const edge_mapping = {'0': "_", '1': "|", '4': "\\", '5': "-", '7': "/"}
+const GROUND = "white"
+const EDGE_COLOR = "gray"
+
 func show_image(image_str: String):
 	self.show()
-	self.text = image_str
+	self.set_bbcode(_parse_string(image_str))
 
 func hide_image():
 	self.hide()
@@ -41,3 +45,27 @@ func _process(delta):
 	var win_height = viewport_size.y
 	_update_position(win_width, win_height)
 	_update_size()
+	
+func _parse_string(img: String):	
+	var parsed_str = ""
+	var i = 0
+	var length = len(img)
+	while i < length:
+		var _char = img[i]
+		if _char == " ":
+			parsed_str += _char
+		elif _char in edge_mapping:
+			parsed_str += "[color=" + EDGE_COLOR + "]" + edge_mapping[_char]
+		elif _char == "[":
+			var seen = 0
+			while seen < 2:
+				parsed_str += img[i]
+				if (img[i] == "]"):
+					seen += 1
+				i += 1
+		else:
+			parsed_str += "[color=" + GROUND + "]" + _char
+		
+		i+=1
+	
+	return parsed_str

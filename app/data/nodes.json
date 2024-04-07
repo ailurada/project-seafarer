@@ -1,37 +1,242 @@
 {
     "0": {
-        "title": "Home Island",
-        "eid": "12",
-        "description": "The place where it all began; home sweet home.",
-        "adjacent": ["1", "2"],
+        "title": "No Man's Land",
+        "eid": "-999",
+        "coords": "1,9",
+        "description": "Desolate. Barren, e'en.",
+        "adjacent": ["6"],
         "visited": false
     },
     "1": {
-        "title": "Murky Depths",
-        "eid": "22",
-        "description": "The refreshing warmness of the ocean gives way to dark, cold waters in this region. A sense of dread looms over you.",
-        "adjacent": ["1", "2"],
+        "title": "No Man's Land",
+        "eid": "-999",
+        "coords": "1,47",
+        "description": "Desolate. Barren, e'en.",
+        "adjacent": ["2", "5"],
         "visited": false
     },
     "2": {
-        "title": "The Floating City",
-        "eid": "11",
-        "description": "A sight all too rare on the open waters - a civilization. The smell of freshly baked fish and the laughter of its citizen fills the air.",
-        "adjacent": ["1", "2"],
+        "title": "No Man's Land",
+        "eid": "-999",
+        "coords": "1,64",
+        "description": "Desolate. Barren, e'en.",
+        "adjacent": ["3", "1"],
         "visited": false
     },
     "3": {
-        "title": "Desolate Raft",
-        "eid": "18",
-        "description": "An abandoned, rundown shack leaning on the water. It looks as if it will collapse at any moment.",
-        "adjacent": ["1", "2"],
+        "title": "No Man's Land",
+        "eid": "-999",
+        "coords": "1,81",
+        "description": "Desolate. Barren, e'en.",
+        "adjacent": ["2", "4", "9"],
         "visited": false
     },
     "4": {
+        "title": "No Man's Land",
+        "eid": "-999",
+        "coords": "1,94",
+        "description": "Desolate. Barren, e'en.",
+        "adjacent": ["3", "10"],
+        "visited": false
+    },
+    "5": {
+        "title": "No Man's Land",
+        "eid": "-999",
+        "coords": "2,28",
+        "description": "Desolate. Barren, e'en.",
+        "adjacent": ["1", "6", "7"],
+        "visited": false
+    },
+    "6": {
+        "title": "No Man's Land",
+        "eid": "-999",
+        "coords": "6,18",
+        "description": "Desolate. Barren, e'en.",
+        "adjacent": ["0", "5", "7", "11"],
+        "visited": false
+    },
+    "7": {
+        "title": "No Man's Land",
+        "eid": "-999",
+        "coords": "6,29",
+        "description": "Desolate. Barren, e'en.",
+        "adjacent": ["5", "6", "8"],
+        "visited": false
+    },
+    "8": {
+        "title": "No Man's Land",
+        "eid": "-999",
+        "coords": "8,38",
+        "description": "Desolate. Barren, e'en.",
+        "adjacent": ["7", "13"],
+        "visited": false
+    },
+    "9": {
+        "title": "No Man's Land",
+        "eid": "-999",
+        "coords": "8,83",
+        "description": "Desolate. Barren, e'en.",
+        "adjacent": ["3", "10", "12", "15"],
+        "visited": false
+    },
+    "10": {
+        "title": "No Man's Land",
+        "eid": "-999",
+        "coords": "8,95",
+        "description": "Desolate. Barren, e'en.",
+        "adjacent": ["4", "9", "15"],
+        "visited": false
+    },
+    "11": {
+        "title": "No Man's Land",
+        "eid": "-999",
+        "coords": "9,10",
+        "description": "Desolate. Barren, e'en.",
+        "adjacent": ["6", "16"],
+        "visited": false
+    },
+    "12": {
+        "title": "No Man's Land",
+        "eid": "-999",
+        "coords": "9,70",
+        "description": "Desolate. Barren, e'en.",
+        "adjacent": ["9", "14"],
+        "visited": false
+    },
+    "13": {
+        "title": "Home Island",
+        "eid": "-999",
+        "coords": "11,28",
+        "description": "The place where it all began; home sweet home.",
+        "adjacent": ["8"],
+        "visited": false
+    },
+    "14": {
+        "title": "No Man's Land",
+        "eid": "-999",
+        "coords": "12,60",
+        "description": "Desolate. Barren, e'en.",
+        "adjacent": ["12", "17"],
+        "visited": false
+    },
+    "15": {
+        "title": "No Man's Land",
+        "eid": "-999",
+        "coords": "15,91",
+        "description": "Desolate. Barren, e'en.",
+        "adjacent": ["9", "18", "20"],
+        "visited": false
+    },
+    "16": {
+        "title": "No Man's Land",
+        "eid": "-999",
+        "coords": "16,4",
+        "description": "Desolate. Barren, e'en.",
+        "adjacent": ["11", "19"],
+        "visited": false
+    },
+    "17": {
+        "title": "Desolate Raft",
+        "eid": "-999",
+        "coords": "19,57",
+        "description": "An abandoned, rundown shack leaning on the water. It looks as if it will collapse at any moment.",
+        "adjacent": ["14", "18", "23", "24"],
+        "visited": false
+    },
+    "18": {
+        "title": "No Man's Land",
+        "eid": "-999",
+        "coords": "19,72",
+        "description": "Desolate. Barren, e'en.",
+        "adjacent": ["15", "17", "24", "21"],
+        "visited": false
+    },
+    "19": {
+        "title": "No Man's Land",
+        "eid": "-999",
+        "coords": "20,7",
+        "description": "Desolate. Barren, e'en.",
+        "adjacent": ["16", "22"],
+        "visited": false
+    },
+    "20": {
+        "title": "The Floating City",
+        "eid": "-999",
+        "coords": "22,39",
+        "description": "A sight all too rare on the open waters - a civilization. The smell of freshly baked fish and the laughter of its citizen fills the air.",
+        "adjacent": ["25", "26", "23"],
+        "visited": false
+    },
+    "21": {
+        "title": "No Man's Land",
+        "eid": "-999",
+        "coords": "22,91",
+        "description": "Desolate. Barren, e'en.",
+        "adjacent": ["15", "18", "28"],
+        "visited": false
+    },
+    "22": {
+        "title": "No Man's Land",
+        "eid": "-999",
+        "coords": "25,2",
+        "description": "Desolate. Barren, e'en.",
+        "adjacent": ["19", "27"],
+        "visited": false
+    },
+    "23": {
+        "title": "No Man's Land",
+        "eid": "-999",
+        "coords": "25,52",
+        "description": "Desolate. Barren, e'en.",
+        "adjacent": ["17", "20", "24", "26"],
+        "visited": false
+    },
+    "24": {
         "title": "Hostile Earth",
-        "eid": "1",
+        "eid": "-999",
+        "coords": "26,65",
         "description": "Jagged rocks cut in and out of the water at will. Their movement is lifelike, yet you know them to be not so.",
-        "adjacent": ["1", "2"],
+        "adjacent": ["17", "18", "23"],
+        "visited": false
+    },
+    "25": {
+        "title": "No Man's Land",
+        "eid": "-999",
+        "coords": "27,28",
+        "description": "Desolate. Barren, e'en.",
+        "adjacent": ["20", "26", "27"],
+        "visited": false
+    },
+    "26": {
+        "title": "No Man's Land",
+        "eid": "-999",
+        "coords": "28,39",
+        "description": "Desolate. Barren, e'en.",
+        "adjacent": ["20", "23", "25"],
+        "visited": false
+    },
+    "27": {
+        "title": "No Man's Land",
+        "eid": "-999",
+        "coords": "29,10",
+        "description": "Desolate. Barren, e'en.",
+        "adjacent": ["22", "25"],
+        "visited": false
+    },
+    "28": {
+        "title": "No Man's Land",
+        "eid": "-999",
+        "coords": "29,95",
+        "description": "Desolate. Barren, e'en.",
+        "adjacent": ["21", "29"],
+        "visited": false
+    },
+    "29": {
+        "title": "Murky Depths",
+        "eid": "-999",
+        "coords": "33,89",
+        "description": "The refreshing warmness of the ocean gives way to dark, cold waters in this region. A sense of dread looms over you.",
+        "adjacent": ["28"],
         "visited": false
     }
 }

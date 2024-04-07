@@ -110,11 +110,11 @@ func hide_dialogue():
 # pick from options 1-4 to highlight, or pass 0 to reset all
 func highlight_option(option_num):
 	for i in range(len(options)):
-		var clean_text = options[i].bbcode_text.trim_prefix("[color=lime]")
+		var clean_text = options[i].bbcode_text.trim_prefix("[b][color=lime]")
 		options[i].set_bbcode(clean_text)
 	
 	if option_num > 0 && option_num <= len(options):
-		options[option_num-1].set_bbcode("[color=lime]" + options[option_num-1].bbcode_text)
+		options[option_num-1].set_bbcode("[b][color=lime]" + options[option_num-1].bbcode_text)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

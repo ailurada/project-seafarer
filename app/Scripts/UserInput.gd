@@ -1,7 +1,5 @@
 extends TextEdit
 
-export var text_output_path: NodePath
-var text_output: RichTextLabel
 var start_position: Vector2
 
 export var line_width: int
@@ -18,7 +16,6 @@ func update_position():
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	text_output = get_node(text_output_path)
 	start_position = self.rect_position
 	self.rect_size.x = get_viewport().size.x - 10*char_width_px
 	self.rect_size.y = pt_size + 20

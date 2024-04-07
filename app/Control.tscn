@@ -35,12 +35,17 @@ text_output_path = NodePath("../RichTextLabel")
 line_width = 25
 
 [node name="DialogueBox" type="Label" parent="."]
-margin_top = 730.0
-margin_right = 1812.0
-margin_bottom = 773.0
+margin_left = 500.0
+margin_top = 500.0
+margin_right = 2312.0
+margin_bottom = 543.0
 script = ExtResource( 3 )
 
 [node name="DialogueBoxText" type="Label" parent="DialogueBox"]
 margin_right = 1812.0
 margin_bottom = 1620.0
 script = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="DialogueBox"]
+margin_right = 40.0
+margin_bottom = 43.0

@@ -87,7 +87,7 @@ private void NodeChoiceHandler(int choice) {
 		return;
 	}
 
-	int adjList = m_nodes[m_nodeId].GetAdjacencyList(); 
+	int[] adjList = m_nodes[m_nodeId].GetAdjacencyList(); 
 	if (choice < adjList.Length) {
 		TravelEdge(adjList[choice]);
 	}
@@ -181,7 +181,7 @@ private void PrintMap() {
 	}
 	m_map[m_nodes[m_nodeId].GetRow(), m_nodes[m_nodeId].GetCol()] = prev;
 	
-	int adjList = m_nodes[m_nodeId].GetAdjacencyList();
+	int[] adjList = m_nodes[m_nodeId].GetAdjacencyList();
 	int[,] adjListCoords = new int[adjList.Length, 2];
 	for (int i = 0; i < adjList.Length; ++i) {
 		adjListCoords[i, 0] = m_nodes[m_nodeId].GetRow();

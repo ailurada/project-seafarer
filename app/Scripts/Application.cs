@@ -109,9 +109,16 @@ private void TravelEdge(NodeId destination) {
 	// EventId fired = ...;
 
 	
+	
 	// DrawEvent(m_events[fired].GetTitle(), m_events[fired].GetDescription(), m_events[fired].GetChoiceDescriptions());
 	m_state = WAIT_CHOICE_EVENT;
 	m_eventId = fired;
+
+	m_food += m_events[m_eventId].GetDeltaFood();
+	m_gold += m_events[m_eventId].GetDeltaGold();
+	m_health += m_events[m_eventId].GetDeltaHealth();
+
+
 	return;
 }
 
@@ -130,9 +137,13 @@ private EventChoiceHandler(int choice) {
 	if (dest == -1) {
 		m_state = WAIT_CHOICE_NODE;
 		PrintMap();
-		return;
 	}
 	else {
+		m_food += m_events[m_eventId].GetDeltaFood();
+		m_gold += m_events[m_eventId].GetDeltaGold();
+		m_health += m_events[m_eventId].GetDeltaHealth();
+		
+		
 		// DrawEvent(m_events[fired].GetTitle(), m_events[fired].GetDescription(), m_events[fired].GetChoiceDescriptions());
 		m_state = WAIT_CHOICE_EVENT;
 		m_eventId = dest;

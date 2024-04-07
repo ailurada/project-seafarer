@@ -81,6 +81,8 @@ func redraw_map():
 	var map_array_seen = map_str.split("\n")
 	var map_array_order = map_str.split("\n")
 	
+	print(map_array_seen[1])
+	
 	# Order the adjacent nodes by the order they appear in adj_list
 	for i in range(len(adj_coords)):
 		var coord = adj_coords[i]

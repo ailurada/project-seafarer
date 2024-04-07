@@ -87,8 +87,9 @@ margin_right = 1312.0
 margin_bottom = 1120.0
 script = ExtResource( 4 )
 
-[node name="EventImage" type="Label" parent="GameManager/UIManager"]
+[node name="EventImage" type="RichTextLabel" parent="GameManager/UIManager"]
 margin_right = 40.0
 margin_bottom = 43.0
+bbcode_enabled = true
 script = ExtResource( 12 )
 dialogue_box_path = NodePath("../DialogueBox")

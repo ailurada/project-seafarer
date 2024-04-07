@@ -14,6 +14,7 @@ onready var dialogue_box_text = $DialogueBoxText
 
 onready var options = []
 
+
 # helper func to calculate width of dialogue box in units of char-widths
 func get_desired_width():
 	if self.location == BOTTOM:
@@ -97,6 +98,7 @@ func show_dialogue(description, option_strings):
 	self.show()
 	initialize_options(option_strings)
 	update_option_positions()
+	dialogue_box_text.reset_scroll()
 		
 	
 

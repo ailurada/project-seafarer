@@ -31,10 +31,12 @@ func _process(delta):
 			map.redraw_map()
 		
 	if (Input.is_action_just_released("enter")):
-		user_input.clear_command()
 		if map_event:
-			map.disable()
+			var next_node = map.get_adj_node(user_input.get_input_selection())
+			game_manager.TravelEdge(next_node)
 			map_event = false
+			
+		user_input.clear_command()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

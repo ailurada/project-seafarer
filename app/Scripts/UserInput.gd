@@ -34,11 +34,11 @@ func execute_command():
 	
 	## temp
 	text_output.text = command
-	self.text = ""
+	self.bbcode_text = ""
 	self.rect_position += Vector2(0, line_width)
 	##
 	
 	return command
 	
 func see_command():
-	return self.text.substr(0, self.text.length() - 1) + "\n> "
+	return self.bbcode_text.substr(0, self.bbcode_text.length() - 1) + "\n> "

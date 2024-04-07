@@ -49,6 +49,7 @@ public class json : Node
 			SeaNode newNode = new SeaNode(
 				i,
 				Int32.Parse((string)nodeInfo["eid"]),
+				(string)nodeInfo["coords"],
 				(string)nodeInfo["title"],
 				(string)nodeInfo["description"],
 				adjList,

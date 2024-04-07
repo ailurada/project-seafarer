@@ -83,22 +83,23 @@ public void UserInput(int input) {
 // choice:	User's choice.
 private void NodeChoiceHandler(int choice) {
 	// TODO: add option for resting, and other additional options that can be expected from a sea node.
-	if (choice < 0 || choice > m_adjacencyList.GetLength(1)) {
+	if (choice < 0) {
 		return;
 	}
 
-	if (choice < m_adjacencyList.GetLength(1)) {
-		TravelEdge(m_adjacencyList[m_nodeId, choice]);
+	int adjList = m_nodes[m_nodeId].GetAdjacencyList(); 
+	if (choice < adjList.Length) {
+		TravelEdge(adjList[choice]);
 	}
 }
 
 
-// TravelEdge(NodeId)
+// TravelEdge(int)
 // Travels to the desired SeaNode.
 // A random event will be fired.
 // =============================================
 // choice:    User's choice.
-private void TravelEdge(NodeId destination) {
+private void TravelEdge(int destination) {
 	m_nodeId = destination;
 
 	// using System // needed for random
@@ -125,7 +126,7 @@ private EventChoiceHandler(int choice) {
 		return;
 	}
 
-	EventId dest = (m_events[m_eventId].GetChoiceDestinations())[choice];
+	int dest = (m_events[m_eventId].GetChoiceDestinations())[choice];
 
 	if (dest == -1) {
 		m_state = WAIT_CHOICE_NODE;
@@ -180,22 +181,28 @@ private void PrintMap() {
 	}
 	m_map[m_nodes[m_nodeId].GetRow(), m_nodes[m_nodeId].GetCol()] = prev;
 	
-	// DrawMap(sb.ToString());
+	int adjList = m_nodes[m_nodeId].GetAdjacencyList();
+	int[,] adjListCoords = new int[adjList.Length, 2];
+	for (int i = 0; i < adjList.Length; ++i) {
+		adjListCoords[i, 0] = m_nodes[m_nodeId].GetRow();
+		adjListCoords[i, 1] = m_nodes[m_nodeId].GetCol();
+	}
+	
+	// DrawMap(sb.ToString(), adjListCoords, numRows, numCols);
 }
 
 
 // GAME RESOURCES 
 private char[,] m_map = null;
 private SeaNode[] m_nodes = null;
-private NodeId[,] m_adjacencyList = null;
 
 private State m_state = WAIT_CHOICE_NODE;
 private Event[] m_events = null;
 
 
 // USER RESOURCES
-private NodeId m_nodeId = -1;
-private EventId m_eventId = -1;
+private int m_nodeId = -1;
+private int m_eventId = -1;
 
 private int m_health = 100;
 private int m_gold = 100;

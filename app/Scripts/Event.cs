@@ -6,7 +6,7 @@ using Godot;
 
 public class Event
 {
-	public Event(int id, string title, string description, float probability, string[] choiceDescriptions, int[] choiceDestinations, int deltaFood, int deltaGold, int deltaHealth) {
+	public Event(int id, string title, string description, float probability, string[] choiceDescriptions, int[] choiceDestinations, int deltaFood, int deltaGold, int deltaHealth, string ascii) {
 		ID = id;
 		Title = title;
 		Description = description;
@@ -16,6 +16,7 @@ public class Event
 		DeltaFood = deltaFood;
 		DeltaGold = deltaGold;
 		DeltaHealth = deltaHealth;
+		Ascii = ascii;
 	}
 	
 	public Event() {
@@ -29,6 +30,7 @@ public class Event
 		DeltaFood = 0;
 		DeltaGold = 0;
 		DeltaHealth = 0;
+		Ascii = null;
 	}
 		
 	// For debug purposes only
@@ -50,5 +52,6 @@ public class Event
 	public int DeltaFood { get; }
 	public int DeltaGold { get; }
 	public int DeltaHealth { get; }
+	public string Ascii { get; }
 	public int NumChoices() { return ChoiceDescriptions.Length; }
 }

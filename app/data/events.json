@@ -709,7 +709,7 @@
         "description": "Mermaid President: Wow, you guys are legendary here! Please take accept some gifts, and tell your people that we only mean peace.",
         "probability": "0.0",
         "choice_descriptions": [ "Thank you..?" ],
-        "choice_success_chance": [ "1.0"" ],
+        "choice_success_chance": [ "1.0" ],
         "choice_success": [ "47" ],
         "choice_failure": [ "47" ],
         "delta_food": "10",

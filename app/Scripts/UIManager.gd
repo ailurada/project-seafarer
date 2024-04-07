@@ -9,9 +9,12 @@ onready var map = $Map
 onready var user_input = $TerminalInput
 onready var dialogue_box = $DialogueBox
 onready var stats_box = $StatsBox
+onready var event_img = $EventImage
 
 export var game_manager_path: NodePath
 var game_manager: Node
+
+var default_image = ""
 
 var current_selection = -1
 var map_event = true
@@ -31,10 +34,12 @@ func _process(delta):
 			map.redraw_map()
 		
 	if (Input.is_action_just_released("enter")):
-		user_input.clear_command()
 		if map_event:
-			map.disable()
 			map_event = false
+			map.disable()
+			
+		game_manager.UserInput(current_selection)
+		user_input.clear_command()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -52,15 +57,24 @@ func draw_map(map_string: String, adjacent_nodes: Array, top: int, left: int):
 	var numCols = game_manager.gridWidth
 	map.draw_map(map_string, adjacent_node_coords, numRows, numCols, top, left)
 	map_event = true
-	draw_event("Travel", "Where would you like to go next?", adjacent_node_names)
+	draw_event("Travel", "Where would you like to go next?", adjacent_node_names, "")
 
 
-func draw_event(title: String, description: String, options: Array):
+func draw_event(title: String, description: String, options: Array, img_str: String):
 	dialogue_box.show_dialogue(title + ":\n" + description, options)
 	if map_event:
+		event_img.hide_image()
 		dialogue_box.set_box_location(dialogue_box.RIGHT)
+		stats_box.set_box_location(stats_box.MAP)
 	else:
 		dialogue_box.set_box_location(dialogue_box.BOTTOM)
+		stats_box.set_box_location(stats_box.SHOP)
+		
+	if img_str != "":
+		if img_str == "default":
+			event_img.show_image(default_image)
+		else:
+			event_img.show_image(img_str)
 
-func draw_stats(health: int, food: int, money: int):
-	stats_box.show_stats([health, food, money])
+func draw_stats():
+	stats_box.show_stats([game_manager.Health, game_manager.Food, game_manager.Money])

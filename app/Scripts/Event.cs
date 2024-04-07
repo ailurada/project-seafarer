@@ -6,13 +6,18 @@ using Godot;
 
 public class Event
 {
-	public Event(int id, string title, string description, float probability, string[] choiceDescriptions, int[] choiceDestinations, int deltaFood, int deltaGold, int deltaHealth, string ascii) {
+	public Event(int id, string title, string description, float probability, 
+				 string[] choiceDescriptions, float[] choiceSuccessChance, 
+				 int[] choiceSuccess, int[] choiceFailure, int deltaFood, 
+				 int deltaGold, int deltaHealth, string ascii) {
 		ID = id;
 		Title = title;
 		Description = description;
 		Probability = probability;
 		ChoiceDescriptions = choiceDescriptions;
-		ChoiceDestinations = choiceDestinations;
+		ChoiceSuccessChance = choiceSuccessChance;
+		ChoiceSuccess = choiceSuccess;
+		ChoiceFailure = choiceFailure;
 		DeltaFood = deltaFood;
 		DeltaGold = deltaGold;
 		DeltaHealth = deltaHealth;
@@ -25,7 +30,7 @@ public class Event
 		Title = "";
 		Description = "";
 		ChoiceDescriptions = null;
-		ChoiceDestinations = null;
+		ChoiceSuccess = null;
 		
 		DeltaFood = 0;
 		DeltaGold = 0;
@@ -38,7 +43,7 @@ public class Event
 		GD.Print("ID: ", ID, ", Probability: ", Probability.ToString(), ", Title: ", Title, ", Description: ", Description);
 
 		for (int i = 0; i < ChoiceDescriptions.Length; ++i) {
-			GD.Print(ChoiceDescriptions[i], ": ", ChoiceDestinations[i]);
+			GD.Print(ChoiceDescriptions[i], ": ", ChoiceSuccess[i]);
 		}
 
 	}
@@ -48,7 +53,9 @@ public class Event
 	public string Title { get; }
 	public string Description { get; }
 	public string[] ChoiceDescriptions { get; }
-	public int[] ChoiceDestinations { get; }
+	public float[] ChoiceSuccessChance { get; }
+	public int[] ChoiceSuccess { get; } 
+	public int[] ChoiceFailure { get; }
 	public int DeltaFood { get; }
 	public int DeltaGold { get; }
 	public int DeltaHealth { get; }

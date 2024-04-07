@@ -16,7 +16,7 @@
     "1": {
         "title": "Ambush!",
         "description": "A skull-and-crossbones flag?! Pirates!",
-        "probability": "1.0",
+        "probability": "0.25",
         "choice_descriptions": [ "Man the cannons!", "Barter for your safety", "Raise sails and attempt escape" ],
         "choice_success_chance": [ "0.5", "0.6", "0.7" ],
         "choice_success": [ "5", "6", "7" ],

@@ -110,7 +110,6 @@ func _add_row(row_str: String, row_str_order: String):
 					center_char = "*"
 				
 				# check if it is adjacent to the current node
-				print(row_str_order[i+1])
 				if row_str_order[i+1].is_valid_integer():
 					# check if you are selecting node at (curr_row, curr_col)
 					center_char = row_str_order[i+1]

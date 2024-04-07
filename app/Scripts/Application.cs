@@ -68,15 +68,23 @@ public override void _Ready() {
 	
 	// Load events
 	Json json_node = GetNode("JSONController") as Json;
-	m_events = json_node.LoadEvents("res://data/events.json", out int num_events);
-	m_nodes = json_node.LoadSeaNodes("res://data/nodes.json", out int num_nodes);
+	m_events = json_node.LoadEvents("res://data/events.json", out int numEvents, out int numWeighted);
+	m_nodes = json_node.LoadSeaNodes("res://data/nodes.json", out int numNodes);
 	
 	// Load event weights
-	m_eventWeights = new float[num_events];
+	m_eventWeights = new float[numWeighted];
+	m_validRandomEvents = new int[numWeighted];
 	m_totalWeight = 0.0f;
-	for (int i = 0; i < num_events; ++i) {
-		m_eventWeights[i] = m_totalWeight;
-		m_totalWeight += m_events[i].Probability;
+
+	for (int i = 0, j = 0; i < numEvents; ++i) {
+		if (m_events[i].Probability > 0) {
+			GD.Print("Event title \"", m_events[i].Title, "\" added to randomValidEvents with weight ", m_totalWeight);
+
+			m_eventWeights[j] = m_totalWeight;
+			m_totalWeight += m_events[i].Probability;
+			m_validRandomEvents[j] = i;
+			++j;
+		}
 	}
 	
 	// Seed randomization
@@ -94,10 +102,10 @@ public override void _Ready() {
 int RandomEvent() {
 	float randomNumber = (float) m_random.NextDouble() * m_totalWeight;
 	int eventIndex = 0;
-	while (eventIndex < m_nodes.Length - 1 && m_eventWeights[eventIndex + 1] < randomNumber) {
+	while (eventIndex < m_eventWeights.Length - 1 && m_eventWeights[eventIndex + 1] < randomNumber) {
 		++eventIndex;
 	}
-	return eventIndex;
+	return m_validRandomEvents[eventIndex];
 }
 
 // UserInput(int)
@@ -236,7 +244,7 @@ private void HandleEventChoice(int choice) {
 	}
 
 	// Invalid choice
-	if (choice < 0 || choice > m_events[m_eventId].NumChoices()) {
+	if (choice < 0 || choice >= m_events[m_eventId].NumChoices()) {
 		return;
 	}
 
@@ -420,6 +428,7 @@ private SeaNode[] m_nodes = null;
 
 private State m_state;
 private Event[] m_events = null;
+private int[] m_validRandomEvents = null;
 private float[] m_eventWeights = null;
 private float m_totalWeight = 0.0f;
 private Random m_random = null;

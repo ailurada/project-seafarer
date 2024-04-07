@@ -10,43 +10,58 @@
 [ext_resource path="res://Scripts/UIManager.gd" type="Script" id=8]
 [ext_resource path="res://Scripts/Application.cs" type="Script" id=9]
 [ext_resource path="res://json.cs" type="Script" id=10]
+[ext_resource path="res://Scripts/StatsBox.gd" type="Script" id=9]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 2 )
 
-[node name="ColorRect" type="ColorRect" parent="."]
+
+
+[node name="ColorRect" type="ColorRect" parent="UIManager"]
+
 margin_right = 1920.0
 margin_bottom = 1094.0
 color = Color( 0.0980392, 0.0980392, 0.0980392, 1 )
 script = ExtResource( 5 )
 
-[node name="DialogueBox" type="Label" parent="."]
+[node name="StatsBox" type="Label" parent="UIManager"]
+margin_left = 500.0
+margin_top = 500.0
+margin_right = 2312.0
+margin_bottom = 543.0
+script = ExtResource( 9 )
+dialogue_box_path = NodePath("../DialogueBox")
+
+[node name="StatsBoxText" type="Label" parent="UIManager/StatsBox"]
+margin_right = 1812.0
+margin_bottom = 1620.0
+script = ExtResource( 4 )
+
+[node name="Map" type="RichTextLabel" parent="UIManager"]
+margin_right = 1092.0
+margin_bottom = 878.0
+bbcode_enabled = true
+script = ExtResource( 6 )
+
+[node name="DialogueBox" type="Label" parent="UIManager"]
 margin_left = 500.0
 margin_top = 500.0
 margin_right = 2312.0
 margin_bottom = 543.0
 script = ExtResource( 3 )
 
-[node name="TerminalArrow" type="RichTextLabel" parent="DialogueBox"]
-margin_left = 493.0
-margin_top = 344.0
-margin_right = 1390.0
-margin_bottom = 752.0
-text = "> "
-script = ExtResource( 7 )
-
-[node name="DialogueBoxText" type="Label" parent="DialogueBox"]
+[node name="DialogueBoxText" type="Label" parent="UIManager/DialogueBox"]
 margin_right = 1812.0
 margin_bottom = 1620.0
 script = ExtResource( 4 )
 
-[node name="TerminalInput" type="TextEdit" parent="DialogueBox"]
-margin_left = 528.0
-margin_top = -64.0
-margin_right = 1408.0
-margin_bottom = 170.0
+[node name="TerminalInput" type="TextEdit" parent="UIManager"]
+margin_left = 1028.0
+margin_top = 436.0
+margin_right = 1908.0
+margin_bottom = 670.0
 theme = ExtResource( 2 )
 script = ExtResource( 1 )
 text_output_path = NodePath("../TerminalArrow")
@@ -70,3 +85,11 @@ map_path = NodePath("../../Map")
 user_input_path = NodePath("../../DialogueBox/TerminalInput")
 dialogue_box_path = NodePath("../../DialogueBox")
 game_manager_path = NodePath("..")
+
+[node name="TerminalArrow" type="RichTextLabel" parent="UIManager"]
+margin_left = 993.0
+margin_top = 844.0
+margin_right = 1890.0
+margin_bottom = 1252.0
+text = "> "
+script = ExtResource( 7 )

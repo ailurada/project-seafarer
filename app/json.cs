@@ -118,7 +118,6 @@ public class Json : Node
 			for (; j < numFailures; ++j) {
 				failureList[j] = int.Parse((string)failureArr[j]);
 			}
-
 			Event newEvent = new Event(
 				i,
 				(string)eventInfo["title"],
@@ -136,6 +135,8 @@ public class Json : Node
 
 			if (float.Parse((string)eventInfo["probability"]) > 0) 
 				++weighted;
+
+			newEvent.PrintEvent();
 
 			eventList[i] = newEvent;
 		}

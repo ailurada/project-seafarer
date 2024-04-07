@@ -40,7 +40,7 @@ public class Event
 		
 	// For debug purposes only
 	public void PrintEvent() {
-		GD.Print("ID: ", ID, ", Probability: ", Probability.ToString(), ", Title: ", Title, ", Description: ", Description);
+		GD.Print("ID: ", ID, ", Probability: ", Probability.ToString(), ", Title: ", Title, ", Description: ", Description, ", DF: ", DeltaFood, ", DG: ", DeltaGold, ", DH: ", DeltaHealth);
 
 		for (int i = 0; i < ChoiceDescriptions.Length; ++i) {
 			GD.Print(ChoiceDescriptions[i], ": ", ChoiceSuccess[i]);

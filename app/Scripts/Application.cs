@@ -82,6 +82,8 @@ public override void _Ready() {
 	m_random = new Random();
 	
 	PrintMap();
+	
+	
 	}
 	catch(Exception e) {GD.Print(e);}
 }
@@ -186,6 +188,15 @@ private void EventChoiceHandler(int choice) {
 	if (m_eventId == -1) {
 		m_state = State.WAIT_CHOICE_NODE;
 		PrintMap();
+		
+		if (m_food <= 0) {
+			health -= 10;
+			// starving event
+			m_node.Call("draw_event", m_events[14].GetTitle(), m_events[14].GetDescription(), m_events[14].GetChoiceDescriptions());
+		}
+		
+		CheckEndCondition();
+		
 		return;		
 	}
 	if (choice < 0 || choice > m_events[m_eventId].NumChoices()) {
@@ -197,12 +208,20 @@ private void EventChoiceHandler(int choice) {
 	if (dest == -1) {
 		m_state = State.WAIT_CHOICE_NODE;
 		PrintMap();
+		
+		if (m_food <= 0) {
+			health -= 10;
+			// starving event
+			m_node.Call("draw_event", m_events[14].GetTitle(), m_events[14].GetDescription(), m_events[14].GetChoiceDescriptions());
+		}
+		
+		CheckEndCondition();
 	}
 	else {
 		m_food += m_events[m_eventId].GetDeltaFood();
 		m_gold += m_events[m_eventId].GetDeltaGold();
 		m_health += m_events[m_eventId].GetDeltaHealth();
-		GameOver();
+		CheckEndCondition();
 		
 		m_node.Call("draw_event", m_events[m_eventId].GetTitle(), m_events[m_eventId].GetDescription(), m_events[m_eventId].GetChoiceDescriptions());
 

@@ -9,6 +9,7 @@
     "delta_gold": "0",
     "delta_health": "0"
   },
+
   "1": {
     "title": "Ambush!",
     "description": "The ship has been following you for some time suddenly raises their skull-and-crossbone flag!",
@@ -124,15 +125,80 @@
       "delta_health": "0",
     },
 
-    "12": {
-        "title": "Share the Wealth",
-        "description": "You offer them some money for food and supples. They are grateful for your help.",
-        "probability": "0",
-        "choice_descriptions": [ "Glad to help!" ],
-        "choice_destinations": [ "-1"],
-        "delta_food": "0",
-        "delta_gold": "-10",
-        "delta_health": "0",
-      },
+  "12": {
+      "title": "Share the Wealth",
+      "description": "You offer them some money for food and supples. They are grateful for your help.",
+      "probability": "0",
+      "choice_descriptions": [ "Glad to help!" ],
+      "choice_destinations": [ "-1"],
+      "delta_food": "0",
+      "delta_gold": "-10",
+      "delta_health": "0",
+    },
+
+  "13": {
+      "title": "Game Over...?",
+      "description": "You feel your health failing...Is this the end?",
+      "probability": "0",
+      "choice_descriptions": [ "..." ],
+      "choice_destinations": [ "-1"],
+      "delta_food": "0",
+      "delta_gold": "0",
+      "delta_health": "0",
+    },
+
+  "14": {
+      "title": "Am I Starving?",
+      "description": "You open the pantry to find...no food. Your stomach growls, and you feel your health wane.",
+      "probability": "0",
+      "choice_descriptions": [ "..." ],
+      "choice_destinations": [ "-1"],
+      "delta_food": "0",
+      "delta_gold": "0",
+      "delta_health": "-10",
+    },
+  "15": {
+      "title": "Respawn",
+      "description": "You wake up...where? You feel better—someone must have helped you while you were out.",
+      "probability": "0",
+      "choice_descriptions": [ "...Where am I?" ],
+      "choice_destinations": [ "-1"],
+      "delta_food": "0",
+      "delta_gold": "0",
+      "delta_health": "200",
+    },
+
+  "16": {
+      "title": "Bubbling Water",
+      "description": "You see some bubbles coming up from the ocean.",
+      "probability": "1.0",
+      "choice_descriptions": [ "Fish!", "Keep rowing" ],
+      "choice_destinations": [ "-1"],
+      "delta_food": "0",
+      "delta_gold": "0",
+      "delta_health": "0",
+    },
+
+  "17": {
+      "title": "Fishing Spot",
+      "description": "You throw out your line, just the way mom taught you. You pull up a large, wriggling fish.",
+      "probability": "0",
+      "choice_descriptions": [ "Score!" ],
+      "choice_destinations": [ "-1"],
+      "delta_food": "5",
+      "delta_gold": "0",
+      "delta_health": "0",
+    },
+
+  "18": {
+      "title": "Sailing the High Seas",
+      "description": "You continue to sail the ocean. It looks beautiful today.",
+      "probability": "0",
+      "choice_descriptions": [ "I miss my mom..." ],
+      "choice_destinations": [ "-1"],
+      "delta_food": "0",
+      "delta_gold": "0",
+      "delta_health": "0",
+    }
 
 }

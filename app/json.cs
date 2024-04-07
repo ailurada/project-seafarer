@@ -1,6 +1,7 @@
 // json.cs
 //
-// Implements JSON functions and the ability to load SeaNodes from files.
+// Implements JSON functions and the ability to 
+// load SeaNodes and events from files.
 
 using Godot;
 using System;
@@ -21,6 +22,7 @@ public class json : Node
 		return dict;
 	}
 
+		
 	// Given a filePath, read all the JSON from the file and translate it
 	// into a list of nodes.
 	SeaNode[] LoadSeaNodes(string filePath, out int amount) {
@@ -39,12 +41,10 @@ public class json : Node
 			int adjCount = adjArray.Count;
 			int j = 0;
 
-			int[] adjList = new int[adjCount + 1];
+			int[] adjList = new int[adjCount];
 
 			for (; j < adjCount; ++j)
 				adjList[j] = Int32.Parse((string)adjArray[j]);
-
-			adjList[j] = -1;
 
 			SeaNode newNode = new SeaNode(
 				i,
@@ -61,15 +61,65 @@ public class json : Node
 		return nodeList;
 	}
 
+	Event[] LoadEvents(string filePath, out int amount) {
+		Godot.Collections.Dictionary dict = readJSON(filePath);
+		int amtEvents = dict.Count;
+		amount = amtEvents;
+		Event[] eventList = new Event[amtEvents];
+
+		// For each event in the JSON file, translate to an Event object and store in the array.
+		for (int i = 0; i < amtEvents; ++i) {
+			var eventInfo = dict[i.ToString()] as Godot.Collections.Dictionary;
+
+			// Translate choice descriptions to a string array
+			var descArr = eventInfo["choice_descriptions"] as Godot.Collections.Array;
+
+			int numDescs = descArr.Count;
+			string[] descList = new string[numDescs];
+
+			int j = 0;
+			for (; j < numDescs; ++j) {
+				descList[j] = (string)descArr[j];
+			}
+
+			// Translate choice destinations to a string array
+			var destArr = eventInfo["choice_destinations"] as Godot.Collections.Array;
+
+			int numDests = destArr.Count;
+			int[] destList = new int[numDests];
+
+			j = 0;
+			for (; j < numDests; ++j) {
+				destList[j] = Int32.Parse((string)destArr[j]);
+			}
+
+			Event newEvent = new Event(
+				i,
+				(string)eventInfo["title"],
+				(string)eventInfo["description"],
+				float.Parse((string)eventInfo["probability"]),
+				descList,
+				destList
+			);
+
+			eventList[i] = newEvent;
+		}
+
+		return eventList;
+	}
+
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		int numNodes = 0;
-		var nodes = LoadSeaNodes("res://data/nodes.json", out numNodes);
+		int numEvents = 0;
 
-		for (int i = 0; i < numNodes; ++i) {
-			nodes[i].printNode();
-		}
+		var nodes = LoadSeaNodes("res://data/nodes.json", out numNodes);
+		var events = LoadEvents("res://data/events.json", out numEvents);
+
+		for (int i = 0; i < numEvents; ++i)
+			events[i].printEvent();
 
 	}
 }

@@ -2,13 +2,14 @@ extends Label
 
 var chars_per_update = 1
 var char_width_px = 20
-var pt_size = 30
+var pt_size = 32
 
 # sets text to be displayed in the dialogue box
 func set_text(text):
 	self.text = text
 
 func update_size(border_size):
+	# update rectangle size
 	self.rect_size.x = border_size.x - char_width_px*6 - 10
 	self.rect_size.y = border_size.y - pt_size*2
 	
@@ -18,7 +19,7 @@ func update_position():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	self.text  = "something or other. some more stuff and stuff. and also some stuffsomething or other. somesomething or other. somesomething or other. some"
+	self.text  = "something or other. ssoother. ssoother. ssoother. ssoother. ssoother. ssoother. ssoother. ssomething or other. somesomething or other."
 
 	self.autowrap = true
 	
@@ -34,6 +35,8 @@ func _process(delta):
 	var border_size = get_parent().rect_size
 	update_size(border_size)
 	update_position()
+	
+	print(self.get_line_count())
 
 	
 	

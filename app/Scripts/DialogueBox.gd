@@ -1,20 +1,35 @@
 extends Label
 
+enum {BOTTOM, RIGHT}
+
+
 var char_width_px = 20
-var num_rows = 5
-var pt_size = 30
+var num_rows = 8
+var pt_size = 32
+
+var location = BOTTOM
 
 var top_border = "=="
 var space = ""
 
-func generate_border(width_px):
+func get_desired_width():
+	if self.location == BOTTOM:
+		return get_viewport().size.x/char_width_px
+	else:
+		var box_width_px = get_viewport().size.x/3
+		return box_width_px/char_width_px
+	
+
+func generate_border():
 
 	top_border = "=="
 	space = ""
 	
 	var new_border = ""
 	
-	for i in range(width_px/char_width_px - 2):
+	var width_char = get_desired_width() 
+	
+	for i in range(width_char - 2):
 		top_border += "="
 		space += " "
 	
@@ -33,14 +48,16 @@ func update_size():
 
 # put dialogue box at bottom
 func update_position(win_width, win_height):
-	self.rect_position.x = (win_width - self.rect_size.x)/2
-	self.rect_position.y = win_height - self.rect_size.y - pt_size - 15
+	if location == BOTTOM:
+		self.rect_position.x = (win_width - self.rect_size.x)/2
+		self.rect_position.y = win_height - self.rect_size.y - pt_size - 15
 	
+	elif location == RIGHT:
+		self.rect_position.x = win_width - self.rect_size.x - char_width_px*2
+		self.rect_position.y = 0 + pt_size
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var win_width = get_viewport().size.x
-	generate_border(win_width)
 	self.align = Label.ALIGN_CENTER
 	
 
@@ -50,7 +67,7 @@ func _process(delta):
 	var win_width = viewport_size.x
 	var win_height = viewport_size.y
 
-	generate_border(win_width)
+	generate_border()
 	update_size()
 	update_position(win_width, win_height)
 

@@ -78,25 +78,27 @@ func update_option_positions():
 func set_box_location(location):
 	self.location = location
 
-# call to show dialogue box with given description and options
-func show_dialogue(description, option_strings):
-	self.dialogue_box_text.set_text(description)
-	
-	# create options objects
+func initialize_options(option_strings):
+
 	for i in range(len(option_strings)):
 		self.options.append(RichTextLabel.new())
 		self.options[i].bbcode_enabled = true
-		self.options[i].set_bbcode(option_strings[i])
-		
+		self.options[i].set_bbcode("[" + String(i+1) + "] " + option_strings[i])
+
 		self.options[i].rect_size.x = 500
 		self.options[i].rect_size.y = 50
 		add_child(options[i])
 		
+# call to show dialogue box with given description and options
+func show_dialogue(description, option_strings):
+	self.dialogue_box_text.set_text(description)
+	
+	initialize_options(option_strings)
 	update_option_positions()
 		
 	self.show()
-# call to hide dialogue when no longer needed (cleanup)
 
+# call to hide dialogue when no longer needed (cleanup)
 func hide_dialogue():
 	self.text = ""
 	self.hide()
@@ -108,7 +110,7 @@ func highlight_option(option_num):
 		options[i].set_bbcode(clean_text)
 	
 	if option_num != 0:
-		options[option_num-1].set_bbcode("[color=lime]" + options[option_num].bbcode_text)
+		options[option_num-1].set_bbcode("[color=lime]" + options[option_num-1].bbcode_text)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -120,8 +122,8 @@ func _ready():
 	update_size()
 	update_position(win_width, win_height)
 	update_option_positions()
-	show_dialogue("nys omeome funnyso  ome fuy s ome funnysome e funny", ["[1] alsdkfjal","[2] thing 1","[1] alsdkfjal","[2] thing 1"])
-	highlight_option(0)	
+	show_dialogue("nys omeome funnyso  ome fuy s ome funnysome e funny", ["alsdkfjal","aa 1","alsdkfjal","thing 1"])
+	highlight_option(2)	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

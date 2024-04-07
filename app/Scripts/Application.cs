@@ -65,7 +65,7 @@ public override void _Ready() {
 	}
 	
 	// Load events
-	json json_node = GetNode("JSONController") as json;
+	Json json_node = GetNode("JSONController") as Json;
 	m_events = json_node.LoadEvents("res://data/events.json", out int num_events);
 	m_nodes = json_node.LoadSeaNodes("res://data/nodes.json", out int num_nodes);
 	

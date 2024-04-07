@@ -4,13 +4,12 @@
 // load SeaNodes and events from files.
 
 using Godot;
-using System;
 
-public class json : Node
+public class Json : Node
 {
 	// Given a filePath, read the JSON from the file and return the 
 	// JSON as a dictionary.
-	Godot.Collections.Dictionary readJSON(string filePath) {
+	Godot.Collections.Dictionary ReadJSON(string filePath) {
 		File file = new File();
 		file.Open(filePath, File.ModeFlags.Read);
 		string rawJSON = file.GetAsText();
@@ -26,7 +25,7 @@ public class json : Node
 	// Given a filePath, read all the JSON from the file and translate it
 	// into a list of nodes.
 	public SeaNode[] LoadSeaNodes(string filePath, out int amount) {
-		Godot.Collections.Dictionary dict = readJSON(filePath);
+		Godot.Collections.Dictionary dict = ReadJSON(filePath);
 		int amtNodes = dict.Count;
 		amount = amtNodes;
 		SeaNode[] nodeList = new SeaNode[amtNodes];
@@ -62,10 +61,14 @@ public class json : Node
 		return nodeList;
 	}
 
-	public Event[] LoadEvents(string filePath, out int amount) {
-		Godot.Collections.Dictionary dict = readJSON(filePath);
+	// Given a filePath, read all the JSON from the file and translate it
+	// into a list of events. Returns total number of events, and total number of WEIGHTED events.
+	public Event[] LoadEvents(string filePath, out int amount, out int weighted) {
+		Godot.Collections.Dictionary dict = ReadJSON(filePath);
 		int amtEvents = dict.Count;
 		amount = amtEvents;
+		weighted = 0;
+
 		Event[] eventList = new Event[amtEvents];
 
 		// For each event in the JSON file, translate to an Event object and store in the array.
@@ -83,29 +86,57 @@ public class json : Node
 				descList[j] = (string)descArr[j];
 			}
 
-			// Translate choice destinations to a string array
-			var destArr = eventInfo["choice_destinations"] as Godot.Collections.Array;
+			// Translate choice success __chances__ to a float array
+			var chanceArr = eventInfo["choice_success_chance"] as Godot.Collections.Array;
 
-			int numDests = destArr.Count;
-			int[] destList = new int[numDests];
+			int numChances = chanceArr.Count;
+			float[] chanceList = new float[numChances];
 
 			j = 0;
-			for (; j < numDests; ++j) {
-				destList[j] = Int32.Parse((string)destArr[j]);
+			for(; j < numChances; ++j) {
+				chanceList[j] = float.Parse((string)chanceArr[j]);
 			}
 
+			// Translate choice successes to a int array
+			var successArr = eventInfo["choice_success"] as Godot.Collections.Array;
+
+			int numSuccesses = successArr.Count;
+			int[] successList = new int[numSuccesses];
+
+			j = 0;
+			for (; j < numSuccesses; ++j) {
+				successList[j] = int.Parse((string)successArr[j]);
+			}
+
+			// Translate choice failures to an int array
+			var failureArr = eventInfo["choice_failure"] as Godot.Collections.Array;
+
+			int numFailures = failureArr.Count;
+			int[] failureList = new int[numFailures];
+
+			j = 0;
+			for (; j < numFailures; ++j) {
+				failureList[j] = int.Parse((string)failureArr[j]);
+			}
 			Event newEvent = new Event(
 				i,
 				(string)eventInfo["title"],
 				(string)eventInfo["description"],
 				float.Parse((string)eventInfo["probability"]),
 				descList,
-				destList,
+				chanceList,
+				successList,
+				failureList,
 				int.Parse((string)eventInfo["delta_food"]),
 				int.Parse((string)eventInfo["delta_gold"]),
 				int.Parse((string)eventInfo["delta_health"]),
 				(string)eventInfo["ascii"]
 			);
+
+			if (float.Parse((string)eventInfo["probability"]) > 0) 
+				++weighted;
+
+			newEvent.PrintEvent();
 
 			eventList[i] = newEvent;
 		}
@@ -117,14 +148,6 @@ public class json : Node
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		int numNodes = 0;
-		int numEvents = 0;
-
-		var nodes = LoadSeaNodes("res://data/nodes.json", out numNodes);
-		var events = LoadEvents("res://data/events.json", out numEvents);
-
-		//for (int i = 0; i < numEvents; ++i)
-		//	events[i].printEvent();
-
+		// Nada
 	}
 }

@@ -309,7 +309,7 @@
       "delta_food": "0",
       "delta_gold": "0",
       "delta_health": "0",
-      "ascii": "           ___\n /   \\\n |  _/( )5500\n |_/ 7       400 \n 7    __     4               \n 0055(*)   / _|   ( )           ( ) \n ___ 7___  __ _| |_ __ _/_ __ ___ _ __ 4\n / __|/ _ \\/ _` |  _/ _` | '__/ _ \\ '__| 1\n \\__ \\  __/ (_| | || (_| | | |  __/ |5007   \n |___/\\___|\\__,_|_| \\__,_|_| 7\\___|_|\n 7                 0007    7  _      \n ( )                7      ( )0/ \\ \n ( )555007 /    |\n \\___/\n"
+      "ascii": "           ___\n          /   \\\n          |  _/( )5500\n          |_/ 7       400\n             7    __     4\n       0055[color=yellow](*)[color=white]    / _|   ( )           ( )\n  ___ 7___  __ _| |_ __ _/_ __ ___ _ __ 4\n / __|/ _ \\/ _` |  _/ _` | '__/ _ \\ '__| 1\n \\__ \\  __/ (_| | || (_| | | |  __/ |5007\n |___/\\___|\\__,_|_| \\__,_|_| 7\\___|_|\n  7                 0007    7  _\n( )                7      ( )0/ \\\n                  ( )555007 /    |\n                            \\___/\n"
   },
   "23": {
       "title": "",
@@ -709,7 +709,7 @@
         "description": "Mermaid President: Wow, you guys are legendary here! Please take accept some gifts, and tell your people that we only mean peace.",
         "probability": "0.0",
         "choice_descriptions": [ "Thank you..?" ],
-        "choice_success_chance": [ "1.0"" ],
+        "choice_success_chance": [ "1.0" ],
         "choice_success": [ "47" ],
         "choice_failure": [ "47" ],
         "delta_food": "10",

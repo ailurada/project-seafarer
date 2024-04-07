@@ -14,6 +14,7 @@ onready var dialogue_box_text = $DialogueBoxText
 
 onready var options = []
 
+
 # helper func to calculate width of dialogue box in units of char-widths
 func get_desired_width():
 	if self.location == BOTTOM:
@@ -85,7 +86,7 @@ func initialize_options(option_strings):
 		self.options[i].bbcode_enabled = true
 		self.options[i].set_bbcode("[" + String(i+1) + "] " + option_strings[i])
 
-		self.options[i].rect_size.x = 500
+		self.options[i].rect_size.x = 2*self.rect_size.x - 4 * char_width_px
 		self.options[i].rect_size.y = 50
 		add_child(options[i])
 		
@@ -94,10 +95,12 @@ func show_dialogue(description, option_strings):
 	self.dialogue_box_text.set_text(description)
 	
 	self.hide_dialogue()
+	self.show()
 	initialize_options(option_strings)
 	update_option_positions()
+	dialogue_box_text.reset_scroll()
 		
-	self.show()
+	
 
 # call to hide dialogue when no longer needed (cleanup)
 func hide_dialogue():

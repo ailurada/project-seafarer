@@ -7,7 +7,7 @@ var char_width_px = 20
 var num_rows = 8
 var pt_size = 32
 const NUM_STATS = 3
-const STATS = ["Health", "Food", "Money"]
+const STATS = ["Health", "Food", "Gold"]
 
 var top_border = "=="
 var space = ""

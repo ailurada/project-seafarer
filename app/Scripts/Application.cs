@@ -59,8 +59,25 @@ public void Initialize() {
 		}
 		++index;
 	}
+	
+	m_eventWeights = new float[m_nodes.Length];
+	m_totalWeight = 0.0;
+	for (int i = 0; i < m_nodes.Length; ++i) {
+		m_eventWeights[i] = m_totalWeight;
+		m_totalWeight += m_nodes[i].GetProbability();
+	}
+	
+	m_random = new Random();
 }
 
+int RandomEvent() {
+	float randomNumber = m_random.NextDouble() * m_totalWeight;
+	int eventIndex = 0;
+	while (eventIndex < m_nodes.Length - 1 && m_eventWeights[eventIndex + 1] < randomNumber) {
+		++eventIndex;
+	}
+	return eventIndex;
+}
 
 // UserInput(int)
 // Handles the given user input, received as an integer input.
@@ -128,12 +145,7 @@ private void TravelEdge(int destination) {
 	m_map[m_nodes[destination].Row, m_nodes[destination].Col] = '@';
 
 	// using System // needed for random
-	Random random = new Random(); // move to init
-	int randomNumber = random.Next(0, 19);
-
-	// mapping data structure (array) during event init
-	// EventId fired = ...;
-
+	int fired = RandomEvent();
 	
 	m_food += m_events[fired].GetDeltaFood();
 	m_gold += m_events[fired].GetDeltaGold();
@@ -249,7 +261,9 @@ private SeaNode[] m_nodes = null;
 
 private State m_state = WAIT_CHOICE_NODE;
 private Event[] m_events = null;
-
+private float[] m_eventWeights = null;
+private float totalWeight = 0.0;
+private Random m_random = null;
 
 // USER RESOURCES
 private int m_nodeId = -1;

@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/UserInput.gd" type="Script" id=1]
 [ext_resource path="res://Resources/DefaultFont.tres" type="Theme" id=2]
 [ext_resource path="res://Scripts/DialogueBox.gd" type="Script" id=3]
 [ext_resource path="res://Scripts/DialogueBoxText.gd" type="Script" id=4]
 [ext_resource path="res://Scripts/ColorRect.gd" type="Script" id=5]
-[ext_resource path="res://Scripts/TerminalArrow.gd" type="Script" id=6]
+[ext_resource path="res://Scripts/Map.gd" type="Script" id=6]
+[ext_resource path="res://Scripts/TerminalArrow.gd" type="Script" id=7]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -33,7 +34,7 @@ margin_top = 344.0
 margin_right = 1390.0
 margin_bottom = 752.0
 text = "> "
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 
 [node name="DialogueBoxText" type="Label" parent="DialogueBox"]
 margin_right = 1812.0

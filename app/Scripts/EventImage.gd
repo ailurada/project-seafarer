@@ -11,14 +11,21 @@ const IMG_SIZE = 19
 
 export var dialogue_box_path: NodePath
 var dialogue_box: Node
+var is_centered = false
 
 const edge_mapping = {'0': "_", '1': "|", '4': "\\", '5': "-", '7': "/"}
 const GROUND = "white"
 const EDGE_COLOR = "gray"
 
-func show_image(image_str: String):
+func show_image_parsed(image_str: String):
 	self.show()
 	self.set_bbcode(_parse_string(image_str))
+	is_centered = true
+	
+func show_image(image_str: String):
+	self.show()
+	self.text = image_str
+	is_centered = false
 
 func hide_image():
 	self.hide()
@@ -29,7 +36,11 @@ func _ready():
 	
 # put above dialogue box
 func _update_position(win_width, win_height):
-	self.rect_position.x = dialogue_box.rect_position.x
+	if (is_centered):
+		self.rect_position.x = dialogue_box.rect_position.x + win_width * 0.2
+	else:
+		self.rect_position.x = dialogue_box.rect_position.x
+		
 	self.rect_position.y = dialogue_box.rect_position.y - (IMG_SIZE + 1) * pt_size
 	
 	

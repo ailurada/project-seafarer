@@ -16,6 +16,9 @@ func update_size(border_size):
 func update_position():
 	self.rect_position.x = 0 + char_width_px*4
 	self.rect_position.y = 0 + pt_size*1.5
+	
+func reset_scroll():
+	self.visible_characters = 0;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,7 +27,7 @@ func _ready():
 	self.autowrap = true
 	
 	# start with text not visible
-	self.visible_characters = 0;
+	self.reset_scroll();
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

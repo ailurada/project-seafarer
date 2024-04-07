@@ -8,11 +8,11 @@ using System;
 public class SeaNode {
 
 	public SeaNode() {
-		id = -1;
-		eventID = -1;
-		name = "null";
-		description = "null";
-		visited = false;
+		ID = -1;
+		EventID = -1;
+		Name = "null";
+		Description = "null";
+		Visited = false;
 	}
 
 	// SeaNode(int, int, string, string, bool)
@@ -24,18 +24,18 @@ public class SeaNode {
 	// name:	       The node's title/name
 	// description:    The flavor text description of the node
 	// visited:	       The status of the node (has this node been visited yet?)
-	public SeaNode(int ID, int eid, string coords, string title, string desc, int[] adjacent, bool seen) {
-		id = ID;
-		eventID = eid;
-		name = title;
-		description = desc;
-		adjList = adjacent;
-		visited = seen;
+	public SeaNode(int id, int eid, string coords, string name, string description, int[] adjacent, bool visited) {
+		ID = ID;
+		EventID = eid;
+		Name = name;
+		Description = description;
+		AdjList = adjacent;
+		Visited = visited;
 
 		// Split the input coord string into two, parse and store
 		string[] coordStrings = coords.Split(',');
-		_row = Int32.Parse(coordStrings[0]);
-		_col = Int32.Parse(coordStrings[1]);
+		Row = int.Parse(coordStrings[0]);
+		Col = int.Parse(coordStrings[1]);
 	}
 
 	~SeaNode() {
@@ -43,51 +43,29 @@ public class SeaNode {
 	}
 
 	// For debug purposes only.
-	public void printNode() {
-		GD.Print("ID: ", id, ", EID: ", eventID, ", Name: ", name, ", Description: ", description, ", visited: ", visited);
+	public void PrintNode() {
+		GD.Print("ID: ", ID, ", EID: ", EventID, ", Name: ", Name, ", Description: ", Description, ", visited: ", Visited);
 		GD.Print("ADJACENCY LIST: ");
-		printAdjNodes();
+		PrintAdjNodes();
 	}
 
-	public void printAdjNodes() {
-		for (int i = 0; adjList[i] != -1; ++i) {
-			GD.Print(adjList[i]);
+	public void PrintAdjNodes() {
+		for (int i = 0; AdjList[i] != -1; ++i) {
+			GD.Print(AdjList[i]);
 		}
 	}
 	
-	public string GetName() {
-		return name;
-	}
-
-	public string GetDescription() {
-		return description;
-	}
-		
-	public int[] GetAdjacencyList() {
-		return adjList;
-	}
-	
 	public void Visit() {
-		visited = true;
+		Visited = true;
 	}
 
 
-	// Get the position of the current SeaNode
-	private int id;
-	private int eventID;
-	private int _row;
-	private int _col;
-	private string name;
-	private string description;
-	private int[] adjList;
-	private bool visited;
-	
-	public int Row {
-		get { return _row; }
-		set { _row = value; }
-	}
-	public int Col {
-		get { return _col; }
-		set { _col = value; }
-	}
+	public int ID { get; }
+	public int EventID { get; }
+	public int Row { get; }
+	public int Col { get; }
+	public string Name { get; }
+	public string Description { get; }
+	public int[] AdjList { get; }
+	public bool Visited { get; set; }
 };

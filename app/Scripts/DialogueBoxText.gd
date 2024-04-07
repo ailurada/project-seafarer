@@ -19,7 +19,7 @@ func update_position():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	self.text  = "something or other. ssoother. ssoother. ssoother. ssoother. ssoother. ssoother. ssoother. ssomething or other. somesomething or other."
+	self.text = "something or other. ssoother. ssoother. ssoother. ssoother. ssoother. ssoother. ssoother. ssomething or other. somesomething or other."
 
 	self.autowrap = true
 	
@@ -35,8 +35,7 @@ func _process(delta):
 	var border_size = get_parent().rect_size
 	update_size(border_size)
 	update_position()
-	
-	print(self.get_line_count())
+
 
 	
 	

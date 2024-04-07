@@ -27,6 +27,18 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_just_released("enter"):
-			text_output.text += self.text.substr(0, self.text.length() - 1) + "\n> "
-			self.text = ""
-			self.rect_position += Vector2(0, line_width)
+		execute_command()
+			
+func execute_command():
+	var command = see_command()
+	
+	## temp
+	text_output.text = command
+	self.bbcode_text = ""
+	self.rect_position += Vector2(0, line_width)
+	##
+	
+	return command
+	
+func see_command():
+	return self.bbcode_text.substr(0, self.bbcode_text.length() - 1) + "\n> "

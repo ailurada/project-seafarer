@@ -23,7 +23,8 @@ const test_num_cols = 30
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	draw_map(test_map, [[1, 9], [2, 28], [6, 29], [9, 10]], test_num_cols, test_num_rows)
+	#draw_map(test_map, [[1, 9], [2, 28], [6, 29], [9, 10]], test_num_cols, test_num_rows)
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -62,26 +63,27 @@ func redraw_map():
 	node_number = 1
 	
 	# Top horizontal line
-	for i in range(num_rows + 2):
+	for i in range(num_cols + 2):
 		self.append_bbcode("_")
 	self.append_bbcode("\n")
 	
 	var map_str_array = map_str.split("\n")
 	
 	# Add lines row by row
-	for n in range(num_cols):
+	for n in range(num_rows):
 		self.append_bbcode("|")
 		_add_row(map_str_array[n], n)
 		self.append_bbcode("|\n")
 		
 	# Bottom horizontal line
-	for i in range(num_rows + 2):
+	for i in range(num_cols + 2):
 		self.append_bbcode("‾")
 
 
 # Adds a single row to the RichTextLabel
 # given a string representation and the current row
 func _add_row(row_str: String, curr_row: int):
+	print(len(row_str))
 	var str_length = len(row_str)
 	var i = 0
 	while i < str_length:

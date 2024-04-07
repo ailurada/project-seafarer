@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/UserInput.gd" type="Script" id=1]
 [ext_resource path="res://Resources/DefaultFont.tres" type="Theme" id=2]
@@ -9,13 +9,12 @@
 [ext_resource path="res://Scripts/TerminalArrow.gd" type="Script" id=7]
 [ext_resource path="res://Scripts/UIManager.gd" type="Script" id=8]
 [ext_resource path="res://Scripts/Application.cs" type="Script" id=9]
+[ext_resource path="res://json.cs" type="Script" id=10]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 2 )
-
-[node name="JSON Controller" type="Node" parent="."]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 1920.0
@@ -59,11 +58,14 @@ margin_bottom = 878.0
 bbcode_enabled = true
 script = ExtResource( 6 )
 
-[node name="UIManager" type="Node" parent="."]
-script = ExtResource( 8 )
-map_path = NodePath("../Map")
-user_input_path = NodePath("../DialogueBox/TerminalInput")
-dialogue_box_path = NodePath("../DialogueBox")
-
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource( 9 )
+
+[node name="JSONController" type="Node" parent="GameManager"]
+script = ExtResource( 10 )
+
+[node name="UIManager" type="Node" parent="GameManager"]
+script = ExtResource( 8 )
+map_path = NodePath("../../Map")
+user_input_path = NodePath("../../DialogueBox/TerminalInput")
+dialogue_box_path = NodePath("../../DialogueBox")

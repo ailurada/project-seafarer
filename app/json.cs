@@ -25,7 +25,7 @@ public class json : Node
 		
 	// Given a filePath, read all the JSON from the file and translate it
 	// into a list of nodes.
-	SeaNode[] LoadSeaNodes(string filePath, out int amount) {
+	public SeaNode[] LoadSeaNodes(string filePath, out int amount) {
 		Godot.Collections.Dictionary dict = readJSON(filePath);
 		int amtNodes = dict.Count;
 		amount = amtNodes;
@@ -62,7 +62,7 @@ public class json : Node
 		return nodeList;
 	}
 
-	Event[] LoadEvents(string filePath, out int amount) {
+	public Event[] LoadEvents(string filePath, out int amount) {
 		Godot.Collections.Dictionary dict = readJSON(filePath);
 		int amtEvents = dict.Count;
 		amount = amtEvents;
@@ -122,8 +122,8 @@ public class json : Node
 		var nodes = LoadSeaNodes("res://data/nodes.json", out numNodes);
 		var events = LoadEvents("res://data/events.json", out numEvents);
 
-		for (int i = 0; i < numEvents; ++i)
-			events[i].printEvent();
+		//for (int i = 0; i < numEvents; ++i)
+		//	events[i].printEvent();
 
 	}
 }

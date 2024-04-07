@@ -1,6 +1,6 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seafarer", "Seafarer.csproj", "{2FF045D2-1D16-4898-A88B-0C2150581DA0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seafarer", "Seafarer.csproj", "{87A29C13-B0B3-40B2-A5A8-D0868DC5A92B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,11 +9,11 @@ Global
 	ExportRelease|Any CPU = ExportRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2FF045D2-1D16-4898-A88B-0C2150581DA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2FF045D2-1D16-4898-A88B-0C2150581DA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2FF045D2-1D16-4898-A88B-0C2150581DA0}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
-		{2FF045D2-1D16-4898-A88B-0C2150581DA0}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
-		{2FF045D2-1D16-4898-A88B-0C2150581DA0}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
-		{2FF045D2-1D16-4898-A88B-0C2150581DA0}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{87A29C13-B0B3-40B2-A5A8-D0868DC5A92B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87A29C13-B0B3-40B2-A5A8-D0868DC5A92B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87A29C13-B0B3-40B2-A5A8-D0868DC5A92B}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{87A29C13-B0B3-40B2-A5A8-D0868DC5A92B}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{87A29C13-B0B3-40B2-A5A8-D0868DC5A92B}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{87A29C13-B0B3-40B2-A5A8-D0868DC5A92B}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
 	EndGlobalSection
 EndGlobal

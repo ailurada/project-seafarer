@@ -144,7 +144,10 @@ private void HandleNodeChoice(int choice) {
 			return;
 		}
 		Food += 10;
+		m_node.Call("gain_food_effect");
 		Gold -= 10;
+		m_node.Call("lose_gold_effect");
+		
 		if (Food > 100) {
 			Food = 100;
 		}
@@ -160,6 +163,8 @@ private void HandleNodeChoice(int choice) {
 private void TravelEdge(int destination) {
 	m_nodeId = destination;
 	Food -= 10;
+	m_node.Call("lose_food_effect");
+
 	
 	m_nodes[destination].Visit();
 	m_map[m_nodes[destination].Row, m_nodes[destination].Col] = '@';
@@ -168,8 +173,29 @@ private void TravelEdge(int destination) {
 	Event triggeredEvent = m_events[triggered];
 
 	Food += triggeredEvent.DeltaFood;
+	if (triggeredEvent.DeltaFood < 0) {
+		m_node.Call("lose_food_effect");
+	}
+	else if (triggeredEvent.DeltaFood > 0) {
+		m_node.Call("gain_food_effect");
+	}
+
 	Gold += triggeredEvent.DeltaGold;
+	if (triggeredEvent.DeltaGold < 0) {
+		m_node.Call("lose_gold_effect");
+	}
+	else if (triggeredEvent.DeltaGold > 0) {
+		m_node.Call("gain_gold_effect");
+	}
+
 	Health += triggeredEvent.DeltaHealth;
+	if (triggeredEvent.DeltaHealth < 0) {
+		m_node.Call("lose_health_effect");
+	}
+	else if (triggeredEvent.DeltaHealth > 0) {
+		m_node.Call("gain_health_effect");
+	}
+
 	CheckEndCondition();
 	
 	m_node.Call("draw_event", triggeredEvent.Title, triggeredEvent.Description, triggeredEvent.ChoiceDescriptions);
@@ -193,6 +219,7 @@ private void HandleEventChoice(int choice) {
 		
 		if (Food <= 0) {
 			Health -= 10;
+			m_node.Call("lose_health_effect");
 			// starving event
 			m_node.Call("draw_event", m_events[14].Title, m_events[14].Description, m_events[14].ChoiceDescriptions);
 
@@ -230,6 +257,9 @@ private void HandleEventChoice(int choice) {
 		
 		if (Food <= 0) {
 			Health -= 10;
+			
+			m_node.Call("lose_health_effect");
+			
 			// starving event
 			m_node.Call("draw_event", m_events[14].Title, m_events[14].Description, m_events[14].ChoiceDescriptions);
 
@@ -240,8 +270,29 @@ private void HandleEventChoice(int choice) {
 	else {
 
 		Food += currentEvent.DeltaFood;
+		if (currentEvent.DeltaFood < 0) {
+			m_node.Call("lose_food_effect");
+		}
+		else if (currentEvent.DeltaFood > 0) {
+			m_node.Call("gain_food_effect");
+		}
+
 		Gold += currentEvent.DeltaGold;
+		if (currentEvent.DeltaGold < 0) {
+			m_node.Call("lose_gold_effect");
+		}
+		else if (currentEvent.DeltaGold > 0) {
+			m_node.Call("gain_gold_effect");
+		}
+
 		Health += currentEvent.DeltaHealth;
+		if (currentEvent.DeltaHealth < 0) {
+			m_node.Call("lose_health_effect");
+		}
+		else if (currentEvent.DeltaHealth > 0) {
+			m_node.Call("gain_health_effect");
+		}
+		
 		CheckEndCondition();
 		
 		m_node.Call("draw_event", 

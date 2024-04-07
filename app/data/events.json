@@ -119,7 +119,7 @@
     },
 
     "9": {
-        "title": "They Needed Your Help",
+        "title": "They Need Your Help",
         "description": "It is a stranded sailor. They look to be about your age, ragged and hungry.",
         "probability": "0",
         "choice_success_chance": [ "1.0","1.0","1.0" ],

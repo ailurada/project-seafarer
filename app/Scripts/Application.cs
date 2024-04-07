@@ -217,11 +217,8 @@ private void TravelEdge(int destination) {
 // =============================================
 // choice:    User's choice.
 private void HandleEventChoice(int choice) {
-	GD.Print("Event Handler Called: ", choice);
-
 	// If the event is no choice
 	if (m_eventId == -1) {
-		GD.Print("No choice");
 		m_state = State.WAIT_CHOICE_NODE;
 		PrintMap();
 		
@@ -240,7 +237,6 @@ private void HandleEventChoice(int choice) {
 
 	// Invalid choice
 	if (choice < 0 || choice > m_events[m_eventId].NumChoices()) {
-		GD.Print("Invalid");
 		return;
 	}
 
@@ -251,18 +247,15 @@ private void HandleEventChoice(int choice) {
 	int dest = currentEvent.ChoiceSuccess[choice];
 
 	if (choiceSuccess != 1.0) {
-		GD.Print("Failure");
 		float randomNumber = (float) m_random.NextDouble();
 		
 		if (randomNumber > choiceSuccess) {
 			dest = currentEvent.ChoiceFailure[choice];
 		}
 	}
-	GD.Print("Success");
 
 	// Return to map
 	if (dest == -1) {
-		GD.Print("Return to Map");
 		m_state = State.WAIT_CHOICE_NODE;
 		PrintMap();
 		
@@ -305,8 +298,6 @@ private void HandleEventChoice(int choice) {
 		}
 		
 		CheckEndCondition();
-
-		GD.Print("Drawing new event #", dest);
 
 		Event nextEvent = m_events[dest];
 		

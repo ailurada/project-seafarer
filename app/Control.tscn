@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/UserInput.gd" type="Script" id=1]
 [ext_resource path="res://Resources/DefaultFont.tres" type="Theme" id=2]
 [ext_resource path="res://Scripts/DialogueBoxBorder.gd" type="Script" id=3]
 [ext_resource path="res://Scripts/DialogueBoxText.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/ColorRect.gd" type="Script" id=5]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -11,49 +12,40 @@ anchor_bottom = 1.0
 theme = ExtResource( 2 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_right = 2497.0
-margin_bottom = 1252.0
+margin_right = 1920.0
+margin_bottom = 1094.0
 color = Color( 0, 0, 0, 1 )
-
-[node name="ColorRect" type="ColorRect" parent="ColorRect"]
-margin_left = 34.0
-margin_top = 60.0
-margin_right = 993.0
-margin_bottom = 526.0
-color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
-
-[node name="DialogueBoxBorder" type="RichTextLabel" parent="."]
-margin_right = 4550.0
-margin_bottom = 763.0
-script = ExtResource( 3 )
-
-[node name="DialogueBoxText" type="RichTextLabel" parent="DialogueBoxBorder"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -296.5
-margin_top = -35.5
-margin_right = 296.5
-margin_bottom = 35.5
-rect_clip_content = false
-custom_colors/default_color = Color( 1, 1, 1, 1 )
-bbcode_enabled = true
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-margin_left = 64.0
-margin_top = 86.0
-margin_right = 961.0
-margin_bottom = 494.0
+margin_left = 993.0
+margin_top = 844.0
+margin_right = 1890.0
+margin_bottom = 1252.0
 text = "> "
 
 [node name="TextEdit" type="TextEdit" parent="."]
-margin_left = 78.0
-margin_top = 82.0
-margin_right = 958.0
-margin_bottom = 316.0
+margin_left = 1028.0
+margin_top = 436.0
+margin_right = 1908.0
+margin_bottom = 670.0
 theme = ExtResource( 2 )
 script = ExtResource( 1 )
 text_output_path = NodePath("../RichTextLabel")
 line_width = 25
+
+[node name="DialogueBoxBorder" type="Label" parent="."]
+margin_left = 21.0
+margin_top = 67.0
+margin_right = 1833.0
+margin_bottom = 110.0
+script = ExtResource( 3 )
+
+[node name="DialogueBoxText" type="RichTextLabel" parent="DialogueBoxBorder"]
+margin_top = -58.0
+margin_right = 1812.0
+margin_bottom = 102.0
+rect_clip_content = false
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+bbcode_enabled = true
+script = ExtResource( 4 )

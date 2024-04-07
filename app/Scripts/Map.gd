@@ -39,10 +39,20 @@ var num_cols: int
 var _top: int
 var _left: int
 
+var _enabled: bool
+
 var hover_selection: int = 1
 
 func disable():
 	self.hide()
+	_enabled = false
+	
+func enable():
+	self.show()
+	_enabled = true
+	
+func enabled():
+	return _enabled
 
 # Draws a map given a string representation and x, y dimensions
 func draw_map(map_string: String, adjacent_coords: Array, numRows: int, numCols: int, top: int, left: int):

@@ -56,7 +56,7 @@ func draw_map(map_string: String, adjacent_nodes: Array, top: int, left: int):
 
 
 func draw_event(title: String, description: String, options: Array):
-	dialogue_box.show_dialogue(title + "\n" + description, options)
+	dialogue_box.show_dialogue(title + ":\n" + description, options)
 	if map_event:
 		dialogue_box.set_box_location(dialogue_box.RIGHT)
 	else:

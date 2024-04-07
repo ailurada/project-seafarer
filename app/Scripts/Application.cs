@@ -211,15 +211,15 @@ private void HandleEventChoice(int choice) {
 	Event currentEvent = m_events[m_eventId];
 
 
-	float choiceSuccess = currentEvent.ChoiceSuccessChance[choice];
+	float choiceSuccess = 1; //currentEvent.ChoiceSuccessChance[choice];
 
-	int dest = currentEvent.ChoiceSuccess[choice];
+	int dest = -1; //currentEvent.ChoiceSuccess[choice];
 
 	if (choiceSuccess != 1.0) {
 		float randomNumber = (float) m_random.NextDouble();
 		
 		if (randomNumber > choiceSuccess) {
-			dest = currentEvent.ChoiceFailure[choice];
+			dest = -1; //currentEvent.ChoiceFailure[choice];
 		}
 	}
 
@@ -353,9 +353,9 @@ private Random m_random = null;
 private int m_nodeId = 21;
 private int m_eventId = -1;
 
-public int Health { get; } = 100;
-public int Gold { get; } = 100;
-public int Food { get; } = 100;
+public int Health { get; set; } = 100;
+public int Gold { get; set; } = 100;
+public int Food { get; set; } = 100;
 
 private Godot.Object m_node;
 }

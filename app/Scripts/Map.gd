@@ -31,9 +31,6 @@ func _ready():
 #func _process(delta):
 #	pass
 
-# counter var
-var node_number = 1
-
 # class variables
 var map_str: String
 var adj_coords: Array
@@ -64,19 +61,27 @@ func set_hover(selection: int):
 
 func redraw_map():
 	self.set_bbcode("")
-	node_number = 1
 	
 	# Top horizontal line
 	for i in range(num_cols + 2):
 		self.append_bbcode("_")
 	self.append_bbcode("\n")
 	
-	var map_str_array = map_str.split("\n")
+	# Split the string by rows
+	var map_array_seen = map_str.split("\n")
+	var map_array_order = map_str.split("\n")
+	
+	# Order the adjacent nodes by the order they appear in adj_list
+	for i in range(len(adj_coords)):
+		var coord = adj_coords[i]
+		var row = coord[0] - _top
+		var col = coord[1] - _left
+		map_array_order[row][col] = String(i+1)
 	
 	# Add lines row by row
 	for n in range(num_rows):
 		self.append_bbcode("|")
-		_add_row(map_str_array[n], n)
+		_add_row(map_array_seen[n], map_array_order[n])
 		self.append_bbcode("|\n")
 		
 	# Bottom horizontal line
@@ -86,7 +91,7 @@ func redraw_map():
 
 # Adds a single row to the RichTextLabel
 # given a string representation and the current row
-func _add_row(row_str: String, curr_row: int):
+func _add_row(row_str: String, row_str_order: String):
 	var str_length = len(row_str)
 	var i = 0
 	while i < str_length:
@@ -96,23 +101,22 @@ func _add_row(row_str: String, curr_row: int):
 			var color = NORMAL
 			var center_char = " "
 			
-			# check if you have visited the node at (curr_row, curr_col) 
 			if i < str_length - 1:
+				# check if you have visited the node at (curr_row, curr_col) 
 				if row_str[i+1] == "@":
 					color = VISITED
 				if row_str[i+1] == "*":
 					color = YOU_ARE_HERE
 					center_char = "*"
-			
-			# check if it is adjacent to the current node
-			if includes_coord(adj_coords, [curr_row + _top, curr_col + _left]):
-				# check if you are selecting node at (curr_row, curr_col)
-				center_char = String(node_number)
 				
-				if (hover_selection == node_number):
-					color = SELECTED
+				# check if it is adjacent to the current node
+				print(row_str_order[i+1])
+				if row_str_order[i+1].is_valid_integer():
+					# check if you are selecting node at (curr_row, curr_col)
+					center_char = row_str_order[i+1]
 					
-				node_number += 1
+					if (hover_selection == int(row_str_order[i+1])):
+						color = SELECTED
 				
 			self.append_bbcode("[color=" + color + "]")
 			self.append_bbcode(row_str[i])

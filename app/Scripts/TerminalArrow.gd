@@ -6,7 +6,7 @@ onready var dialogue_box = get_parent()
 
 func update_position():
 	var init_pos = dialogue_box.rect_size.y - 2.75*pt_size
-	self.rect_position.x = dialogue_box.rect_position.x + 2*char_width_px
+	self.rect_position.x = 2*char_width_px
 	self.rect_position.y = init_pos + 2.75*pt_size
 
 # Called when the node enters the scene tree for the first time.

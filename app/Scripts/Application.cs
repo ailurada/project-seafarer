@@ -75,7 +75,7 @@ public override void _Ready() {
 	m_totalWeight = 0.0f;
 	for (int i = 0; i < num_events; ++i) {
 		m_eventWeights[i] = m_totalWeight;
-		m_totalWeight += m_events[i].GetProbability();
+		m_totalWeight += m_events[i].Probability;
 	}
 	
 	m_random = new Random();
@@ -162,12 +162,12 @@ private void TravelEdge(int destination) {
 	// using System // needed for random
 	int fired = RandomEvent();
 	
-	m_food += m_events[fired].GetDeltaFood();
-	m_gold += m_events[fired].GetDeltaGold();
-	m_health += m_events[fired].GetDeltaHealth();
+	m_food += m_events[fired].DeltaFood;
+	m_gold += m_events[fired].DeltaGold;
+	m_health += m_events[fired].DeltaHealth;
 	GameOver();
 	
-	m_node.Call("draw_event", m_events[fired].GetTitle(), m_events[fired].GetDescription(), m_events[fired].GetChoiceDescriptions());
+	m_node.Call("draw_event", m_events[fired].Title, m_events[fired].Description, m_events[fired].ChoiceDescriptions);
 
 	m_state = State.WAIT_CHOICE_EVENT;
 	m_eventId = fired;
@@ -191,19 +191,19 @@ private void EventChoiceHandler(int choice) {
 		return;
 	}
 
-	int dest = (m_events[m_eventId].GetChoiceDestinations())[choice];
+	int dest = m_events[m_eventId].ChoiceDestinations[choice];
 
 	if (dest == -1) {
 		m_state = State.WAIT_CHOICE_NODE;
 		PrintMap();
 	}
 	else {
-		m_food += m_events[m_eventId].GetDeltaFood();
-		m_gold += m_events[m_eventId].GetDeltaGold();
-		m_health += m_events[m_eventId].GetDeltaHealth();
+		m_food += m_events[m_eventId].DeltaFood;
+		m_gold += m_events[m_eventId].DeltaGold;
+		m_health += m_events[m_eventId].DeltaHealth;
 		GameOver();
 		
-		m_node.Call("draw_event", m_events[m_eventId].GetTitle(), m_events[m_eventId].GetDescription(), m_events[m_eventId].GetChoiceDescriptions());
+		m_node.Call("draw_event", m_events[m_eventId].Title, m_events[m_eventId].Description, m_events[m_eventId].ChoiceDescriptions);
 
 		m_state = State.WAIT_CHOICE_EVENT;
 		m_eventId = dest;

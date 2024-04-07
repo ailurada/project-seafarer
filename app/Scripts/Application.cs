@@ -176,6 +176,7 @@ private void HandleNodeChoice(int choice) {
 private void TravelEdge(int destination) {
 	m_nodeId = destination;
 	Food -= 10;
+	if (Food < 0) { Food = 0; }
 	m_node.Call("lose_food_effect");
 
 	
@@ -192,6 +193,9 @@ private void TravelEdge(int destination) {
 	else if (triggeredEvent.DeltaFood > 0) {
 		m_node.Call("gain_food_effect");
 	}
+	if (Food < 0) {
+		Food = 0;
+	}
 
 	Gold += triggeredEvent.DeltaGold;
 	if (triggeredEvent.DeltaGold < 0) {
@@ -200,6 +204,9 @@ private void TravelEdge(int destination) {
 	else if (triggeredEvent.DeltaGold > 0) {
 		m_node.Call("gain_gold_effect");
 	}
+	if (Gold < 0) {
+		Gold = 0;
+	}
 
 	Health += triggeredEvent.DeltaHealth;
 	if (triggeredEvent.DeltaHealth < 0) {
@@ -207,6 +214,9 @@ private void TravelEdge(int destination) {
 	}
 	else if (triggeredEvent.DeltaHealth > 0) {
 		m_node.Call("gain_health_effect");
+	}
+	if (Health > 100) {
+		Health = 100;
 	}
 
 	CheckEndCondition();
@@ -288,6 +298,9 @@ private void HandleEventChoice(int choice) {
 		else if (currentEvent.DeltaFood > 0) {
 			m_node.Call("gain_food_effect");
 		}
+		if (Food < 0) {
+			Food = 0;
+		}
 
 		Gold += currentEvent.DeltaGold;
 		if (currentEvent.DeltaGold < 0) {
@@ -296,13 +309,19 @@ private void HandleEventChoice(int choice) {
 		else if (currentEvent.DeltaGold > 0) {
 			m_node.Call("gain_gold_effect");
 		}
-
+		if (Gold < 0) {
+			Gold = 0;
+		}
+		
 		Health += currentEvent.DeltaHealth;
 		if (currentEvent.DeltaHealth < 0) {
 			m_node.Call("lose_health_effect");
 		}
 		else if (currentEvent.DeltaHealth > 0) {
 			m_node.Call("gain_health_effect");
+		}
+		if (Health > 100) {
+			Health = 100;
 		}
 		
 		CheckEndCondition();

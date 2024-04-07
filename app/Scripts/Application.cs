@@ -80,6 +80,8 @@ public override void _Ready() {
 	m_random = new Random();
 	
 	PrintMap();
+	
+	
 	}
 	catch(Exception e) {GD.Print(e);}
 }
@@ -189,6 +191,15 @@ private void HandleEventChoice(int choice) {
 	if (m_eventId == -1) {
 		m_state = State.WAIT_CHOICE_NODE;
 		PrintMap();
+		
+		if (m_food <= 0) {
+			health -= 10;
+			// starving event
+			m_node.Call("draw_event", m_events[14].GetTitle(), m_events[14].GetDescription(), m_events[14].GetChoiceDescriptions());
+		}
+		
+		CheckEndCondition();
+		
 		return;		
 	}
 
@@ -206,8 +217,17 @@ private void HandleEventChoice(int choice) {
 	if (dest == -1) {
 		m_state = State.WAIT_CHOICE_NODE;
 		PrintMap();
+		
+		if (m_food <= 0) {
+			health -= 10;
+			// starving event
+			m_node.Call("draw_event", m_events[14].GetTitle(), m_events[14].GetDescription(), m_events[14].GetChoiceDescriptions());
+		}
+		
+		CheckEndCondition();
 	}
 	else {
+
 		m_food += currentEvent.DeltaFood;
 		m_gold += currentEvent.DeltaGold;
 		m_health += currentEvent.DeltaHealth;

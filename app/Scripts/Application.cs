@@ -125,14 +125,14 @@ private void HandleNodeChoice(int choice) {
 	}
 	// option after travel is rest
 	else if (choice == adjList.Length) {
-		m_health += 10;
-		if (m_health > 100) {
-			m_health = 100;
+		Health += 10;
+		if (Health > 100) {
+			Health = 100;
 		}
 	}
 	// option after rest is resupply
 	else if (choice > adjList.Length) {
-		if (m_gold < 10) {
+		if (Gold < 10) {
 			m_node.Call("draw_event", 
 						"You're poor!", 
 						"You do not have enough money for this.", 
@@ -143,10 +143,10 @@ private void HandleNodeChoice(int choice) {
 			m_eventId = -1; // signifies that we're just waiting for a response. any response.
 			return;
 		}
-		m_food += 10;
-		m_gold -= 10;
-		if (m_food > 100) {
-			m_food = 100;
+		Food += 10;
+		Gold -= 10;
+		if (Food > 100) {
+			Food = 100;
 		}
 	}
 }
@@ -159,7 +159,7 @@ private void HandleNodeChoice(int choice) {
 // choice:    User's choice.
 private void TravelEdge(int destination) {
 	m_nodeId = destination;
-	m_food -= 10;
+	Food -= 10;
 	
 	m_nodes[destination].Visit();
 	m_map[m_nodes[destination].Row, m_nodes[destination].Col] = '@';
@@ -167,9 +167,9 @@ private void TravelEdge(int destination) {
 	int triggered = RandomEvent();
 	Event triggeredEvent = m_events[triggered];
 
-	m_food += triggeredEvent.DeltaFood;
-	m_gold += triggeredEvent.DeltaGold;
-	m_health += triggeredEvent.DeltaHealth;
+	Food += triggeredEvent.DeltaFood;
+	Gold += triggeredEvent.DeltaGold;
+	Health += triggeredEvent.DeltaHealth;
 	CheckEndCondition();
 	
 	m_node.Call("draw_event", triggeredEvent.Title, triggeredEvent.Description, triggeredEvent.ChoiceDescriptions);
@@ -191,8 +191,8 @@ private void HandleEventChoice(int choice) {
 		m_state = State.WAIT_CHOICE_NODE;
 		PrintMap();
 		
-		if (m_food <= 0) {
-			m_health -= 10;
+		if (Food <= 0) {
+			Health -= 10;
 			// starving event
 			m_node.Call("draw_event", m_events[14].Title, m_events[14].Description, m_events[14].ChoiceDescriptions);
 
@@ -228,8 +228,8 @@ private void HandleEventChoice(int choice) {
 		m_state = State.WAIT_CHOICE_NODE;
 		PrintMap();
 		
-		if (m_food <= 0) {
-			m_health -= 10;
+		if (Food <= 0) {
+			Health -= 10;
 			// starving event
 			m_node.Call("draw_event", m_events[14].Title, m_events[14].Description, m_events[14].ChoiceDescriptions);
 
@@ -239,9 +239,9 @@ private void HandleEventChoice(int choice) {
 	}
 	else {
 
-		m_food += currentEvent.DeltaFood;
-		m_gold += currentEvent.DeltaGold;
-		m_health += currentEvent.DeltaHealth;
+		Food += currentEvent.DeltaFood;
+		Gold += currentEvent.DeltaGold;
+		Health += currentEvent.DeltaHealth;
 		CheckEndCondition();
 		
 		m_node.Call("draw_event", 
@@ -318,7 +318,7 @@ public string NodeName(int nodeIndex) {
 }
 
 private void CheckEndCondition() {
-	if (m_health <= 0) {
+	if (Health <= 0) {
 		m_node.Call("draw_event", 
 					"Death!", 
 					"Due to continuous and multiple injuries suffered by your body without proper care, your body has stopped cooperating with you.", 
@@ -326,7 +326,7 @@ private void CheckEndCondition() {
 					"null");
 		// exit
 	}
-	if (m_food <= 0) {
+	if (Food <= 0) {
 		m_node.Call("draw_event", 
 					"Death!", 
 					"Long voyages with no resupply has left the ship with no food or any edible object to speak of. You and your crew suffer a slow, painful death by starvation.", 
@@ -336,6 +336,8 @@ private void CheckEndCondition() {
 		// exit
 	}
 }
+
+
 
 // GAME RESOURCES 
 private char[,] m_map = null;
@@ -351,9 +353,9 @@ private Random m_random = null;
 private int m_nodeId = 21;
 private int m_eventId = -1;
 
-private int m_health = 100;
-private int m_gold = 100;
-private int m_food = 100;
+public int Health { get; } = 100;
+public int Gold { get; } = 100;
+public int Food { get; } = 100;
 
 private Godot.Object m_node;
 }

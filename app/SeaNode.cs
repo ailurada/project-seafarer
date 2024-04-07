@@ -3,6 +3,7 @@
 // Implements the node class, the representation of the sea nodes on the map.
 
 using Godot;
+using System;
 
 public class SeaNode {
 
@@ -18,17 +19,23 @@ public class SeaNode {
 	// Instantiates node with the given values.
 	// =============================================
 	// id: 	       	   The unique id of this sea node
-	// eventId:	       The id of the event unique to this node
+	// eid:	           The id of the event unique to this node
+	// coords:         The coordinate csv pair
 	// name:	       The node's title/name
 	// description:    The flavor text description of the node
 	// visited:	       The status of the node (has this node been visited yet?)
-	public SeaNode(int ID, int eid, string title, string desc, int[] adjacent, bool seen) {
+	public SeaNode(int ID, int eid, string coords, string title, string desc, int[] adjacent, bool seen) {
 		id = ID;
 		eventID = eid;
 		name = title;
 		description = desc;
 		adjList = adjacent;
 		visited = seen;
+
+		// Split the input coord string into two, parse and store
+		string[] coordStrings = coords.Split(',');
+		_row = Int32.Parse(coordStrings[0]);
+		_col = Int32.Parse(coordStrings[1]);
 	}
 
 	~SeaNode() {
@@ -48,10 +55,17 @@ public class SeaNode {
 		}
 	}
 
+
+	// Get the position of the current SeaNode
 	private int id;
 	private int eventID;
+	private static int _row;
+	private static int _col;
 	private string name;
 	private string description;
 	private int[] adjList;
 	private bool visited;
+	
+	public static int Row => _row;
+	public static int Col => _col;
 };

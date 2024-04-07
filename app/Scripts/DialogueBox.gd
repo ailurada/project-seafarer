@@ -93,6 +93,7 @@ func initialize_options(option_strings):
 func show_dialogue(description, option_strings):
 	self.dialogue_box_text.set_text(description)
 	
+	self.hide_dialogue()
 	initialize_options(option_strings)
 	update_option_positions()
 		
@@ -100,7 +101,7 @@ func show_dialogue(description, option_strings):
 
 # call to hide dialogue when no longer needed (cleanup)
 func hide_dialogue():
-	for i in range(options):
+	for i in range(len(options)):
 		options[i].queue_free()
 	
 	self.options = []
@@ -125,8 +126,8 @@ func _ready():
 	update_size()
 	update_position(win_width, win_height)
 	update_option_positions()
-	show_dialogue("nys omeome funnyso  ome fuy s ome funnysome e funny", ["alsdkfjal","aa 1","alsdkfjal","thing 1"])
-	highlight_option(2)	
+	#show_dialogue("nys omeome funnyso  ome fuy s ome funnysome e funny", ["alsdkfjal","aa 1","alsdkfjal","thing 1"])
+	#highlight_option(2)	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

@@ -1,17 +1,20 @@
 // Application.cs
 //
 // Implements the Application class, the central manager and authority on game logic.
-
+using Godot;
 using System;
 using System.Text;
-using System.IO;
 
+
+
+public class Application : Node
+{
 
 // These four values should be included in Types.cs or similar.
-const int gridHeight = 15;
-const int gridWidth = 41;
-const int mapHeight = 140;
-const int mapWidth = 400;
+public const int gridHeight = 15;
+public const int gridWidth = 41;
+const int mapHeight = 30;
+const int mapWidth = 102;
 
 
 // The state in which the game (should be) at.
@@ -20,13 +23,9 @@ public enum State {
 	WAIT_CHOICE_NODE,
 	WAIT_CHOICE_EVENT
 }
-
-
-class Application
-{
 // No body for neither the constructor nor the destructor
-public Application() {}
-public ~Application() {}
+//public Application() {}
+//~Application() {}
 
 
 // Given the file path to the map.txt, return the concatenated 
@@ -42,13 +41,18 @@ public string readMapFile(string mapFilePath) {
 
 
 // Initializes game resources; calls appropriate functions to read from files and initialize nodes, events, and map.
-public void Initialize() {
+public override void _Ready() {
 	// call files...
 	// Init Nodes
 	// Init Events
 	// read the map!
-
-	string fileContents = readFileMap("res://data/map.txt")
+	try{
+	
+	m_state = State.WAIT_CHOICE_NODE;
+	
+	m_node = GetNode("UIManager") as Godot.Object;
+	
+	string fileContents = readMapFile("res://data/map.txt");
 	
 	int index = 0;
 	m_map = new char[mapHeight, mapWidth];
@@ -60,18 +64,30 @@ public void Initialize() {
 		++index;
 	}
 	
-	m_eventWeights = new float[m_nodes.Length];
-	m_totalWeight = 0.0;
-	for (int i = 0; i < m_nodes.Length; ++i) {
+	// Load events
+	json json_node = GetNode("JSONController") as json;
+	int num_events;
+	int num_nodes;
+	m_events = json_node.LoadEvents("res://data/events.json", out num_events);
+	m_nodes = json_node.LoadSeaNodes("res://data/nodes.json", out num_nodes);
+	
+	
+	m_eventWeights = new float[num_events];
+	m_totalWeight = 0.0f;
+	for (int i = 0; i < num_events; ++i) {
 		m_eventWeights[i] = m_totalWeight;
-		m_totalWeight += m_nodes[i].GetProbability();
+		m_totalWeight += m_events[i].GetProbability();
 	}
 	
 	m_random = new Random();
+	
+	PrintMap();
+	}
+	catch(Exception e) {GD.Print(e);}
 }
 
 int RandomEvent() {
-	float randomNumber = m_random.NextDouble() * m_totalWeight;
+	float randomNumber = (float) m_random.NextDouble() * m_totalWeight;
 	int eventIndex = 0;
 	while (eventIndex < m_nodes.Length - 1 && m_eventWeights[eventIndex + 1] < randomNumber) {
 		++eventIndex;
@@ -84,10 +100,10 @@ int RandomEvent() {
 // =============================================
 // input:	User's input.
 public void UserInput(int input) {
-	if (m_state == WAIT_CHOICE_NODE) {
+	if (m_state == State.WAIT_CHOICE_NODE) {
 		NodeChoiceHandler(input - 1);
 	}
-	else if (m_state == WAIT_CHOICE_EVENT) {
+	else if (m_state == State.WAIT_CHOICE_EVENT) {
 		EventChoiceHandler(input - 1);
 	}
 }
@@ -119,7 +135,7 @@ private void NodeChoiceHandler(int choice) {
 	else if (choice > adjList.Length) {
 		if (m_gold < 10) {
 			m_node.Call("draw_event", "You're poor!", "You do not have enough money for this.", new string[]{ "Okay." });
-			m_state = WAIT_CHOICE_EVENT;
+			m_state = State.WAIT_CHOICE_EVENT;
 			m_eventId = -1; // signifies that we're just waiting for a response. any response.
 			return;
 		}
@@ -154,7 +170,7 @@ private void TravelEdge(int destination) {
 	
 	m_node.Call("draw_event", m_events[fired].GetTitle(), m_events[fired].GetDescription(), m_events[fired].GetChoiceDescriptions());
 
-	m_state = WAIT_CHOICE_EVENT;
+	m_state = State.WAIT_CHOICE_EVENT;
 	m_eventId = fired;
 
 
@@ -166,9 +182,9 @@ private void TravelEdge(int destination) {
 // Invalid events will be ignored.
 // =============================================
 // choice:    User's choice.
-private EventChoiceHandler(int choice) {
+private void EventChoiceHandler(int choice) {
 	if (m_eventId == -1) {
-		m_state = WAIT_CHOICE_NODE;
+		m_state = State.WAIT_CHOICE_NODE;
 		PrintMap();
 		return;		
 	}
@@ -179,7 +195,7 @@ private EventChoiceHandler(int choice) {
 	int dest = (m_events[m_eventId].GetChoiceDestinations())[choice];
 
 	if (dest == -1) {
-		m_state = WAIT_CHOICE_NODE;
+		m_state = State.WAIT_CHOICE_NODE;
 		PrintMap();
 	}
 	else {
@@ -188,9 +204,9 @@ private EventChoiceHandler(int choice) {
 		m_health += m_events[m_eventId].GetDeltaHealth();
 		GameOver();
 		
-		m_node.Call("draw_event", m_events[fired].GetTitle(), m_events[fired].GetDescription(), m_events[fired].GetChoiceDescriptions());
+		m_node.Call("draw_event", m_events[m_eventId].GetTitle(), m_events[m_eventId].GetDescription(), m_events[m_eventId].GetChoiceDescriptions());
 
-		m_state = WAIT_CHOICE_EVENT;
+		m_state = State.WAIT_CHOICE_EVENT;
 		m_eventId = dest;
 	}
 }
@@ -226,10 +242,11 @@ private void PrintMap() {
 	
 	// Construct the map as a string
 	StringBuilder sb = new StringBuilder();
+	GD.Print(m_nodes[m_nodeId].Row, m_nodes[m_nodeId].Col);
 	char prev = m_map[m_nodes[m_nodeId].Row, m_nodes[m_nodeId].Col];
 	m_map[m_nodes[m_nodeId].Row, m_nodes[m_nodeId].Col] = '*';
-	for (int row = top; row < bottom; ++row) {
-		for (int col = left; col < right; ++col) {
+	for (int row = top; row <= bottom; ++row) {
+		for (int col = left; col <= right; ++col) {
 			sb.Append(m_map[row, col]);
 		}
 		sb.Append("\n");
@@ -237,7 +254,7 @@ private void PrintMap() {
 	m_map[m_nodes[m_nodeId].Row, m_nodes[m_nodeId].Col] = prev;
 	
 	int[] adjList = m_nodes[m_nodeId].GetAdjacencyList();	
-	m_node.Call("draw_map", sb.ToString(), adjList, gridHeight, gridWidth);
+	m_node.Call("draw_map", sb.ToString(), (object) adjList, top, left);
 
 	// DrawMap(sb.ToString(), adjList, numRows, numCols);
 }
@@ -269,10 +286,10 @@ private void GameOver() {
 private char[,] m_map = null;
 private SeaNode[] m_nodes = null;
 
-private State m_state = WAIT_CHOICE_NODE;
+private State m_state;
 private Event[] m_events = null;
 private float[] m_eventWeights = null;
-private float totalWeight = 0.0;
+private float m_totalWeight = 0.0f;
 private Random m_random = null;
 
 // USER RESOURCES
@@ -283,5 +300,5 @@ private int m_health = 100;
 private int m_gold = 100;
 private int m_food = 100;
 
-public Node m_node;
+private Godot.Object m_node;
 }

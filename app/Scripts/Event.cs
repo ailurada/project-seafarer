@@ -4,7 +4,7 @@
 
 using Godot;
 
-class Event
+public class Event
 {
 	public Event(int id, string title, string description, float probability, string[] choiceDescriptions, int[] choiceDestinations, int deltaFood, int deltaGold, int deltaHealth) {
 		m_id = id;

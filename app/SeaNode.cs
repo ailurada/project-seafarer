@@ -66,18 +66,28 @@ public class SeaNode {
 	public int[] GetAdjacencyList() {
 		return adjList;
 	}
+	
+	public void Visit() {
+		visited = true;
+	}
 
 
 	// Get the position of the current SeaNode
 	private int id;
 	private int eventID;
-	private static int _row;
-	private static int _col;
+	private int _row;
+	private int _col;
 	private string name;
 	private string description;
 	private int[] adjList;
 	private bool visited;
 	
-	public static int Row => _row;
-	public static int Col => _col;
+	public int Row {
+		get { return _row; }
+		set { _row = value; }
+	}
+	public int Col {
+		get { return _col; }
+		set { _col = value; }
+	}
 };

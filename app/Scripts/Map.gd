@@ -23,7 +23,8 @@ const test_num_cols = 30
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	draw_map(test_map, [[1, 9], [2, 28], [6, 29], [9, 10]], test_num_cols, test_num_rows)
+	#draw_map(test_map, [[1, 9], [2, 28], [6, 29], [9, 10]], test_num_cols, test_num_rows)
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -38,6 +39,8 @@ var map_str: String
 var adj_nodes: Array
 var num_rows: int
 var num_cols: int
+var _top: int
+var _left: int
 
 var hover_selection: int = 1
 
@@ -45,12 +48,14 @@ func disable():
 	self.hide()
 
 # Draws a map given a string representation and x, y dimensions
-func draw_map(map_string: String, adjacent_nodes: Array, numRows: int, numCols: int):
+func draw_map(map_string: String, adjacent_nodes: Array, numRows: int, numCols: int, top: int, left: int):
 	self.show()
 	map_str = map_string
 	adj_nodes = adjacent_nodes
 	num_rows = numRows
 	num_cols = numCols
+	_top = top
+	_left = left
 	
 	redraw_map()
 
@@ -62,20 +67,20 @@ func redraw_map():
 	node_number = 1
 	
 	# Top horizontal line
-	for i in range(num_rows + 2):
+	for i in range(num_cols + 2):
 		self.append_bbcode("_")
 	self.append_bbcode("\n")
 	
 	var map_str_array = map_str.split("\n")
 	
 	# Add lines row by row
-	for n in range(num_cols):
+	for n in range(num_rows):
 		self.append_bbcode("|")
 		_add_row(map_str_array[n], n)
 		self.append_bbcode("|\n")
 		
 	# Bottom horizontal line
-	for i in range(num_rows + 2):
+	for i in range(num_cols + 2):
 		self.append_bbcode("‾")
 
 
@@ -100,7 +105,7 @@ func _add_row(row_str: String, curr_row: int):
 					center_char = "*"
 			
 			# check if it is adjacent to the current node
-			if [curr_row, curr_col] in adj_nodes:
+			if includes_coord(adj_nodes, [curr_row + _top, curr_col + _left]):
 				# check if you are selecting node at (curr_row, curr_col)
 				center_char = String(node_number)
 				
@@ -135,3 +140,10 @@ func _add_row(row_str: String, curr_row: int):
 			self.append_bbcode("[color=" + NORMAL + "]")
 			
 		i += 1
+
+		
+func includes_coord(coord_list: Array, node_coord: Array):
+	for coord in coord_list:
+		if (coord[0] == node_coord[0] && coord[1] == node_coord[1]):
+			return true
+	return false

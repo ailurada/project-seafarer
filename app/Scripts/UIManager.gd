@@ -10,15 +10,15 @@ onready var user_input = $TerminalInput
 onready var dialogue_box = $DialogueBox
 onready var stats_box = $StatsBox
 
-#export var game_manager_path: NodePath
-#var game_manager: Node
+export var game_manager_path: NodePath
+var game_manager: Node
 
 var current_selection = -1
 var map_event = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	game_manager = get_node(game_manager_path)
 	
 
 func _process(delta):
@@ -41,15 +41,19 @@ func _process(delta):
 #	pass
 
 # Draws the map on the screen
-func draw_map(map_string: String, adjacent_nodes: Array, numRows: int, numCols: int):
+func draw_map(map_string: String, adjacent_nodes: Array, top: int, left: int):
 	var adjacent_node_coords = []
 	var adjacent_node_names = []
-	#for i in range(len(adjacent_nodes)):
-	#	adjacent_node_coords.append(game_manager.GetCoord(adjacent_nodes[i]))
-	#	adjacent_node_names.append(game_manager.GetNames(adjacent_nodes[i]))
-	map.draw_map(map_string, adjacent_node_coords, numRows, numCols)
+	for node_id in adjacent_nodes:
+		adjacent_node_coords.append(game_manager.NodeCoordinates(node_id))
+		adjacent_node_names.append(game_manager.NodeName(node_id))
+		
+	var numRows	= game_manager.gridHeight
+	var numCols = game_manager.gridWidth
+	map.draw_map(map_string, adjacent_node_coords, numRows, numCols, top, left)
 	map_event = true
 	draw_event("Travel", "Where would you like to go next?", adjacent_node_names)
+
 
 func draw_event(title: String, description: String, options: Array):
 	dialogue_box.show_dialogue(title + "\n" + description, options)

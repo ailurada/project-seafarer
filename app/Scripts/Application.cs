@@ -2,8 +2,6 @@
 //
 // Implements the Application class, the central manager and authority on game logic.
 
-
-
 using System;
 using System.Text;
 using System.IO;
@@ -15,6 +13,7 @@ const int gridWidth = 41;
 const int mapHeight = 140;
 const int mapWidth = 400;
 
+
 // The state in which the game (should be) at.
 // Both are waiting for user input; the difference is what the input should address.
 public enum State {
@@ -25,11 +24,9 @@ public enum State {
 
 class Application
 {
-// No body for both constructors and destructors
+// No body for neither the constructor nor the destructor
 public Application() {}
 public ~Application() {}
-
-// Initializes game resources; calls appropriate functions to read from files and initialize nodes, events, and map.
 
 
 // Given the file path to the map.txt, return the concatenated 
@@ -43,6 +40,8 @@ public string readMapFile(string mapFilePath) {
 	return text;
 }
 
+
+// Initializes game resources; calls appropriate functions to read from files and initialize nodes, events, and map.
 public void Initialize() {
 	// call files...
 	// Init Nodes
@@ -62,10 +61,11 @@ public void Initialize() {
 	}
 }
 
+
 // UserInput(int)
 // Handles the given user input, received as an integer input.
 // =============================================
-// input:	       User's input.
+// input:	User's input.
 public void UserInput(int input) {
 	if (m_state == WAIT_CHOICE_NODE) {
 		NodeChoiceHandler(input - 1);
@@ -75,12 +75,12 @@ public void UserInput(int input) {
 	}
 }
 
+
 // NodeChoiceHandler(int)
 // Handles the given user choice, received as an integer input.
 // Invalid choices will be ignored.
-// 
 // =============================================
-// choice:	       User's choice.
+// choice:	User's choice.
 private void NodeChoiceHandler(int choice) {
 	// TODO: add option for resting, and other additional options that can be expected from a sea node.
 	if (choice < 0 || choice > m_adjacencyList.GetLength(1)) {
@@ -92,12 +92,12 @@ private void NodeChoiceHandler(int choice) {
 	}
 }
 
+
 // TravelEdge(NodeId)
 // Travels to the desired SeaNode.
 // A random event will be fired.
-// 
 // =============================================
-// choice:	       User's choice.
+// choice:    User's choice.
 private void TravelEdge(NodeId destination) {
 	m_nodeId = destination;
 
@@ -118,9 +118,8 @@ private void TravelEdge(NodeId destination) {
 // EventChoiceHandler(int)
 // Chooses an available option for responding to an event (possibly firing another event in the process).
 // Invalid events will be ignored.
-// 
 // =============================================
-// choice:	       User's choice.
+// choice:    User's choice.
 private EventChoiceHandler(int choice) {
 	if (choice < 0 || choice > m_events[m_eventId].NumChoices()) {
 		return;
@@ -140,9 +139,10 @@ private EventChoiceHandler(int choice) {
 	}
 }
 
+
 // PrintMap(void)
 // Constructs and draws a view of the map based on the current node the user is present in, marking the node with *.
-private PrintMap() {	
+private void PrintMap() {	
 	int centerRow = m_nodes[m_nodeId].GetRow();
 	int centerCol = m_nodes[m_nodeId].GetCol();
 	
@@ -168,7 +168,7 @@ private PrintMap() {
 		right = gridWidth - 1;
 	}
 	
-	// construct the map as a string
+	// Construct the map as a string
 	StringBuilder sb = new StringBuilder();
 	char prev = m_map[m_nodes[m_nodeId].GetRow(), m_nodes[m_nodeId].GetCol()];
 	m_map[m_nodes[m_nodeId].GetRow(), m_nodes[m_nodeId].GetCol()] = '*';
@@ -192,6 +192,7 @@ private NodeId[,] m_adjacencyList = null;
 private State m_state = WAIT_CHOICE_NODE;
 private Event[] m_events = null;
 
+
 // USER RESOURCES
 private NodeId m_nodeId = -1;
 private EventId m_eventId = -1;
@@ -200,4 +201,3 @@ private int m_health = 100;
 private int m_gold = 100;
 private int m_food = 100;
 }
-

@@ -58,6 +58,7 @@ func draw_map(map_string: String, adjacent_nodes: Array, top: int, left: int):
 
 func draw_event(title: String, description: String, options: Array, img_str: String):
 	map.disable()
+	draw_stats()
 	if title != "":
 		dialogue_box.show_dialogue(title + ":\n" + description, options)
 	else:
@@ -80,4 +81,4 @@ func draw_event(title: String, description: String, options: Array, img_str: Str
 			event_img.show_image(img_str)
 
 func draw_stats():
-	stats_box.show_stats([game_manager.Health, game_manager.Food, game_manager.Money])
+	stats_box.show_stats([game_manager.Health, game_manager.Food, game_manager.Gold])

@@ -2,17 +2,15 @@
     "0": {
         "title": "Lost at Sea",
         "description": "An unruly gust of wind and a few too many days of torrential downpour have left you without direction.",
-        "probability": "0.10",
-        "choices": [ "Ask crew for directions", "Purchase a map from a nearby trader", "Sail aimlessly" ],
-        "choice_success": [ "2", "3", "4" ],
-        "choice_failure": [ "5", "6", "7" ],
-        "choice_success_chance":  [ "0.25", "1", "0.5"],
-        "choice_descriptions": ["Purchase a map from a nearby trader", "Sail aimlessly" ],
-        "choice_destinations": ["3", "4" ],
+        "probability": "0.5",
+        "choice_descriptions": ["Try to find a nearby trader", "Sail aimlessly" ],
+        "choice_success_chance":  [ "0.25", "1"],
+        "choice_success": [ "3", "4" ],
+        "choice_failure": [ "4", "4" ],
         "delta_food": "0",
         "delta_gold": "0",
         "delta_health": "0",
-        "ascii": "           ___\n /   \\\n |  _/( )5500\n |_/ 7       400 \n 7    __     4               \n 0055(*)   / _|   ( )           ( ) \n ___ 7___  __ _| |_ __ _/_ __ ___ _ __ 4\n / __|/ _ \\/ _` |  _/ _` | '__/ _ \\ '__| 1\n \\__ \\  __/ (_| | || (_| | | |  __/ |5007   \n |___/\\___|\\__,_|_| \\__,_|_| 7\\___|_|\n 7                 0007    7  _      \n ( )                7      ( )0/ \\ \n ( )555007 /    |\n \\___/\n"
+        "ascii": "default"
     },
 
     "1": {
@@ -20,100 +18,118 @@
         "description": "The ship has been following you for some time suddenly raises their skull-and-crossbone flag!",
         "probability": "1.0",
         "choice_descriptions": [ "Man the cannons!", "Barter for your safety", "Raise sails and attempt escape" ],
-        "choice_destinations": [ "5", "6", "7" ],
+        "choice_success_chance": [ "0.5", "0.6", "0.7" ],
+        "choice_success": [ "5", "6", "7" ],
+        "choice_failure": [ "24", "25", "26" ],
         "delta_food": "0",
         "delta_gold": "0",
         "delta_health": "0",
-        "ascii": "null"
+        "ascii": "default"
     },
     "2": {
         "title": "Navigated Safely",
         "description": "You were able to navigate safely, at the cost of additional rations.",
         "probability": "0.0",
         "choice_descriptions": [ "Great!" ],
-        "choice_destinations": [ "-1" ],
+        "choice_success_chance": [ "1.0" ],
+        "choice_success": [ "-1" ],
+        "choice_failure": [ "-1" ],
         "delta_food": "-3",
         "delta_gold": "0",
         "delta_health": "0",
-        "ascii": "null"
+        "ascii": "default"
     },
     "3": {
         "title": "Money Well Spent",
         "description": "The map costs you some gold, but you navigate with no difficulty.",
         "probability": "0.0",
         "choice_descriptions": [ "All that ends well is well." ],
-        "choice_destinations": [ "-1" ],
+        "choice_success_chance": [ "1.0" ],
+        "choice_success": [ "-1" ],
+        "choice_failure": [ "-1" ],
         "delta_food": "0",
         "delta_gold": "-10",
         "delta_health": "0",
-        "ascii": "null"
+        "ascii": "default"
     },
     "4": {
         "title": "Clueless Sailing",
         "description": "Choosing to sail forward without a clue where to might have been a bad idea. You figure out the way, but not before wasting some supplies at sea.",
         "probability": "0.0",
         "choice_descriptions": [ "Well, supplies are recoverable..." ],
-        "choice_destinations": [ "-1" ],
+        "choice_success_chance": [ "1.0" ],
+        "choice_success": [ "-1" ],
+        "choice_failure": [ "-1" ],
         "delta_food": "-5",
         "delta_gold": "0",
         "delta_health": "0",
-        "ascii": "null"
+        "ascii": "default"
     },
     "5": {
         "title": "Clash of the Dreadnoughts",
         "description": "After the smoke clears, you see you took a few hits...which doesn't hurt that much, when you look at the treasure chest the pirates left.",
         "probability": "0.0",
         "choice_descriptions": [ "'Tis but a flesh wound." ],
-        "choice_destinations": [ "-1" ],
+        "choice_success_chance": [ "1.0" ],
+        "choice_success": [ "-1" ],
+        "choice_failure": [ "-1" ],
         "delta_food": "0",
         "delta_gold": "50",
         "delta_health": "-10",
-        "ascii": "null"
+        "ascii": "default"
     },
     "6": {
         "title": "Thieves' Honor",
         "description": "You pay gold for your safety, which they guarantee, but you feel a cost greater than gold has been paid from your heart.",
         "probability": "0.0",
         "choice_descriptions": [ "Hopefully we do not encounter them again." ],
-        "choice_destinations": [ "-1" ],
+        "choice_success_chance": [ "1.0" ],
+        "choice_success": [ "-1" ],
+        "choice_failure": [ "-1" ],
         "delta_food": "0",
         "delta_gold": "-30",
         "delta_health": "0",
-        "ascii": "null"
+        "ascii": "default"
     },
     "7": {
         "title": "Racer of the High Seas",
         "description": "A sudden wind rises, and rowing at full strength, you zoom away. Exhausted, you'll need extra rations, but the pirates won't get you this time.",
         "probability": "0.0",
         "choice_descriptions": [ "Kachow!" ],
-        "choice_destinations": [ "-1" ],
+        "choice_success_chance": [ "1.0" ],
+        "choice_success": [ "-1" ],
+        "choice_failure": [ "-1" ],
         "delta_food": "-3",
         "delta_gold": "0",
         "delta_health": "0",
-        "ascii": "null"
+        "ascii": "default"
     },
     "8": {
         "title": "Someone in Need",
         "description": "Off in the distance, you see a shape that looks like a stranded ship.",
         "probability": "1.0",
+        "choice_success_chance": [ "0.6", "1.0" ],
         "choice_descriptions": [ "I have to help!", "Row away" ],
-        "choice_destinations": [ "9", "10"],
+        "choice_success": [ "9", "10"],
+        "choice_failure": ["28", "10"],
         "delta_food": "0",
         "delta_gold": "0",
         "delta_health": "0",
-        "ascii": "null"
+        "ascii": "default"
     },
 
     "9": {
         "title": "They Needed Your Help",
         "description": "It is a stranded sailor. They look to be about your age, ragged and hungry.",
         "probability": "0",
+        "choice_success_chance": [ "1.0","1.0","1.0" ],
         "choice_descriptions": [ "Give them food", "Give them money", "Row away" ],
-        "choice_destinations": [ "11", "12" ],
+        "choice_success": [ "11", "12", "10" ],
+        "choice_failure": ["11", "12", "10"],
         "delta_food": "0",
         "delta_gold": "0",
         "delta_health": "0",
-        "ascii": "null"
+        "ascii": "default"
     },
 
     "10": {
@@ -121,11 +137,13 @@
         "description": "You row away, but you have a feeling that your mom would have been disappointed in you.",
         "probability": "0",
         "choice_descriptions": [ "..." ],
-        "choice_destinations": [ "-1"],
+        "choice_success_chance": [ "1.0" ],
+        "choice_success": [ "-1" ],
+        "choice_failure": [ "-1" ],
         "delta_food": "0",
         "delta_gold": "0",
         "delta_health": "0",
-        "ascii": "null"
+        "ascii": "default"
 
     },
 
@@ -134,11 +152,13 @@
         "description": "You give them some food. They seem to gain back some energy.",
         "probability": "0",
         "choice_descriptions": [ "Glad to help!" ],
-        "choice_destinations": [ "-1"],
+        "choice_success_chance": [ "1.0" ],
+        "choice_success": [ "-1" ],
+        "choice_failure": [ "-1" ],
         "delta_food": "-1",
         "delta_gold": "0",
         "delta_health": "0",
-        "ascii": "null"
+        "ascii": "default"
     },
 
     "12": {
@@ -146,11 +166,13 @@
         "description": "You offer them some money for food and supples. They are grateful for your help.",
         "probability": "0",
         "choice_descriptions": [ "Glad to help!" ],
-        "choice_destinations": [ "-1"],
+        "choice_success_chance": [ "1.0" ],
+        "choice_success": [ "-1" ],
+        "choice_failure": [ "-1" ],
         "delta_food": "0",
         "delta_gold": "-10",
         "delta_health": "0",
-        "ascii": "null"
+        "ascii": "default"
     },
 
     "13": {
@@ -158,11 +180,13 @@
         "description": "You feel your health failing...Is this the end?",
         "probability": "0",
         "choice_descriptions": [ "..." ],
-        "choice_destinations": [ "-1"],
+        "choice_success_chance": [ "1.0" ],
+        "choice_success": [ "-1" ],
+        "choice_failure": [ "-1" ],
         "delta_food": "0",
         "delta_gold": "0",
         "delta_health": "0",
-        "ascii": "null"
+        "ascii": "default"
     },
 
     "14": {
@@ -170,22 +194,26 @@
         "description": "You open the pantry to find...no food. Your stomach growls, and you feel your health wane.",
         "probability": "0",
         "choice_descriptions": [ "..." ],
-        "choice_destinations": [ "-1"],
+        "choice_success_chance": [ "1.0" ],
+        "choice_success": [ "-1" ],
+        "choice_failure": [ "-1" ],
         "delta_food": "0",
         "delta_gold": "0",
         "delta_health": "-10",
-        "ascii": "null"
+        "ascii": "default"
     },
     "15": {
         "title": "Respawn",
         "description": "You wake up...where? You feel better—someone must have helped you while you were out.",
         "probability": "0",
         "choice_descriptions": [ "...Where am I?" ],
-        "choice_destinations": [ "-1"],
+        "choice_success_chance": [ "1.0" ],
+        "choice_success": [ "-1" ],
+        "choice_failure": [ "-1" ],
         "delta_food": "0",
         "delta_gold": "0",
         "delta_health": "200",
-        "ascii": "null"
+        "ascii": "default"
     },
 
     "16": {
@@ -193,11 +221,13 @@
         "description": "You see some bubbles coming up from the ocean.",
         "probability": "1.0",
         "choice_descriptions": [ "Fish!", "Keep rowing" ],
-        "choice_destinations": [ "-1"],
+        "choice_success_chance": [ "0.8", "1.0" ],
+        "choice_success": [ "17", "18"],
+        "choice_failure": [ "27", "18"],
         "delta_food": "0",
         "delta_gold": "0",
         "delta_health": "0",
-        "ascii": "null"
+        "ascii": "default"
     },
 
     "17": {
@@ -205,11 +235,13 @@
         "description": "You throw out your line, just the way mom taught you. You pull up a large, wriggling fish.",
         "probability": "0",
         "choice_descriptions": [ "Score!" ],
-        "choice_destinations": [ "-1"],
+        "choice_success_chance": [ "1.0" ],
+        "choice_success": [ "-1" ],
+        "choice_failure": [ "-1" ],
         "delta_food": "5",
         "delta_gold": "0",
         "delta_health": "0",
-        "ascii": "null"
+        "ascii": "default"
     },
 
     "18": {
@@ -217,10 +249,133 @@
         "description": "You continue to sail the ocean. It looks beautiful today.",
         "probability": "0",
         "choice_descriptions": [ "I miss my mom..." ],
-        "choice_destinations": [ "-1"],
+        "choice_success_chance": [ "1.0" ],
+        "choice_success": [ "-1" ],
+        "choice_failure": [ "-1" ],
         "delta_food": "0",
         "delta_gold": "0",
         "delta_health": "0",
-        "ascii": "null"
-    }
+        "ascii": "default"
+    },
+
+    "19": {
+        "title": "Good Morning, Mom",
+        "description": "Mom: Good morning!",
+        "probability": "0",
+        "choice_descriptions": [ "Good morning!" ],
+        "choice_success_chance": [ "1.0" ],
+        "choice_success": [ "20" ],
+        "choice_failure": [ "20" ],
+        "delta_food": "0",
+        "delta_gold": "0",
+        "delta_health": "0",
+        "ascii": ""
+    },
+
+    "20": {
+        "title": "Becoming an Adult",
+        "description": "Mom: It's time for you to take your ship and become an adult.",
+        "probability": "0",
+        "choice_descriptions": [ "Already?", "I can't wait!" ],
+        "choice_success_chance": [ "1.0", "1.0" ],
+        "choice_success": [ "21", "21" ],
+        "choice_failure": [ "21", "21" ],
+        "delta_food": "0",
+        "delta_gold": "0",
+        "delta_health": "0",
+        "ascii": ""
+    },
+  "21": {
+      "title": "Mom Loves You",
+      "description": "Mom: I love you!",
+      "probability": "0",
+      "choice_descriptions": [ "I love you too!" ],
+      "choice_success_chance": [ "1.0" ],
+      "choice_success": [ "-1" ],
+      "choice_failure": [ "-1" ],
+      "delta_food": "0",
+      "delta_gold": "0",
+      "delta_health": "0",
+      "ascii": ""
+  },
+  "22": {
+      "title": "",
+      "description": "",
+      "probability": "0",
+      "choice_descriptions": [ "Play", "About" ],
+      "choice_success_chance": [ "1.0", "1.0" ],
+      "choice_success": [ "19", "23"],
+      "choice_failure": [ "19", "23"],
+      "delta_food": "0",
+      "delta_gold": "0",
+      "delta_health": "0",
+      "ascii": "           ___\n /   \\\n |  _/( )5500\n |_/ 7       400 \n 7    __     4               \n 0055(*)   / _|   ( )           ( ) \n ___ 7___  __ _| |_ __ _/_ __ ___ _ __ 4\n / __|/ _ \\/ _` |  _/ _` | '__/ _ \\ '__| 1\n \\__ \\  __/ (_| | || (_| | | |  __/ |5007   \n |___/\\___|\\__,_|_| \\__,_|_| 7\\___|_|\n 7                 0007    7  _      \n ( )                7      ( )0/ \\ \n ( )555007 /    |\n \\___/\n"
+  },
+  "23": {
+      "title": "",
+      "description": "",
+      "probability": "0",
+      "choice_descriptions": [ "Back to Main Menu" ],
+      "choice_success_chance": [ "1.0" ],
+      "choice_success": [ "22" ],
+      "choice_failure": [ "22" ],
+      "delta_food": "0",
+      "delta_gold": "0",
+      "delta_health": "0",
+      "ascii": "Seafarer is a wholesome, whimsical game about exploring a new, sprawling world covered in treacherous seas. Take on the role of a daring adventurer, sailing the sea in search of treasure, friendship, and exploration.\n\nBuilt with Godot.\n\nMade with <3 by the Seafarer team for UCSD DiamondHacks 2024. "
+  },
+  "24": {
+      "title": "Outclassed",
+      "description": "The pirates have better cannons...and they hurt. They loot you for much of your gold.",
+      "probability": "0",
+      "choice_descriptions": [ "Ow..." ],
+      "choice_success_chance": [ "1.0" ],
+      "choice_success": [ "-1" ],
+      "choice_failure": [ "-1" ],
+      "delta_food": "0",
+      "delta_gold": "-10",
+      "delta_health": "-10",
+      "ascii": "default"
+    },
+
+  "25": {
+      "title": "Thieves Don't Barter",
+      "description": "The pirates have no interest in making a deal. They loot you, leaving you bruised along the way.",
+      "probability": "0",
+      "choice_descriptions": [ "Oof..." ],
+      "choice_success_chance": [ "1.0" ],
+      "choice_success": [ "-1" ],
+      "choice_failure": [ "-1" ],
+      "delta_food": "0",
+      "delta_gold": "-10",
+      "delta_health": "-10",
+      "ascii": "default"
+    },
+  "26": {
+      "title": "Speedy Thieves",
+      "description": "It turns out that the pirates have fast ships. They catch up with you (bad).",
+      "probability": "0",
+      "choice_descriptions": [ "My money! (and my health!)" ],
+      "choice_success_chance": [ "1.0" ],
+      "choice_success": [ "-1" ],
+      "choice_failure": [ "-1" ],
+      "delta_food": "0",
+      "delta_gold": "-10",
+      "delta_health": "-10",
+      "ascii": "default"
+    },
+  "27": {
+      "title": "Fishing is Hard",
+      "description": "The fish don't bite...Maybe this isn't your forte.",
+      "probability": "0",
+      "choice_descriptions": [ "Hmph." ],
+      "choice_success_chance": [ "1.0" ],
+      "choice_success": [ "-1" ],
+      "choice_failure": [ "-1" ],
+      "delta_food": "0",
+      "delta_gold": "0",
+      "delta_health": "0",
+      "ascii": "default"
+    },
+
 }

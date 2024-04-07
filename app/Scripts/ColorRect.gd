@@ -14,4 +14,3 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	self.set_size(get_viewport().size)
-	print(get_viewport().size)

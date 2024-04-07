@@ -49,7 +49,7 @@ func _process(delta):
 	var viewport_size = get_viewport().size
 	var win_width = viewport_size.x
 	var win_height = viewport_size.y
-	
+
 	generate_border(win_width)
 	update_size()
 	update_position(win_width, win_height)

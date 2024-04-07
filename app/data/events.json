@@ -232,7 +232,7 @@
 
     "17": {
         "title": "Fishing Spot",
-        "description": "You throw out your line, just the way mom taught you. You pull up a large, wriggling fish.",
+        "description": "You throw out your line, just the way Mom taught you. You pull up a large, wriggling fish.",
         "probability": "0",
         "choice_descriptions": [ "Score!" ],
         "choice_success_chance": [ "1.0" ],

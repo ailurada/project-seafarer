@@ -17,6 +17,8 @@ public class json : Node
 		return dict;
 	}
 
+	// Given a filePath, read all the JSON from the file and translate it
+	// into a list of nodes.
 	SeaNode[] LoadSeaNodes(string filePath, out int amount) {
 		Godot.Collections.Dictionary dict = readJSON(filePath);
 		int amtNodes = dict.Count;

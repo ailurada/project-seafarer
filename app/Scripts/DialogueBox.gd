@@ -97,7 +97,6 @@ func show_dialogue(description, option_strings):
 	self.show()
 	initialize_options(option_strings)
 	update_option_positions()
-		
 	
 
 # call to hide dialogue when no longer needed (cleanup)

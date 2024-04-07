@@ -1,10 +1,5 @@
 extends TextEdit
 
-
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 export var text_output_path: NodePath
 var text_output: RichTextLabel
 var start_position: Vector2

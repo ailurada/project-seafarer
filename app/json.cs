@@ -103,7 +103,8 @@ public class json : Node
 				destList,
 				int.Parse((string)eventInfo["delta_food"]),
 				int.Parse((string)eventInfo["delta_gold"]),
-				int.Parse((string)eventInfo["delta_health"])
+				int.Parse((string)eventInfo["delta_health"]),
+				(string)eventInfo["ascii"]
 			);
 
 			eventList[i] = newEvent;

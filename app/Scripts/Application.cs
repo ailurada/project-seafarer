@@ -1,6 +1,13 @@
 using System;
 using System.Text;
+using System.IO;
 
+// should know grid size, somehow...
+const int gridHeight = 15;
+const int gridWidth = 41;
+// should know map size, somehow, too....
+const int mapHeight = 140;
+const int mapWidth = 400;
 
 
 public enum State {
@@ -18,6 +25,19 @@ public Initialize() {
 	// Init Nodes
 	// Init Events
 	// read the map!
+	
+	// move reading part to somewhere else?
+	string filePath = "path_to_map_file.txt";
+	string fileContents = File.ReadAllText(filePath);
+	int index = 0;
+	m_map = new char[mapHeight, mapWidth];
+	for (int row = 0; row < mapHeight; ++row) {
+		for (int col = 0; col < mapWidth; ++col) {
+			m_map[row, col] = fileContents[index];
+			++index;
+		}
+		++index;
+	}
 }
 
 public void UserInput(int input) {
@@ -74,14 +94,7 @@ private EventChoiceHandler(int choice) {
 	}
 }
 
-private PrintMap() {
-	// should know grid size, somehow...
-	const int gridHeight = 15;
-	const int gridWidth = 41;
-	// should know map size, somehow, too....
-	const int mapHeight = 140;
-	const int mapWidth = 400;
-	
+private PrintMap() {	
 	int centerRow = m_nodes[m_nodeId].GetRow();
 	int centerCol = m_nodes[m_nodeId].GetCol();
 	
@@ -109,13 +122,15 @@ private PrintMap() {
 	
 	// construct the map as a string
 	StringBuilder sb = new StringBuilder();
-	
+	char prev = m_map[m_nodes[m_nodeId].GetRow(), m_nodes[m_nodeId].GetCol()];
+	m_map[m_nodes[m_nodeId].GetRow(), m_nodes[m_nodeId].GetCol()] = '*';
 	for (int row = top; row < bottom; ++row) {
 		for (int col = left; col < right; ++col) {
 			sb.Append(m_map[row, col]);
 		}
 		sb.Append("\n");
 	}
+	m_map[m_nodes[m_nodeId].GetRow(), m_nodes[m_nodeId].GetCol()] = prev;
 	
 	// DrawMap(sb.ToString());
 }
@@ -124,7 +139,7 @@ private PrintMap() {
 private char[,] m_map = null; // INIT BY READING MAP FILE
 
 private State m_state = WAIT_CHOICE_NODE;
-private Node[] m_nodes = null;
+private SeaNode[] m_nodes = null;
 private NodeId[,] m_adjacencyList = null;
 private Event[] m_events = null;
 
@@ -137,8 +152,4 @@ private int m_gold;
 
 
 }
-
-
-
-
 

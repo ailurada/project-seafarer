@@ -1,6 +1,6 @@
 {
     "0": {
-        "title": "No Man's Land",
+        "title": "Crustacean's Corner",
         "eid": "-999",
         "coords": "1,9",
         "description": "Desolate. Barren, e'en.",
@@ -8,7 +8,7 @@
         "visited": false
     },
     "1": {
-        "title": "No Man's Land",
+        "title": "Salty Seas",
         "eid": "-999",
         "coords": "1,47",
         "description": "Desolate. Barren, e'en.",
@@ -16,7 +16,7 @@
         "visited": false
     },
     "2": {
-        "title": "No Man's Land",
+        "title": "Port of Revachol",
         "eid": "-999",
         "coords": "1,64",
         "description": "Desolate. Barren, e'en.",
@@ -24,7 +24,7 @@
         "visited": false
     },
     "3": {
-        "title": "No Man's Land",
+        "title": "Insulindia",
         "eid": "-999",
         "coords": "1,81",
         "description": "Desolate. Barren, e'en.",
@@ -32,7 +32,7 @@
         "visited": false
     },
     "4": {
-        "title": "No Man's Land",
+        "title": "Port Arthur",
         "eid": "-999",
         "coords": "1,94",
         "description": "Desolate. Barren, e'en.",
@@ -40,7 +40,7 @@
         "visited": false
     },
     "5": {
-        "title": "No Man's Land",
+        "title": "Palindan",
         "eid": "-999",
         "coords": "2,28",
         "description": "Desolate. Barren, e'en.",
@@ -48,7 +48,7 @@
         "visited": false
     },
     "6": {
-        "title": "No Man's Land",
+        "title": "Luxembourgia",
         "eid": "-999",
         "coords": "6,18",
         "description": "Desolate. Barren, e'en.",
@@ -56,7 +56,7 @@
         "visited": false
     },
     "7": {
-        "title": "No Man's Land",
+        "title": "Calm Reefs",
         "eid": "-999",
         "coords": "6,29",
         "description": "Desolate. Barren, e'en.",
@@ -64,7 +64,7 @@
         "visited": false
     },
     "8": {
-        "title": "No Man's Land",
+        "title": "Home Port",
         "eid": "-999",
         "coords": "8,38",
         "description": "Desolate. Barren, e'en.",
@@ -72,7 +72,7 @@
         "visited": false
     },
     "9": {
-        "title": "No Man's Land",
+        "title": "Piersk",
         "eid": "-999",
         "coords": "8,83",
         "description": "Desolate. Barren, e'en.",
@@ -80,7 +80,7 @@
         "visited": false
     },
     "10": {
-        "title": "No Man's Land",
+        "title": "Kiersen",
         "eid": "-999",
         "coords": "8,95",
         "description": "Desolate. Barren, e'en.",
@@ -88,7 +88,7 @@
         "visited": false
     },
     "11": {
-        "title": "No Man's Land",
+        "title": "Dodo Island",
         "eid": "-999",
         "coords": "9,10",
         "description": "Desolate. Barren, e'en.",
@@ -96,7 +96,7 @@
         "visited": false
     },
     "12": {
-        "title": "No Man's Land",
+        "title": "Cerulean High Seas",
         "eid": "-999",
         "coords": "9,70",
         "description": "Desolate. Barren, e'en.",
@@ -112,7 +112,7 @@
         "visited": true
     },
     "14": {
-        "title": "No Man's Land",
+        "title": "Terunda",
         "eid": "-999",
         "coords": "12,60",
         "description": "Desolate. Barren, e'en.",
@@ -120,7 +120,7 @@
         "visited": false
     },
     "15": {
-        "title": "No Man's Land",
+        "title": "New Cartagia",
         "eid": "-999",
         "coords": "15,91",
         "description": "Desolate. Barren, e'en.",
@@ -128,7 +128,7 @@
         "visited": false
     },
     "16": {
-        "title": "No Man's Land",
+        "title": "Seol",
         "eid": "-999",
         "coords": "16,4",
         "description": "Desolate. Barren, e'en.",
@@ -136,7 +136,7 @@
         "visited": false
     },
     "17": {
-        "title": "Desolate Raft",
+        "title": "Pico",
         "eid": "-999",
         "coords": "19,57",
         "description": "An abandoned, rundown shack leaning on the water. It looks as if it will collapse at any moment.",
@@ -144,7 +144,7 @@
         "visited": false
     },
     "18": {
-        "title": "No Man's Land",
+        "title": "Port of Mentesque",
         "eid": "-999",
         "coords": "19,72",
         "description": "Desolate. Barren, e'en.",
@@ -152,7 +152,7 @@
         "visited": false
     },
     "19": {
-        "title": "No Man's Land",
+        "title": "Dolores Dei",
         "eid": "-999",
         "coords": "20,7",
         "description": "Desolate. Barren, e'en.",
@@ -168,7 +168,7 @@
         "visited": false
     },
     "21": {
-        "title": "No Man's Land",
+        "title": "Capital of Mentesque",
         "eid": "-999",
         "coords": "22,91",
         "description": "Desolate. Barren, e'en.",
@@ -176,7 +176,7 @@
         "visited": false
     },
     "22": {
-        "title": "No Man's Land",
+        "title": "Bratan",
         "eid": "-999",
         "coords": "25,2",
         "description": "Desolate. Barren, e'en.",
@@ -184,7 +184,7 @@
         "visited": false
     },
     "23": {
-        "title": "No Man's Land",
+        "title": "Midway",
         "eid": "-999",
         "coords": "25,52",
         "description": "Desolate. Barren, e'en.",
@@ -200,7 +200,7 @@
         "visited": false
     },
     "25": {
-        "title": "No Man's Land",
+        "title": "Imperial Trading Post",
         "eid": "-999",
         "coords": "27,28",
         "description": "Desolate. Barren, e'en.",
@@ -208,7 +208,7 @@
         "visited": false
     },
     "26": {
-        "title": "No Man's Land",
+        "title": "Mage Main",
         "eid": "-999",
         "coords": "28,39",
         "description": "Desolate. Barren, e'en.",
@@ -216,7 +216,7 @@
         "visited": false
     },
     "27": {
-        "title": "No Man's Land",
+        "title": "Kersagen",
         "eid": "-999",
         "coords": "29,10",
         "description": "Desolate. Barren, e'en.",
@@ -224,7 +224,7 @@
         "visited": false
     },
     "28": {
-        "title": "No Man's Land",
+        "title": "Jerodian",
         "eid": "-999",
         "coords": "29,95",
         "description": "Desolate. Barren, e'en.",

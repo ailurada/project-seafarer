@@ -47,8 +47,10 @@ public void Initialize() {
 	// Init Nodes
 	// Init Events
 	// read the map!
+	
+	m_node = GetNode("UIManager") as UIManager;
 
-	string fileContents = readFileMap("res://data/map.txt")
+	string fileContents = readFileMap("res://data/map.txt");
 	
 	int index = 0;
 	m_map = new char[mapHeight, mapWidth];
@@ -283,5 +285,5 @@ private int m_health = 100;
 private int m_gold = 100;
 private int m_food = 100;
 
-public Node m_node;
+private Node m_node;
 }

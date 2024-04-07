@@ -3,6 +3,7 @@
 // Implements the Application class, the central manager and authority on game logic.
 using Godot;
 using System;
+using System.Collections.Concurrent;
 using System.Text;
 
 
@@ -79,6 +80,8 @@ public override void _Ready() {
 	m_random = new Random();
 	
 	PrintMap();
+	
+	
 	}
 	catch(Exception e) {GD.Print(e);}
 }
@@ -131,7 +134,12 @@ private void HandleNodeChoice(int choice) {
 	// option after rest is resupply
 	else if (choice > adjList.Length) {
 		if (m_gold < 10) {
-			m_node.Call("draw_event", "You're poor!", "You do not have enough money for this.", new string[]{ "Okay." });
+			m_node.Call("draw_event", 
+						"You're poor!", 
+						"You do not have enough money for this.", 
+						new string[]{ "Okay." },
+						"null");
+
 			m_state = State.WAIT_CHOICE_EVENT;
 			m_eventId = -1; // signifies that we're just waiting for a response. any response.
 			return;
@@ -157,19 +165,18 @@ private void TravelEdge(int destination) {
 	m_nodes[destination].Visit();
 	m_map[m_nodes[destination].Row, m_nodes[destination].Col] = '@';
 
-	// using System // needed for random
 	int triggered = RandomEvent();
-	
-	m_food += m_events[triggered].DeltaFood;
-	m_gold += m_events[triggered].DeltaGold;
-	m_health += m_events[triggered].DeltaHealth;
+	Event triggeredEvent = m_events[triggered];
+
+	m_food += triggeredEvent.DeltaFood;
+	m_gold += triggeredEvent.DeltaGold;
+	m_health += triggeredEvent.DeltaHealth;
 	CheckEndCondition();
 	
-	m_node.Call("draw_event", m_events[triggered].Title, m_events[triggered].Description, m_events[triggered].ChoiceDescriptions, "");
+	m_node.Call("draw_event", triggeredEvent.Title, triggeredEvent.Description, triggeredEvent.ChoiceDescriptions, "");
 
 	m_state = State.WAIT_CHOICE_EVENT;
 	m_eventId = triggered;
-
 
 	return;
 }
@@ -184,6 +191,15 @@ private void HandleEventChoice(int choice) {
 	if (m_eventId == -1) {
 		m_state = State.WAIT_CHOICE_NODE;
 		PrintMap();
+		
+		if (m_food <= 0) {
+			health -= 10;
+			// starving event
+			m_node.Call("draw_event", m_events[14].GetTitle(), m_events[14].GetDescription(), m_events[14].GetChoiceDescriptions());
+		}
+		
+		CheckEndCondition();
+		
 		return;		
 	}
 
@@ -192,21 +208,36 @@ private void HandleEventChoice(int choice) {
 		return;
 	}
 
+	Event currentEvent = m_events[m_eventId];
+
 	// Destination event selected by user
-	int dest = m_events[m_eventId].ChoiceDestinations[choice];
+	int dest = currentEvent.ChoiceDestinations[choice];
 
 	// Return to map
 	if (dest == -1) {
 		m_state = State.WAIT_CHOICE_NODE;
 		PrintMap();
+		
+		if (m_food <= 0) {
+			health -= 10;
+			// starving event
+			m_node.Call("draw_event", m_events[14].GetTitle(), m_events[14].GetDescription(), m_events[14].GetChoiceDescriptions());
+		}
+		
+		CheckEndCondition();
 	}
 	else {
-		m_food += m_events[m_eventId].DeltaFood;
-		m_gold += m_events[m_eventId].DeltaGold;
-		m_health += m_events[m_eventId].DeltaHealth;
+
+		m_food += currentEvent.DeltaFood;
+		m_gold += currentEvent.DeltaGold;
+		m_health += currentEvent.DeltaHealth;
 		CheckEndCondition();
 		
-		m_node.Call("draw_event", m_events[m_eventId].Title, m_events[m_eventId].Description, m_events[m_eventId].ChoiceDescriptions);
+		m_node.Call("draw_event", 
+					currentEvent.Title, 
+					currentEvent.Description, 
+					currentEvent.ChoiceDescriptions,
+					currentEvent.Ascii);
 
 		m_state = State.WAIT_CHOICE_EVENT;
 		m_eventId = dest;
@@ -217,8 +248,10 @@ private void HandleEventChoice(int choice) {
 // PrintMap(void)
 // Constructs and draws a view of the map based on the current node the user is present in, marking the node with *.
 private void PrintMap() {	
-	int centerRow = m_nodes[m_nodeId].Row;
-	int centerCol = m_nodes[m_nodeId].Col;
+	SeaNode currentNode = m_nodes[m_nodeId];
+
+	int centerRow = currentNode.Row;
+	int centerCol = currentNode.Col;
 	
 	int top = centerRow - (gridHeight - 1) / 2;
 	int bottom = centerRow + (gridHeight - 1) / 2;
@@ -244,18 +277,19 @@ private void PrintMap() {
 	
 	// Construct the map as a string
 	StringBuilder sb = new StringBuilder();
-	GD.Print(m_nodes[m_nodeId].Row, m_nodes[m_nodeId].Col);
-	char prev = m_map[m_nodes[m_nodeId].Row, m_nodes[m_nodeId].Col];
-	m_map[m_nodes[m_nodeId].Row, m_nodes[m_nodeId].Col] = '*';
+	char prev = m_map[currentNode.Row, currentNode.Col];
+	m_map[currentNode.Row, currentNode.Col] = '*';
+
 	for (int row = top; row <= bottom; ++row) {
 		for (int col = left; col <= right; ++col) {
 			sb.Append(m_map[row, col]);
 		}
 		sb.Append("\n");
 	}
-	m_map[m_nodes[m_nodeId].Row, m_nodes[m_nodeId].Col] = prev;
 	
-	int[] adjList = m_nodes[m_nodeId].AdjList;	
+	m_map[currentNode.Row, currentNode.Col] = prev;
+	
+	int[] adjList = currentNode.AdjList;	
 	m_node.Call("draw_map", sb.ToString(), (object) adjList, top, left);
 
 	// DrawMap(sb.ToString(), adjList, numRows, numCols);
@@ -274,11 +308,19 @@ public string NodeName(int nodeIndex) {
 
 private void CheckEndCondition() {
 	if (m_health <= 0) {
-		m_node.Call("draw_event", "Death!", "Due to continuous and multiple injuries suffered by your body without proper care, your body has stopped cooperating with you.", new string[]{ "Okay." });
+		m_node.Call("draw_event", 
+					"Death!", 
+					"Due to continuous and multiple injuries suffered by your body without proper care, your body has stopped cooperating with you.", 
+					new string[]{ "Okay." },
+					"null");
 		// exit
 	}
 	if (m_food <= 0) {
-		m_node.Call("draw_event", "Death!", "Long voyages with no resupply has left the ship with no food or any edible object to speak of. You and your crew suffer a slow, painful death by starvation.", new string[]{ "Okay." });
+		m_node.Call("draw_event", 
+					"Death!", 
+					"Long voyages with no resupply has left the ship with no food or any edible object to speak of. You and your crew suffer a slow, painful death by starvation.", 
+					new string[]{ "Okay." },
+					"null");
 		//DrawEvent("Death!", "Long voyages with no resupply has left the ship with no food or any edible object to speak of. You and your crew suffer a slow, painful death by starvation.", { "Okay." });
 		// exit
 	}

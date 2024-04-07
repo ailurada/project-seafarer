@@ -10,16 +10,17 @@ var pt_size = 32
 var char_width_px = 20
 onready var dialogue_box = get_parent()
 
+
 func update_position():
-	var init_pos = dialogue_box.rect_size.y - 2.75*pt_size
 	self.rect_position.x = 4*char_width_px
-	self.rect_position.y = init_pos + 2.75*pt_size
+	self.rect_position.y = get_viewport().size.y - 2*pt_size
+	self.rect_size.x = get_viewport().size.x - 10*char_width_px
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	text_output = get_node(text_output_path)
 	start_position = self.rect_position
-	self.rect_size.x = get_viewport().size.x - dialogue_box.rect_position.x
+	self.rect_size.x = get_viewport().size.x - 10*char_width_px
 	self.rect_size.y = pt_size + 20
 	
 	

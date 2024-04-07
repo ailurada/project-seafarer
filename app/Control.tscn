@@ -9,7 +9,7 @@
 [ext_resource path="res://Scripts/TerminalArrow.gd" type="Script" id=7]
 [ext_resource path="res://Scripts/UIManager.gd" type="Script" id=8]
 [ext_resource path="res://Scripts/Application.cs" type="Script" id=9]
-[ext_resource path="res://json.cs" type="Script" id=10]
+[ext_resource path="res://Json.cs" type="Script" id=10]
 [ext_resource path="res://Scripts/StatsBox.gd" type="Script" id=11]
 
 [node name="Control" type="Control"]

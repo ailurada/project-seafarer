@@ -14,7 +14,7 @@ onready var event_img = $EventImage
 export var game_manager_path: NodePath
 var game_manager: Node
 
-var default_image = ""
+var default_image = "                    _\n             __---\\/_\\_\n            / __-- | \\/\n            |/   / \\  \\\n                | | | |\n               | |   V\n               | |\n       _______|  |\n  ____/    _  \\_|       `    ~~~\n /   ~    /     \\n~~        ~~          ~~        .   `    ~~\n    .       ~            ~~     \n    ~~~~        -     `          ~~~~\n__________________________________________________\n__________________________________________________"
 
 var current_selection = -1
 var map_event = false

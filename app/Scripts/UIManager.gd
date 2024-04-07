@@ -29,7 +29,7 @@ func _process(delta):
 	if new_selection != current_selection:
 		current_selection = new_selection
 		dialogue_box.highlight_option(current_selection)
-		if map_event:
+		if map.enabled():
 			map.set_hover(current_selection)
 			map.redraw_map()
 		
@@ -58,7 +58,11 @@ func draw_map(map_string: String, adjacent_nodes: Array, top: int, left: int):
 
 func draw_event(title: String, description: String, options: Array, img_str: String):
 	map.disable()
-	dialogue_box.show_dialogue(title + ":\n" + description, options)
+	if title != "":
+		dialogue_box.show_dialogue(title + ":\n" + description, options)
+	else:
+		dialogue_box.show_dialogue(description, options)
+		
 	if map_event:
 		map.enable()
 		event_img.hide_image()
@@ -67,6 +71,7 @@ func draw_event(title: String, description: String, options: Array, img_str: Str
 	else:
 		dialogue_box.set_box_location(dialogue_box.BOTTOM)
 		stats_box.set_box_location(stats_box.SHOP)
+	map_event = false
 		
 	if img_str != "":
 		if img_str == "default":

@@ -30,15 +30,27 @@ public Application() {}
 public ~Application() {}
 
 // Initializes game resources; calls appropriate functions to read from files and initialize nodes, events, and map.
-public Initialize() {
+
+
+// Given the file path to the map.txt, return the concatenated 
+// string representation of the map.
+public string readMapFile(string mapFilePath) {
+	File file = new File();
+	file.Open(mapFilePath, File.ModeFlags.Read);
+	string text = file.GetAsText();
+	file.Close();
+
+	return text;
+}
+
+public void Initialize() {
 	// call files...
 	// Init Nodes
 	// Init Events
 	// read the map!
+
+	string fileContents = readFileMap("res://data/map.txt")
 	
-	// move reading part to somewhere else?
-	string filePath = "path_to_map_file.txt";
-	string fileContents = File.ReadAllText(filePath);
 	int index = 0;
 	m_map = new char[mapHeight, mapWidth];
 	for (int row = 0; row < mapHeight; ++row) {

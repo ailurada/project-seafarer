@@ -17,7 +17,7 @@ var game_manager: Node
 var default_image = ""
 
 var current_selection = -1
-var map_event = true
+var map_event = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,10 +34,6 @@ func _process(delta):
 			map.redraw_map()
 		
 	if (Input.is_action_just_released("enter")):
-		if map_event:
-			map_event = false
-			map.disable()
-			
 		game_manager.UserInput(current_selection)
 		user_input.clear_command()
 
@@ -61,8 +57,10 @@ func draw_map(map_string: String, adjacent_nodes: Array, top: int, left: int):
 
 
 func draw_event(title: String, description: String, options: Array, img_str: String):
+	map.disable()
 	dialogue_box.show_dialogue(title + ":\n" + description, options)
 	if map_event:
+		map.enable()
 		event_img.hide_image()
 		dialogue_box.set_box_location(dialogue_box.RIGHT)
 		stats_box.set_box_location(stats_box.MAP)

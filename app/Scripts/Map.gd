@@ -43,6 +43,9 @@ var hover_selection: int = 1
 
 func disable():
 	self.hide()
+	
+func enable():
+	self.show()
 
 # Draws a map given a string representation and x, y dimensions
 func draw_map(map_string: String, adjacent_coords: Array, numRows: int, numCols: int, top: int, left: int):

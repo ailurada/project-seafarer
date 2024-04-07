@@ -10,7 +10,6 @@ using System.Text;
 public class Application : Node
 {
 
-// These four values should be included in Types.cs or similar.
 public const int gridHeight = 15;
 public const int gridWidth = 41;
 const int mapHeight = 30;
@@ -120,7 +119,7 @@ private void NodeChoiceHandler(int choice) {
 		return;
 	}
 
-	int[] adjList = m_nodes[m_nodeId].GetAdjacencyList(); 
+	int[] adjList = m_nodes[m_nodeId].AdjList; 
 	if (choice < adjList.Length) {
 		TravelEdge(adjList[choice]);
 	}
@@ -253,7 +252,7 @@ private void PrintMap() {
 	}
 	m_map[m_nodes[m_nodeId].Row, m_nodes[m_nodeId].Col] = prev;
 	
-	int[] adjList = m_nodes[m_nodeId].GetAdjacencyList();	
+	int[] adjList = m_nodes[m_nodeId].AdjList;	
 	m_node.Call("draw_map", sb.ToString(), (object) adjList, top, left);
 
 	// DrawMap(sb.ToString(), adjList, numRows, numCols);
@@ -267,7 +266,7 @@ public int[] NodeCoordinates(int nodeIndex) {
 }
 
 public string NodeName(int nodeIndex) {
-	return m_nodes[nodeIndex].GetName();
+	return m_nodes[nodeIndex].Name;
 }
 
 private void GameOver() {

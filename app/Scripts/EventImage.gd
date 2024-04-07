@@ -3,7 +3,7 @@ extends Label
 const char_width_px = 20
 const num_rows = 8
 const pt_size = 32
-const IMG_SIZE = 10
+const IMG_SIZE = 19
 
 # Declare member variables here. Examples:
 # var a = 2

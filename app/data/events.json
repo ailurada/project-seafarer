@@ -1,16 +1,82 @@
 {
-    "0": {
-        "title": "Lost at Sea",
-        "description": "An unruly gust of wind and a few too many days of torrential downpour have left you without direction.",
-        "probability": "0.10",
-        "choice_descriptions": ["Ask crew for directions", "Purchase a map from a nearby trader", "Sail aimlessly"],
-        "choice_destinations": ["12", "13", "72"]
-    },
-    "1": {
-        "title": "Ambush!",
-        "description": "On an unusually quiet afternoon, you come to realize that the ship has been following you for some time is growing ever closer. Raising their skull-and-crossbone laden flag, you are left with few options.",
-        "probability": "0.10",
-        "choice_descriptions": ["Man the cannons!", "Barter for your safety", "Raise sails and attempt escape"],
-        "choice_destinations": ["1", "23", "42"]
-    }
+  "0": {
+    "title": "Lost at Sea",
+    "description": "An unruly gust of wind and a few too many days of torrential downpour have left you without direction.",
+    "probability": "0.10",
+    "choice_descriptions": [ "Ask crew for directions", "Purchase a map from a nearby trader", "Sail aimlessly" ],
+    "choice_destinations": [ "2", "3", "4" ],
+    "delta_food": "0",
+    "delta_gold": "0",
+    "delta_health": "0"
+  },
+  "1": {
+    "title": "Ambush!",
+    "description": "On an unusually quiet afternoon, you come to realize that the ship has been following you for some time is growing ever closer. Raising their skull-and-crossbone laden flag, you are left with few options.",
+    "probability": "0.10",
+    "choice_descriptions": [ "Man the cannons!", "Barter for your safety", "Raise sails and attempt escape" ],
+    "choice_destinations": [ "5", "6", "7" ],
+    "delta_food": "0",
+    "delta_gold": "0",
+    "delta_health": "0"
+  },
+  "2": {
+    "title": "The Crew Opines",
+    "description": "Your trusty crew has navigated safely through, at the cost of additional rations.",
+    "probability": "0.0",
+    "choice_descriptions": [ "Great!" ],
+    "choice_destinations": [ "-1" ],
+    "delta_food": "-10",
+    "delta_gold": "0",
+    "delta_health": "0"
+  },
+  "3": {
+    "title": "Money Well Spent",
+    "description": "Fortunately for you, you met a merchant-at-sea carrying maps for the local area. It costs you gold, but you navigate with no difficulty.",
+    "probability": "0.0",
+    "choice_descriptions": [ "All that ends well is well." ],
+    "choice_destinations": [ "-1" ],
+    "delta_food": "0",
+    "delta_gold": "-10",
+    "delta_health": "0"
+  },
+  "4": {
+    "title": "Clueless Sailing",
+    "description": "Choosing to sail forward without a clue where to might have been a bad idea. You barely figure out the way, but not before wasting much needed supplies at sea.",
+    "probability": "0.0",
+    "choice_descriptions": [ "Well, supplies are recoverable..." ],
+    "choice_destinations": [ "-1" ],
+    "delta_food": "-20",
+    "delta_gold": "0",
+    "delta_health": "0"
+  },
+  "5": {
+    "title": "Clash of the Dreadnoughts",
+    "description": "Rallying under your words, your crew engaged in a firefight. After the smoke clears, you see you took a few hits...which doesn't hurt that much, when you look at the treasure chest the pirates left.",
+    "probability": "0.0",
+    "choice_descriptions": [ "'Tis but a flesh wound." ],
+    "choice_destinations": [ "-1" ],
+    "delta_food": "0",
+    "delta_gold": "50",
+    "delta_health": "-10"
+  },
+  "6": {
+    "title": "Thieves' Honor",
+    "description": "The pirates seem to not have wanted to fight either. You pay gold for your safety, which they guarantee, but you feel a cost greater than gold has been paid from your heart.",
+    "probability": "0.0",
+    "choice_descriptions": [ "Hopefully we do not encounter them again." ],
+    "choice_destinations": [ "-1" ],
+    "delta_food": "0",
+    "delta_gold": "-30",
+    "delta_health": "0"
+  },
+  "7": {
+    "title": "Racer of the High Seas",
+    "description": "A sudden wind coincided with your sails rising, and with the crew rowing full strength, you zoom away. Exhausted, the crew will need extra rations, but the pirates won't get us this time.",
+    "probability": "0.0",
+    "choice_descriptions": [ "Kachow!" ],
+    "choice_destinations": [ "-1" ],
+    "delta_food": "-10",
+    "delta_gold": "0",
+    "delta_health": "0"
+  }
 }

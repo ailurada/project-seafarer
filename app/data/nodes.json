@@ -109,7 +109,7 @@
         "coords": "11,28",
         "description": "The place where it all began; home sweet home.",
         "adjacent": ["8"],
-        "visited": false
+        "visited": true
     },
     "14": {
         "title": "No Man's Land",

@@ -100,7 +100,10 @@ public class json : Node
 				(string)eventInfo["description"],
 				float.Parse((string)eventInfo["probability"]),
 				descList,
-				destList
+				destList,
+				int.Parse((string)eventInfo["delta_food"]),
+				int.Parse((string)eventInfo["delta_gold"]),
+				int.Parse((string)eventInfo["delta_health"])
 			);
 
 			eventList[i] = newEvent;

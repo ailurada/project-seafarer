@@ -54,6 +54,18 @@ public class SeaNode {
 			GD.Print(adjList[i]);
 		}
 	}
+	
+	public string GetName() {
+		return name;
+	}
+
+	public string GetDescription() {
+		return description;
+	}
+		
+	public int[] GetAdjacencyList() {
+		return adjList;
+	}
 
 
 	// Get the position of the current SeaNode

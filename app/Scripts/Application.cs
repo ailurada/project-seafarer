@@ -205,7 +205,7 @@ private void TravelEdge(int destination) {
 
 	CheckEndCondition();
 	
-	m_node.Call("draw_event", triggeredEvent.Title, triggeredEvent.Description, triggeredEvent.ChoiceDescriptions);
+	m_node.Call("draw_event", triggeredEvent.Title, triggeredEvent.Description, triggeredEvent.ChoiceDescriptions, "");
 
 	m_state = State.WAIT_CHOICE_EVENT;
 	m_eventId = triggered;

@@ -420,7 +420,7 @@
   "31": {
       "title": "A New Friend",
       "description": "It's another adventurer, just like you! And they have a cat!",
-      "probability": "0.5",
+      "probability": "0.0",
       "choice_descriptions": [ "I love making new friends!" ],
       "choice_success_chance": [ "1.0" ],
       "choice_success": [ "-1" ],

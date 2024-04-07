@@ -52,7 +52,7 @@ func draw_map(map_string: String, adjacent_nodes: Array, top: int, left: int):
 		
 	var numRows	= game_manager.gridHeight
 	var numCols = game_manager.gridWidth
-	map.draw_map(map_string, adjacent_node_coords, numRows, numCols, top, left)
+	map.draw_map(map_string, adjacent_nodes, adjacent_node_coords, numRows, numCols, top, left)
 	map_event = true
 	draw_event("Travel", "Where would you like to go next?", adjacent_node_names)
 

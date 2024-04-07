@@ -37,6 +37,7 @@ var node_number = 1
 # class variables
 var map_str: String
 var adj_nodes: Array
+var adj_coords: Array
 var num_rows: int
 var num_cols: int
 var _top: int
@@ -48,10 +49,11 @@ func disable():
 	self.hide()
 
 # Draws a map given a string representation and x, y dimensions
-func draw_map(map_string: String, adjacent_nodes: Array, numRows: int, numCols: int, top: int, left: int):
+func draw_map(map_string: String, adjacent_nodes: Array, adjacent_coords: Array, numRows: int, numCols: int, top: int, left: int):
 	self.show()
 	map_str = map_string
 	adj_nodes = adjacent_nodes
+	adj_coords = adjacent_coords
 	num_rows = numRows
 	num_cols = numCols
 	_top = top
@@ -61,6 +63,9 @@ func draw_map(map_string: String, adjacent_nodes: Array, numRows: int, numCols: 
 
 func set_hover(selection: int):
 	hover_selection = selection
+	
+func get_adj_node(node_idx: int):
+	return adj_nodes[node_idx - 1]
 
 func redraw_map():
 	self.set_bbcode("")
@@ -105,7 +110,7 @@ func _add_row(row_str: String, curr_row: int):
 					center_char = "*"
 			
 			# check if it is adjacent to the current node
-			if includes_coord(adj_nodes, [curr_row + _top, curr_col + _left]):
+			if includes_coord(adj_coords, [curr_row + _top, curr_col + _left]):
 				# check if you are selecting node at (curr_row, curr_col)
 				center_char = String(node_number)
 				

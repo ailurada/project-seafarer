@@ -115,7 +115,6 @@ public void UserInput(int input) {
 // =============================================
 // choice:	User's choice.
 private void HandleNodeChoice(int choice) {
-	// TODO: add option for resting, and other additional options that can be expected from a sea node.
 	if (choice < 0) {
 		return;
 	}
@@ -196,6 +195,7 @@ private void HandleEventChoice(int choice) {
 			m_health -= 10;
 			// starving event
 			m_node.Call("draw_event", m_events[14].Title, m_events[14].Description, m_events[14].ChoiceDescriptions);
+
 		}
 		
 		CheckEndCondition();
@@ -232,6 +232,7 @@ private void HandleEventChoice(int choice) {
 			m_health -= 10;
 			// starving event
 			m_node.Call("draw_event", m_events[14].Title, m_events[14].Description, m_events[14].ChoiceDescriptions);
+
 		}
 		
 		CheckEndCondition();

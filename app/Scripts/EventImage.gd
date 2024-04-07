@@ -26,7 +26,7 @@ func _ready():
 # put above dialogue box
 func _update_position(win_width, win_height):
 	self.rect_position.x = dialogue_box.rect_position.x
-	self.rect_position.y = dialogue_box.rect_position.y + (IMG_SIZE + 1) * pt_size
+	self.rect_position.y = dialogue_box.rect_position.y - (IMG_SIZE + 1) * pt_size
 	
 	
 func _update_size():

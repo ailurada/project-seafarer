@@ -36,7 +36,6 @@ var node_number = 1
 
 # class variables
 var map_str: String
-var adj_nodes: Array
 var adj_coords: Array
 var num_rows: int
 var num_cols: int
@@ -49,10 +48,9 @@ func disable():
 	self.hide()
 
 # Draws a map given a string representation and x, y dimensions
-func draw_map(map_string: String, adjacent_nodes: Array, adjacent_coords: Array, numRows: int, numCols: int, top: int, left: int):
+func draw_map(map_string: String, adjacent_coords: Array, numRows: int, numCols: int, top: int, left: int):
 	self.show()
 	map_str = map_string
-	adj_nodes = adjacent_nodes
 	adj_coords = adjacent_coords
 	num_rows = numRows
 	num_cols = numCols
@@ -63,9 +61,6 @@ func draw_map(map_string: String, adjacent_nodes: Array, adjacent_coords: Array,
 
 func set_hover(selection: int):
 	hover_selection = selection
-	
-func get_adj_node(node_idx: int):
-	return adj_nodes[node_idx - 1]
 
 func redraw_map():
 	self.set_bbcode("")

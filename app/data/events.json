@@ -7,7 +7,8 @@
     "choice_destinations": [ "2", "3", "4" ],
     "delta_food": "0",
     "delta_gold": "0",
-    "delta_health": "0"
+    "delta_health": "0",
+    "ascii": "           ___\n /   \\\n |  _/( )5500\n |_/ 7       400 \n 7    __     4               \n 0055(*)   / _|   ( )           ( ) \n ___ 7___  __ _| |_ __ _/_ __ ___ _ __ 4\n / __|/ _ \\/ _` |  _/ _` | '__/ _ \\ '__| 1\n \\__ \\  __/ (_| | || (_| | | |  __/ |5007   \n |___/\\___|\\__,_|_| \\__,_|_| 7\\___|_|\n 7                 0007    7  _      \n ( )                7      ( )0/ \\ \n ( )555007 /    |\n \\___/\n"
   },
   "1": {
     "title": "Ambush!",
@@ -17,7 +18,8 @@
     "choice_destinations": [ "5", "6", "7" ],
     "delta_food": "0",
     "delta_gold": "0",
-    "delta_health": "0"
+    "delta_health": "0",
+    "ascii": "null"
   },
   "2": {
     "title": "The Crew Opines",
@@ -27,7 +29,8 @@
     "choice_destinations": [ "-1" ],
     "delta_food": "-10",
     "delta_gold": "0",
-    "delta_health": "0"
+    "delta_health": "0",
+    "ascii": "null"
   },
   "3": {
     "title": "Money Well Spent",
@@ -37,7 +40,8 @@
     "choice_destinations": [ "-1" ],
     "delta_food": "0",
     "delta_gold": "-10",
-    "delta_health": "0"
+    "delta_health": "0",
+    "ascii": "null"
   },
   "4": {
     "title": "Clueless Sailing",
@@ -47,7 +51,8 @@
     "choice_destinations": [ "-1" ],
     "delta_food": "-20",
     "delta_gold": "0",
-    "delta_health": "0"
+    "delta_health": "0",
+    "ascii": "null"
   },
   "5": {
     "title": "Clash of the Dreadnoughts",
@@ -57,7 +62,8 @@
     "choice_destinations": [ "-1" ],
     "delta_food": "0",
     "delta_gold": "50",
-    "delta_health": "-10"
+    "delta_health": "-10",
+    "ascii": "null"
   },
   "6": {
     "title": "Thieves' Honor",
@@ -67,7 +73,8 @@
     "choice_destinations": [ "-1" ],
     "delta_food": "0",
     "delta_gold": "-30",
-    "delta_health": "0"
+    "delta_health": "0",
+    "ascii": "null"
   },
   "7": {
     "title": "Racer of the High Seas",
@@ -77,6 +84,7 @@
     "choice_destinations": [ "-1" ],
     "delta_food": "-10",
     "delta_gold": "0",
-    "delta_health": "0"
+    "delta_health": "0",
+    "ascii": "null"
   }
 }

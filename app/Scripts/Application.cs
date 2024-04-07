@@ -10,7 +10,6 @@ using System.Text;
 public class Application : Node
 {
 
-// These four values should be included in Types.cs or similar.
 public const int gridHeight = 15;
 public const int gridWidth = 41;
 const int mapHeight = 34;
@@ -66,17 +65,15 @@ public override void _Ready() {
 	
 	// Load events
 	json json_node = GetNode("JSONController") as json;
-	int num_events;
-	int num_nodes;
-	m_events = json_node.LoadEvents("res://data/events.json", out num_events);
-	m_nodes = json_node.LoadSeaNodes("res://data/nodes.json", out num_nodes);
+	m_events = json_node.LoadEvents("res://data/events.json", out int num_events);
+	m_nodes = json_node.LoadSeaNodes("res://data/nodes.json", out int num_nodes);
 	
 	
 	m_eventWeights = new float[num_events];
 	m_totalWeight = 0.0f;
 	for (int i = 0; i < num_events; ++i) {
 		m_eventWeights[i] = m_totalWeight;
-		m_totalWeight += m_events[i].GetProbability();
+		m_totalWeight += m_events[i].Probability;
 	}
 	
 	m_random = new Random();
@@ -101,26 +98,26 @@ int RandomEvent() {
 // input:	User's input.
 public void UserInput(int input) {
 	if (m_state == State.WAIT_CHOICE_NODE) {
-		NodeChoiceHandler(input - 1);
+		HandleNodeChoice(input - 1);
 	}
 	else if (m_state == State.WAIT_CHOICE_EVENT) {
-		EventChoiceHandler(input - 1);
+		HandleEventChoice(input - 1);
 	}
 }
 
 
-// NodeChoiceHandler(int)
+// HandleNodeChoice(int)
 // Handles the given user choice, received as an integer input.
 // Invalid choices will be ignored.
 // =============================================
 // choice:	User's choice.
-private void NodeChoiceHandler(int choice) {
+private void HandleNodeChoice(int choice) {
 	// TODO: add option for resting, and other additional options that can be expected from a sea node.
 	if (choice < 0) {
 		return;
 	}
 
-	int[] adjList = m_nodes[m_nodeId].GetAdjacencyList(); 
+	int[] adjList = m_nodes[m_nodeId].AdjList; 
 	if (choice < adjList.Length) {
 		TravelEdge(adjList[choice]);
 	}
@@ -150,7 +147,7 @@ private void NodeChoiceHandler(int choice) {
 
 // TravelEdge(int)
 // Travels to the desired SeaNode.
-// A random event will be fired.
+// A random event will be triggered.
 // =============================================
 // choice:    User's choice.
 private void TravelEdge(int destination) {
@@ -161,50 +158,55 @@ private void TravelEdge(int destination) {
 	m_map[m_nodes[destination].Row, m_nodes[destination].Col] = '@';
 
 	// using System // needed for random
-	int fired = RandomEvent();
+	int triggered = RandomEvent();
 	
-	m_food += m_events[fired].GetDeltaFood();
-	m_gold += m_events[fired].GetDeltaGold();
-	m_health += m_events[fired].GetDeltaHealth();
-	GameOver();
+	m_food += m_events[triggered].DeltaFood;
+	m_gold += m_events[triggered].DeltaGold;
+	m_health += m_events[triggered].DeltaHealth;
+	CheckEndCondition();
 	
-	m_node.Call("draw_event", m_events[fired].GetTitle(), m_events[fired].GetDescription(), m_events[fired].GetChoiceDescriptions());
+	m_node.Call("draw_event", m_events[triggered].Title, m_events[triggered].Description, m_events[triggered].ChoiceDescriptions, "");
 
 	m_state = State.WAIT_CHOICE_EVENT;
-	m_eventId = fired;
+	m_eventId = triggered;
 
 
 	return;
 }
 
-// EventChoiceHandler(int)
+// HandleEventChoice(int)
 // Chooses an available option for responding to an event (possibly firing another event in the process).
 // Invalid events will be ignored.
 // =============================================
 // choice:    User's choice.
-private void EventChoiceHandler(int choice) {
+private void HandleEventChoice(int choice) {
+	// If the event is no choice
 	if (m_eventId == -1) {
 		m_state = State.WAIT_CHOICE_NODE;
 		PrintMap();
 		return;		
 	}
+
+	// Invalid choice
 	if (choice < 0 || choice > m_events[m_eventId].NumChoices()) {
 		return;
 	}
 
-	int dest = (m_events[m_eventId].GetChoiceDestinations())[choice];
+	// Destination event selected by user
+	int dest = m_events[m_eventId].ChoiceDestinations[choice];
 
+	// Return to map
 	if (dest == -1) {
 		m_state = State.WAIT_CHOICE_NODE;
 		PrintMap();
 	}
 	else {
-		m_food += m_events[m_eventId].GetDeltaFood();
-		m_gold += m_events[m_eventId].GetDeltaGold();
-		m_health += m_events[m_eventId].GetDeltaHealth();
-		GameOver();
+		m_food += m_events[m_eventId].DeltaFood;
+		m_gold += m_events[m_eventId].DeltaGold;
+		m_health += m_events[m_eventId].DeltaHealth;
+		CheckEndCondition();
 		
-		m_node.Call("draw_event", m_events[m_eventId].GetTitle(), m_events[m_eventId].GetDescription(), m_events[m_eventId].GetChoiceDescriptions());
+		m_node.Call("draw_event", m_events[m_eventId].Title, m_events[m_eventId].Description, m_events[m_eventId].ChoiceDescriptions);
 
 		m_state = State.WAIT_CHOICE_EVENT;
 		m_eventId = dest;
@@ -237,7 +239,7 @@ private void PrintMap() {
 	}
 	else if (right >= mapWidth) {
 		left = mapWidth - gridWidth;
-		right = gridWidth - 1;
+		right = mapWidth - 1;
 	}
 	
 	// Construct the map as a string
@@ -253,7 +255,7 @@ private void PrintMap() {
 	}
 	m_map[m_nodes[m_nodeId].Row, m_nodes[m_nodeId].Col] = prev;
 	
-	int[] adjList = m_nodes[m_nodeId].GetAdjacencyList();	
+	int[] adjList = m_nodes[m_nodeId].AdjList;	
 	m_node.Call("draw_map", sb.ToString(), (object) adjList, top, left);
 
 	// DrawMap(sb.ToString(), adjList, numRows, numCols);
@@ -267,10 +269,10 @@ public int[] NodeCoordinates(int nodeIndex) {
 }
 
 public string NodeName(int nodeIndex) {
-	return m_nodes[nodeIndex].GetName();
+	return m_nodes[nodeIndex].Name;
 }
 
-private void GameOver() {
+private void CheckEndCondition() {
 	if (m_health <= 0) {
 		m_node.Call("draw_event", "Death!", "Due to continuous and multiple injuries suffered by your body without proper care, your body has stopped cooperating with you.", new string[]{ "Okay." });
 		// exit
@@ -293,7 +295,7 @@ private float m_totalWeight = 0.0f;
 private Random m_random = null;
 
 // USER RESOURCES
-private int m_nodeId = 13;
+private int m_nodeId = 21;
 private int m_eventId = -1;
 
 private int m_health = 100;

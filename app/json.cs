@@ -44,11 +44,11 @@ public class json : Node
 			int[] adjList = new int[adjCount];
 
 			for (; j < adjCount; ++j)
-				adjList[j] = Int32.Parse((string)adjArray[j]);
+				adjList[j] = int.Parse((string)adjArray[j]);
 
 			SeaNode newNode = new SeaNode(
 				i,
-				Int32.Parse((string)nodeInfo["eid"]),
+				int.Parse((string)nodeInfo["eid"]),
 				(string)nodeInfo["coords"],
 				(string)nodeInfo["title"],
 				(string)nodeInfo["description"],
@@ -103,7 +103,8 @@ public class json : Node
 				destList,
 				int.Parse((string)eventInfo["delta_food"]),
 				int.Parse((string)eventInfo["delta_gold"]),
-				int.Parse((string)eventInfo["delta_health"])
+				int.Parse((string)eventInfo["delta_health"]),
+				(string)eventInfo["ascii"]
 			);
 
 			eventList[i] = newEvent;

@@ -1,0 +1,16 @@
+{
+    "0": {
+        "title": "Lost at Sea",
+        "description": "An unruly gust of wind and a few too many days of torrential downpour have left you without direction.",
+        "probability": "0.10",
+        "choice_descriptions": ["Ask crew for directions", "Purchase a map from a nearby trader", "Sail aimlessly"],
+        "choice_destinations": ["12", "13", "72"]
+    },
+    "1": {
+        "title": "Ambush!",
+        "description": "On an unusually quiet afternoon, you come to realize that the ship has been following you for some time is growing ever closer. Raising their skull-and-crossbone laden flag, you are left with few options.",
+        "probability": "0.10",
+        "choice_descriptions": ["Man the cannons!", "Barter for your safety", "Raise sails and attempt escape"],
+        "choice_destinations": ["1", "23", "42"]
+    }
+}

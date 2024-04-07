@@ -175,7 +175,7 @@ private void HandleNodeChoice(int choice) {
 // choice:    User's choice.
 private void TravelEdge(int destination) {
 	m_nodeId = destination;
-	Food -= 10;
+	Food -= 5;
 	if (Food < 0) { Food = 0; }
 	m_node.Call("lose_food_effect");
 
